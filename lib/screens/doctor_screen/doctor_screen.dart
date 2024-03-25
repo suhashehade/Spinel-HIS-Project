@@ -15,7 +15,7 @@ class DoctorInfoScreen extends GetView<DoctorScreenController> {
 
     return DefaultTabController(
       animationDuration: const Duration(microseconds: 5),
-      initialIndex: 1,
+      initialIndex: 0,
       length: 2,
       child: Scaffold(
         appBar: AppBar(
@@ -31,9 +31,9 @@ class DoctorInfoScreen extends GetView<DoctorScreenController> {
             onTap: (value) => controller.changeChoice(value),
           ),
         ),
-        body: TabBarView(children: [
-          const DoctorInfo(),
-          AvailableAppointment(doctor),
+        body: const TabBarView(children: [
+          DoctorInfo(),
+          AvailableAppointment(),
         ]),
       ),
     );

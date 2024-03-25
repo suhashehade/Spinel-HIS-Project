@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:his_project/models/appointment/available_appointment.dart';
 import 'package:his_project/models/doctor/branch_dep_doctor.dart';
+import 'package:his_project/models/doctor/doctor_info.dart';
 import 'package:his_project/utils/urls.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -18,6 +19,8 @@ class DoctorScreenController extends GetxController {
   late int depId;
   late int branchId;
   late int doctorId;
+  Rx<DoctorInfo> doctorInfo =
+      DoctorInfo(gender: "", nationality: "", description: "").obs;
 
   changeChoice(int value) {
     choice.value = value == 0 ? 'info' : 'available appointments';
@@ -85,6 +88,21 @@ class DoctorScreenController extends GetxController {
     today.value = day;
   }
 
+  getDoctorInfo() async {
+    http.Response response = await http
+        .get(Uri.parse('${Urls.account}/DoctorViewDetails?Id=$doctorId'));
+    doctorInfo.value = toDoctorInfo(json.decode(response.body));
+    print(json.decode(response.body));
+  }
+
+  DoctorInfo toDoctorInfo(infoMap) {
+    return DoctorInfo(
+      gender: infoMap['genderEn'] ?? "",
+      nationality: infoMap['nationalityEn'] ?? "",
+      description: infoMap['description'] ?? "",
+    );
+  }
+
   @override
   void onInit() async {
     depId = Get.arguments['doctor'].depId;
@@ -92,6 +110,7 @@ class DoctorScreenController extends GetxController {
     doctorId = Get.arguments['doctor'].id;
 
     await getDoctorAvailableAppointements();
+    await getDoctorInfo();
     // setCurrentDate();
 
     super.onInit();

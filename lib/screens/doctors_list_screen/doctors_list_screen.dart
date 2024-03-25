@@ -38,8 +38,9 @@ class DocotrsListScreen extends GetView<DoctorsListScreenController> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text("Clinic: ${d.depId}"),
-                                          Text("Branch: ${d.branchId}"),
+                                          Text("Clinic: ${controller.depName}"),
+                                          Text(
+                                              "Branch: ${controller.branchName}"),
                                         ],
                                       ),
                                     ],

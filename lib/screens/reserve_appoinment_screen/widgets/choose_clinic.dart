@@ -40,6 +40,7 @@ class ChooseClinic extends GetView<ReserveAppointmentScreenController> {
                                     controller.toogleExpanded(1, true);
                                     controller.toogleExpanded(0, false);
                                     await controller.getBranches(c.id);
+                                    controller.clinicName = c.name;
                                   },
                                   child: Card(
                                     child: Center(
@@ -77,7 +78,11 @@ class ChooseClinic extends GetView<ReserveAppointmentScreenController> {
                                       Get.to(() => DocotrsListScreen(),
                                           arguments: {
                                             "arguments": DoctorsListArguments(
-                                                depId: b.depId, branchId: b.id)
+                                              depId: b.depId,
+                                              branchId: b.id,
+                                              branchName: b.label,
+                                              depName: controller.clinicName,
+                                            )
                                           });
                                     },
                                     child: Card(

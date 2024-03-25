@@ -50,6 +50,8 @@ class DoctorsListScreenController extends GetxController {
   void onInit() {
     depId = Get.arguments['arguments'].depId;
     branchId = Get.arguments['arguments'].branchId;
+    depName = Get.arguments['arguments'].depName;
+    branchName = Get.arguments['arguments'].branchName;
     getDoctors();
     super.onInit();
   }

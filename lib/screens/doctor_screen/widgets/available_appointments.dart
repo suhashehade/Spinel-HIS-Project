@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:his_project/models/doctor/branch_dep_doctor.dart';
 import 'package:his_project/screens/doctor_screen/doctor_screen_controller.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class AvailableAppointment extends GetView<DoctorScreenController> {
-  const AvailableAppointment(this.doctor, {super.key});
-  final Doctor doctor;
+  const AvailableAppointment({super.key});
+  
   @override
   Widget build(BuildContext context) {
     Get.put(DoctorScreenController());

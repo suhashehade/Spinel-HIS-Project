@@ -17,7 +17,7 @@ class ReserveAppointmentScreenController extends GetxController {
   RxList<Clinic> clinics = <Clinic>[].obs;
   RxList<Branch> branches = <Branch>[].obs;
   RxList<Doctor> doctors = <Doctor>[].obs;
-
+  String clinicName = '';
   changeChoice(int value) {
     choice.value = value == 0 ? 'doctor' : 'clinic';
   }
@@ -53,8 +53,12 @@ class ReserveAppointmentScreenController extends GetxController {
   }
 
   getClinics() async {
-    http.Response response = await http.get(Uri.parse(Urls.getClinicsUrl),
-        headers: {"content-type": "application/json; charset=utf-8"});
+    http.Response response = await http.get(
+      Uri.parse(Urls.getClinicsUrl),
+      headers: {
+        "content-type": "application/json; charset=utf-8",
+      },
+    );
     clinics.value = toClinicList(json.decode(response.body)['lstData']);
   }
 
@@ -63,8 +67,6 @@ class ReserveAppointmentScreenController extends GetxController {
         Uri.parse("${Urls.lkps}categoryCode=Branches&DepartmentId=$depId"));
     branches.value = toBranchList(json.decode(response.body), depId);
   }
-
- 
 
   List<Branch> toBranchList(dynamicList, int depId) {
     List<Branch> list = <Branch>[];

@@ -46,7 +46,7 @@ class LoginScreenController extends GetxController {
 
   login(UserCredintals userCredintals) async {
     http.Response response = await http.post(
-      Uri.parse(Urls.loginUrl),
+      Uri.parse("${Urls.account}/OtherLogin"),
       headers: {
         "accept": "*/*",
         "Content-Type": "application/json-patch+json",
