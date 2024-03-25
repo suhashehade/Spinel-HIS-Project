@@ -1,11 +1,13 @@
-class Branch {
+class Doctor {
   int id;
   int depId;
+  int branchId;
   String label;
 
-  Branch({
+  Doctor({
     required this.id,
     required this.label,
     required this.depId,
+    required this.branchId,
   });
 }

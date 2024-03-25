@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:his_project/models/clinic/clinic.dart';
-import 'package:his_project/models/clinic/clinic_branch.dart';
+import 'package:his_project/models/branch/branch.dart';
 import 'package:his_project/models/clinic/clinic_list_item.dart';
+import 'package:his_project/models/doctor/branch_dep_doctor.dart';
+import 'package:his_project/utils/urls.dart';
+import 'package:http/http.dart' as http;
 
 class ReserveAppointmentScreenController extends GetxController {
   RxString choice = 'clinic'.obs;
@@ -10,7 +15,8 @@ class ReserveAppointmentScreenController extends GetxController {
   RxBool isClinicSelected = false.obs;
 
   RxList<Clinic> clinics = <Clinic>[].obs;
-  RxList<ClinicBranch> branches = <ClinicBranch>[].obs;
+  RxList<Branch> branches = <Branch>[].obs;
+  RxList<Doctor> doctors = <Doctor>[].obs;
 
   changeChoice(int value) {
     choice.value = value == 0 ? 'doctor' : 'clinic';
@@ -46,5 +52,42 @@ class ReserveAppointmentScreenController extends GetxController {
     });
   }
 
-  
+  getClinics() async {
+    http.Response response = await http.get(Uri.parse(Urls.getClinicsUrl),
+        headers: {"content-type": "application/json; charset=utf-8"});
+    clinics.value = toClinicList(json.decode(response.body)['lstData']);
+  }
+
+  getBranches(int depId) async {
+    http.Response response = await http.get(
+        Uri.parse("${Urls.lkps}categoryCode=Branches&DepartmentId=$depId"));
+    branches.value = toBranchList(json.decode(response.body), depId);
+  }
+
+ 
+
+  List<Branch> toBranchList(dynamicList, int depId) {
+    List<Branch> list = <Branch>[];
+    dynamicList.forEach((element) {
+      list.add(
+          Branch(id: element['value'], label: element['label'], depId: depId));
+    });
+    return list;
+  }
+
+  List<Clinic> toClinicList(dynamicList) {
+    List<Clinic> list = <Clinic>[];
+    dynamicList.forEach((element) {
+      list.add(Clinic(
+        id: element['id'],
+        name: element['nameEn'],
+        departmentTypeEn: element['departmentTypeEn'],
+        visitTypeEn: element['visitTypeEn'],
+      ));
+    });
+    return list;
+  }
+
+// {id: 1, nameEn: Department1, nameAr: string1, departmentTypeEn: DepartmentType1, visitTypeEn: VisitType2,
+// lstDepartmentBranches: [{branchNameEn: Branch2}]}
 }

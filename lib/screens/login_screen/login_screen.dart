@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:his_project/common/custom_button.dart';
 import 'package:his_project/common/custom_text_field.dart';
@@ -76,37 +74,6 @@ class LoginScreen extends GetView<LoginScreenController> {
               const SizedBox(
                 height: 10.0,
               ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     Expanded(
-              //         child: Container(
-              //             margin:
-              //                 const EdgeInsets.only(left: 10.0, right: 10.0),
-              //             child: const Divider())),
-              //     const Text("More options"),
-              //     Expanded(
-              //         child: Container(
-              //             margin:
-              //                 const EdgeInsets.only(left: 10.0, right: 10.0),
-              //             child: const Divider())),
-              //   ],
-              // ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //   children: <Widget>[
-              //     IconButton(
-              //       onPressed: () async {
-              //         await controller.loginWithFingerPrint();
-              //       },
-              //       icon: const Icon(Icons.fingerprint),
-              //     ),
-              //     IconButton(
-              //       onPressed: () {},
-              //       icon: const Icon(Icons.facebook),
-              //     ),
-              //   ],
-              // ),
               Obx(
                 () => Text(
                   controller.error.value,
@@ -134,5 +101,4 @@ class LoginScreen extends GetView<LoginScreenController> {
       ),
     );
   }
-  
 }

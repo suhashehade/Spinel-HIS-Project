@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:his_project/screens/doctor_screen/doctor_screen_controller.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class Calendar extends StatelessWidget {
+class Calendar extends GetView<DoctorScreenController> {
   const Calendar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return TableCalendar(
-      firstDay: DateTime.utc(2010, 10, 16),
-      lastDay: DateTime.utc(2030, 3, 14),
-      focusedDay: DateTime.now(),
-      onFormatChanged: (format) {},
-      calendarStyle:
-          const CalendarStyle(holidayTextStyle: TextStyle(color: Colors.red)),
-    );
+    // Get.put(DoctorScreenController(Doctor(id: 0, label: label, depId: depId, branchId: branchId)));
+    return Obx(() => TableCalendar(
+          firstDay: controller.currentDate.value == ''
+              ? DateTime.now()
+              : DateTime.parse(controller.currentDate.value),
+          lastDay: DateTime.utc(2030, 6, 14),
+          focusedDay: controller.today.value,
+          headerStyle: const HeaderStyle(
+              formatButtonVisible: false, titleCentered: true),
+          availableGestures: AvailableGestures.all,
+          selectedDayPredicate: (day) => isSameDay(day, controller.today.value),
+          onDaySelected: controller.onSelectedDay,
+          calendarStyle: const CalendarStyle(
+              holidayTextStyle: TextStyle(color: Colors.red)),
+        ));
   }
 }

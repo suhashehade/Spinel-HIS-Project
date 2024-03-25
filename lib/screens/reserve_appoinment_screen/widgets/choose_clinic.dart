@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:his_project/screens/reserve_appoinment_screen/reserve_appoinment_screen_controller.dart';
+import 'package:his_project/models/doctor/doctor_list_arguments.dart';
 import 'package:his_project/screens/doctors_list_screen/doctors_list_screen.dart';
-import 'package:his_project/utils/const_test.dart';
+import 'package:his_project/screens/reserve_appoinment_screen/reserve_appoinment_screen_controller.dart';
 
 class ChooseClinic extends GetView<ReserveAppointmentScreenController> {
   const ChooseClinic({super.key});
@@ -10,8 +10,7 @@ class ChooseClinic extends GetView<ReserveAppointmentScreenController> {
   @override
   Widget build(BuildContext context) {
     Get.put(ReserveAppointmentScreenController());
-    controller.clinics.value = TestConst.clinicList;
-
+    controller.getClinics();
     return Container(
       margin: const EdgeInsets.fromLTRB(0, 30.0, 0, 0),
       child: Obx(() => SingleChildScrollView(
@@ -36,10 +35,11 @@ class ChooseClinic extends GetView<ReserveAppointmentScreenController> {
                         crossAxisCount: 4,
                         children: controller.clinics
                             .map((c) => InkWell(
-                                  onTap: () {
+                                  onTap: () async {
                                     controller.setSelectedClinic(true);
                                     controller.toogleExpanded(1, true);
-                                    controller.branches.value = c.barnches;
+                                    controller.toogleExpanded(0, false);
+                                    await controller.getBranches(c.id);
                                   },
                                   child: Card(
                                     child: Center(
@@ -69,14 +69,20 @@ class ChooseClinic extends GetView<ReserveAppointmentScreenController> {
                           crossAxisCount: 4,
                           children: controller.branches
                               .map((b) => InkWell(
-                                    onTap: () {
+                                    onTap: () async {
                                       controller.setSelectedClinic(false);
+                                      // await controller.getDoctors(
+                                      //     b.depId, b.id);
+
                                       Get.to(() => DocotrsListScreen(),
-                                          arguments: {"doctors": b.doctors});
+                                          arguments: {
+                                            "arguments": DoctorsListArguments(
+                                                depId: b.depId, branchId: b.id)
+                                          });
                                     },
                                     child: Card(
                                       child: Center(
-                                        child: Text(b.location),
+                                        child: Text(b.label),
                                       ),
                                     ),
                                   ))

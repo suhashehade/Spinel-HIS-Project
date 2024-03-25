@@ -1,11 +1,13 @@
-import 'package:his_project/models/clinic/clinic_branch.dart';
-
 class Clinic {
+  int id;
   String name;
-  List<ClinicBranch> barnches = [];
+  String departmentTypeEn;
+  String visitTypeEn;
 
   Clinic({
+    required this.id,
     required this.name,
-    required this.barnches,
+    required this.departmentTypeEn,
+    required this.visitTypeEn,
   });
 }
