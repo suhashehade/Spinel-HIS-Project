@@ -8,6 +8,7 @@ class ChooseDoctor extends GetView<ReserveAppointmentScreenController> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.all(10.0),
       child: const Text("Doctors"),
     );
   }

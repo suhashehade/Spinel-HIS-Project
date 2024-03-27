@@ -1,8 +1,11 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:his_project/models/appointment/available_appointment.dart';
+import 'package:his_project/models/appointment/reservArguments.dart';
 import 'package:his_project/models/doctor/branch_dep_doctor.dart';
 import 'package:his_project/models/doctor/doctor_info.dart';
+import 'package:his_project/models/event.dart';
+import 'package:his_project/services/shared_prefs_service.dart';
 import 'package:his_project/utils/urls.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -12,16 +15,16 @@ class DoctorScreenController extends GetxController {
   RxString choice = 'info'.obs;
   RxList<AvailableAppointment> availableAppointments =
       <AvailableAppointment>[].obs;
-  RxString currentDate = '0000-00-00T00:00:00'.obs;
   Rx<DateTime> today = DateTime.now().obs;
   Rx<Doctor> selectedDoctor =
       Doctor(id: 0, label: "", depId: 0, branchId: 0).obs;
-  late int depId;
-  late int branchId;
-  late int doctorId;
   Rx<DoctorInfo> doctorInfo =
       DoctorInfo(gender: "", nationality: "", description: "").obs;
-
+  RxList events = [].obs;
+  RxMap selectedEvents = {}.obs;
+  Rx<ReserveArguments> reserveArguments = ReserveArguments(
+          doctorId: 0, depId: 0, branchId: 0, fromDate: "", toDate: "")
+      .obs;
   changeChoice(int value) {
     choice.value = value == 0 ? 'info' : 'available appointments';
   }
@@ -30,9 +33,55 @@ class DoctorScreenController extends GetxController {
     aa.isSelected.value = !aa.isSelected.value;
   }
 
-  getDoctorAvailableAppointements() async {
-    http.Response response = await http.get(Uri.parse(
-        "${Urls.logicUrl}DoctorAvailableAppointmentsQuery?DoctorId=$doctorId&DepartmentId=$depId&BranchId=$branchId&CurrentDate=${today.value}"));
+  getDoctorAvailableAppointementsDays(doctorId, depId, branchId) async {
+    Map<String, String> headers = {};
+    if (PrefsService.to.getString("token") != null) {
+      String? token = PrefsService.to.getString("token");
+      headers['Authorization'] = 'Bearer $token';
+    }
+    http.Response response = await http.get(
+        Uri.parse(
+            "${Urls.logicUrl}DoctorAvailableAppointmentsList?DoctorId=$doctorId&DepartmentId=$depId&BranchId=$branchId&FromDate=${today.value}&ToDate=${today.value.add(const Duration(days: 90))}"),
+        headers: headers);
+
+    selectedEvents.value = toEvents(json.decode(response.body)['lstData']);
+  }
+
+  List<Event> getEventsFromDay(DateTime date) {
+    return selectedEvents[date] ?? [];
+  }
+
+  Map<DateTime, List<dynamic>> toEvents(List<dynamic> appointments) {
+    Map<DateTime, List<dynamic>> parsedEvents = {};
+    for (var appointment in appointments) {
+      if (appointment['isAvailable']) {
+        DateTime date = DateTime.parse(appointment['dayDate']);
+        DateTime d = DateTime(date.year, date.month, date.day);
+        if (parsedEvents[d] == null) {
+          parsedEvents[d] = [];
+        }
+        parsedEvents[d]!.add(appointment);
+        events.add({d: appointment});
+      }
+    }
+    return parsedEvents;
+  }
+
+  getDoctorAvailableAppointements(doctorId, depId, branchId) async {
+    reserveArguments.value.branchId = branchId;
+    reserveArguments.value.depId = depId;
+    reserveArguments.value.doctorId = doctorId;
+    Map<String, String> headers = {
+      "content-type": "application/json; charset=utf-8",
+    };
+    if (PrefsService.to.getString("token") != null) {
+      String? token = PrefsService.to.getString("token");
+      headers['Authorization'] = 'Bearer $token';
+    }
+    http.Response response = await http.get(
+        Uri.parse(
+            "${Urls.logicUrl}DoctorAvailableAppointmentsQuery?DoctorId=$doctorId&DepartmentId=$depId&BranchId=$branchId&CurrentDate=${today.value}"),
+        headers: headers);
     availableAppointments.value =
         toAvailableAppointment(json.decode(response.body)['lstData']);
   }
@@ -51,48 +100,54 @@ class DoctorScreenController extends GetxController {
     return list;
   }
 
-  // setCurrentDate() {
-  //   currentDate.value = availableAppointments[0].dayDate;
-  // }
-
-  getCurrentDateAsDateTime() {
-    if (currentDate.value != '') {
-      return DateTime.parse(currentDate.value);
-    }
-    // return DateTime.parse('2024-03-09T23:03:00');
-  }
-
   String formatDate(String date) {
     DateTime dateTime = DateTime.parse(date);
     String formatedDate = DateFormat.yMMMd().format(dateTime);
     return formatedDate;
   }
 
-  formatTime(String fromTime, String dayDate) {
-    if (fromTime != '' && dayDate != '') {
-      DateTime dayDateTime = DateTime.parse(dayDate);
-      DateTime fromDateTime = Jiffy.parse(fromTime, pattern: "HH:mm")
-          .add(
-              years: dayDateTime.year,
-              days: dayDateTime.day,
-              months: dayDateTime.month)
-          .dateTime;
+  makeDate(String time) {
+    DateTime fromDateTime = Jiffy.parse(time, pattern: "HH:mm")
+        .add(
+            years: today.value.year - 1970,
+            days: today.value.day - 1,
+            months: today.value.month - 1)
+        .dateTime;
+
+    return fromDateTime;
+  }
+
+  formatTime(String fromTime) {
+    if (fromTime != '') {
+      DateTime fromDateTime = makeDate(fromTime);
+      // print(fromDateTime);
       String formatedTime = DateFormat("HH:mm a").format(fromDateTime);
       return formatedTime;
     } else {
-      return DateFormat("HH:mm a").format(DateTime.now());
+      return DateFormat("HH:mm a").format(DateTime.now().toLocal());
     }
   }
 
   onSelectedDay(DateTime day, DateTime focusedDay) {
+    for (var aa in availableAppointments) {
+      aa.isSelected.value = false;
+    }
     today.value = day;
   }
 
-  getDoctorInfo() async {
-    http.Response response = await http
-        .get(Uri.parse('${Urls.account}/DoctorViewDetails?Id=$doctorId'));
+  getDoctorInfo(doctorId) async {
+    Map<String, String> headers = {
+      "content-type": "application/json; charset=utf-8",
+    };
+    if (PrefsService.to.getString("token") != null) {
+      String? token = PrefsService.to.getString("token");
+      headers['Authorization'] = 'Bearer $token';
+    }
+    http.Response response = await http.get(
+        Uri.parse('${Urls.account}DoctorViewDetails?Id=$doctorId'),
+        headers: headers);
+
     doctorInfo.value = toDoctorInfo(json.decode(response.body));
-    print(json.decode(response.body));
   }
 
   DoctorInfo toDoctorInfo(infoMap) {
@@ -105,13 +160,15 @@ class DoctorScreenController extends GetxController {
 
   @override
   void onInit() async {
-    depId = Get.arguments['doctor'].depId;
-    branchId = Get.arguments['doctor'].branchId;
-    doctorId = Get.arguments['doctor'].id;
-
-    await getDoctorAvailableAppointements();
-    await getDoctorInfo();
-    // setCurrentDate();
+    // depId = Get.arguments['doctor'].depId;
+    // branchId = Get.arguments['doctor'].branchId;
+    // doctorId = Get.arguments['doctor'].id;
+    // Timer.periodic(
+    //     const Duration(milliseconds: 200), (timer) => getDoctorInfo());
+    // Timer.periodic(const Duration(milliseconds: 200),
+    //     (timer) => getDoctorAvailableAppointements());
+    // await getDoctorInfo();
+    // await getDoctorAvailableAppointements();
 
     super.onInit();
   }

@@ -26,31 +26,31 @@ class CustomBottomBar extends GetView<CustomBottombarController> {
             icon: const Icon(
               Icons.file_present,
             ),
-            label: PagesNames.MEDICA_FILE,
+            label: PagesNames.medicalFile,
           ),
           BottomNavigationBarItem(
             icon: const Icon(
               Icons.family_restroom,
             ),
-            label: PagesNames.FAMILY_FILE,
+            label: PagesNames.familyFile,
           ),
           BottomNavigationBarItem(
             icon: const Icon(
               Icons.home,
             ),
-            label: PagesNames.HOME,
+            label: PagesNames.home,
           ),
           BottomNavigationBarItem(
             icon: const Icon(
               Icons.calendar_month,
             ),
-            label: PagesNames.TASKS,
+            label: PagesNames.tasks,
           ),
           BottomNavigationBarItem(
             icon: const Icon(
               Icons.help,
             ),
-            label: PagesNames.HELP,
+            label: PagesNames.help,
           ),
         ],
         onTap: (index) {

@@ -1,25 +1,46 @@
 class UserCredintals {
-  String? _userName;
+  int? _loginMethod;
+  String? _phone;
   String? _password;
+  String? _nationalId;
+  String? _mrn;
 
-  UserCredintals({String? userName, String? password}) {
-    _userName = userName;
+  UserCredintals(
+      {int? loginMethod,
+      String? nationalId,
+      String? phone,
+      String? password,
+      String? mrn}) {
+    _loginMethod = loginMethod;
+    _nationalId = nationalId;
+    _phone = phone;
+    _mrn = mrn;
     _password = password;
   }
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> userMap = {};
-    userMap['userName'] = _userName;
+    userMap['loginMethod'] = _loginMethod;
+    userMap['nationalId'] = _nationalId;
+    userMap['phone'] = _phone;
+    userMap['mrn'] = _mrn;
     userMap['password'] = _password;
     return userMap;
   }
 
   UserCredintals fromJson(Map<String, dynamic> userMap) {
     return UserCredintals(
-        userName: userMap['userName'], password: userMap['password']);
+      loginMethod: userMap['loginMethod'],
+      nationalId: userMap['nationalId'],
+      phone: userMap['phone'],
+      password: userMap['password'],
+      mrn: userMap['mrn'],
+    );
   }
 
-  String? get userName => _userName;
+  String? get nationalId => _nationalId;
+  String? get mrn => _mrn;
+  String? get phone => _phone;
   String? get password => _password;
 }
 

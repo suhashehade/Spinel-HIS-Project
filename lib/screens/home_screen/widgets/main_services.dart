@@ -6,7 +6,8 @@ class MainServices extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Row(
+      padding: const EdgeInsets.all(10.0),
+      child:const Row(
         children: <Widget>[
           
         ],

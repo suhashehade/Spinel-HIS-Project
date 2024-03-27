@@ -11,12 +11,10 @@ class LoginMiddleware extends GetMiddleware {
   bool isAuthenticating = false;
   @override
   RouteSettings? redirect(String? route) {
-    if (PrefsService.to.getString('userName') != null ||
-        PrefsService.to.getString('password') != null) {
+    if (PrefsService.to.getString('phone') != null) {
       if (PrefsService.to.getString("token") != null) {
         authenticate();
       }
-      // return const RouteSettings(name: "/main");
     }
     return null;
   }
@@ -31,13 +29,10 @@ class LoginMiddleware extends GetMiddleware {
         localizedReason: 'Perform Biometrics',
         options: const AuthenticationOptions(
           stickyAuth: true,
-
-// There are also other options.
         ),
       );
       if (authenticated == true) {
-// Perform your code here when authenticated
-        Get.offNamed(PagesNames.MAIN);
+        Get.offNamed(PagesNames.reserveAssurence);
       }
     } on Exception catch (e) {
       isAuthenticating = false;

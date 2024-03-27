@@ -5,6 +5,7 @@ import 'package:his_project/models/clinic/clinic.dart';
 import 'package:his_project/models/branch/branch.dart';
 import 'package:his_project/models/clinic/clinic_list_item.dart';
 import 'package:his_project/models/doctor/branch_dep_doctor.dart';
+import 'package:his_project/services/shared_prefs_service.dart';
 import 'package:his_project/utils/urls.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,11 +14,12 @@ class ReserveAppointmentScreenController extends GetxController {
   RxBool isClinicExpanded = false.obs;
   RxBool isDoctorExpanded = false.obs;
   RxBool isClinicSelected = false.obs;
-
+  RxString clinicName = ''.obs;
   RxList<Clinic> clinics = <Clinic>[].obs;
   RxList<Branch> branches = <Branch>[].obs;
   RxList<Doctor> doctors = <Doctor>[].obs;
-  String clinicName = '';
+
+  
   changeChoice(int value) {
     choice.value = value == 0 ? 'doctor' : 'clinic';
   }
@@ -53,11 +55,16 @@ class ReserveAppointmentScreenController extends GetxController {
   }
 
   getClinics() async {
+    Map<String, String> headers = {
+      "content-type": "application/json; charset=utf-8",
+    };
+    if (PrefsService.to.getString("token") != null) {
+      String? token = PrefsService.to.getString("token");
+      headers['Authorization'] = 'Bearer $token';
+    }
     http.Response response = await http.get(
       Uri.parse(Urls.getClinicsUrl),
-      headers: {
-        "content-type": "application/json; charset=utf-8",
-      },
+      headers: headers,
     );
     clinics.value = toClinicList(json.decode(response.body)['lstData']);
   }

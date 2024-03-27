@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:his_project/screens/doctor_screen/doctor_screen_controller.dart';
+import 'package:his_project/utils/pages_names.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class AvailableAppointment extends GetView<DoctorScreenController> {
   const AvailableAppointment({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     Get.put(DoctorScreenController());
@@ -15,48 +16,96 @@ class AvailableAppointment extends GetView<DoctorScreenController> {
         child: Column(
           children: [
             Obx(() => TableCalendar(
-                  firstDay: DateTime.utc(2020, 6, 14),
-                  lastDay: DateTime.utc(2030, 6, 14),
+                  calendarBuilders: CalendarBuilders(
+                    markerBuilder: (context, day, events) {
+                      final hasEvent = controller.events
+                          .any((element) => element[day.toLocal()] != null);
+                      return hasEvent
+                          ? Container(
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 1.0),
+                              height: 5.0,
+                              width: 5.0,
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.green,
+                              ),
+                            )
+                          : const SizedBox();
+                    },
+                  ),
+                  firstDay: DateTime.parse("2024-02-25T00:00:00").toUtc(),
+                  lastDay: DateTime.parse("2030-04-06T00:00:00").toUtc(),
                   focusedDay: controller.today.value,
                   headerStyle: const HeaderStyle(
-                      formatButtonVisible: false, titleCentered: true),
+                    formatButtonVisible: false,
+                    titleCentered: true,
+                  ),
                   availableGestures: AvailableGestures.all,
                   selectedDayPredicate: (day) =>
                       isSameDay(day, controller.today.value),
                   onDaySelected: controller.onSelectedDay,
-                  calendarStyle: const CalendarStyle(
-                      holidayTextStyle: TextStyle(color: Colors.red)),
+                  eventLoader: (day) {
+                    return controller.events
+                            .where((element) =>
+                                element[day.toLocal()] == day.toLocal())
+                            .toList() ??
+                        [];
+                  },
                 )),
             Obx(() =>
                 Text(controller.formatDate(controller.today.value.toString()))),
             Obx(() => controller.availableAppointments.isEmpty
-                ? const Text('No available appointments')
-                : Wrap(
-                    children: controller.availableAppointments
-                        .map(
-                          (aa) => InkWell(
-                            onTap: () {
-                              controller.changeIsAppointmentSelected(aa);
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: aa.isSelected.value
-                                      ? Colors.green
-                                      : Colors.white,
-                                  border: Border.all(
-                                      style: BorderStyle.solid,
-                                      color: Colors.green)),
-                              margin: const EdgeInsets.all(5.0),
-                              padding: const EdgeInsets.all(5.0),
-                              child: Text(
-                                "${controller.formatTime(aa.fromTime, aa.dayDate)}",
-                                textAlign: TextAlign.center,
+                ? const Center(child: Text('No available appointments'))
+                : SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Wrap(
+                      children: controller.availableAppointments
+                          .map(
+                            (aa) => InkWell(
+                              onTap: () {
+                                controller.changeIsAppointmentSelected(aa);
+                                if (aa.isSelected.value) {
+                                  controller.reserveArguments.value.fromDate =
+                                      controller
+                                          .makeDate(aa.fromTime)
+                                          .toString();
+                                  controller.reserveArguments.value.toDate =
+                                      controller.makeDate(aa.toTime).toString();
+
+                                  print(controller
+                                      .reserveArguments.value.fromDate);
+                                }
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: aa.isSelected.value
+                                        ? Colors.green
+                                        : Colors.white,
+                                    border: Border.all(
+                                        style: BorderStyle.solid,
+                                        color: Colors.green)),
+                                margin: const EdgeInsets.all(5.0),
+                                padding: const EdgeInsets.all(5.0),
+                                child: Text(
+                                  "${controller.formatTime(aa.fromTime)}",
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                             ),
-                          ),
-                        )
-                        .toList(),
-                  ))
+                          )
+                          .toList(),
+                    ),
+                  )),
+            MaterialButton(
+              onPressed: () {
+                Get.toNamed(PagesNames.preLogin, arguments: {
+                  "reserveArgs": controller.reserveArguments,
+                });
+              },
+              color: Colors.amber,
+              child: const Text("Reserve an appointment"),
+            ),
           ],
         ),
       ),

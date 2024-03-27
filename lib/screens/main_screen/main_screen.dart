@@ -7,7 +7,6 @@ import 'package:his_project/screens/home_screen/home_screen.dart';
 import 'package:his_project/screens/login_screen/login_screen_controller.dart';
 import 'package:his_project/screens/main_screen/main_screen_controller.dart';
 import 'package:his_project/screens/medical_file_screen/medical_file_screen.dart';
-import 'package:his_project/screens/reserve_appoinment_screen/reserve_appoinment_screen.dart';
 import 'package:his_project/screens/tasks_screen/tasks_screen.dart';
 import 'package:his_project/utils/pages_names.dart';
 
@@ -45,8 +44,9 @@ class MainScreen extends GetView<MainScreenController> {
                   shape: const CircleBorder(eccentricity: 0.6),
                   backgroundColor: Colors.red,
                   onPressed: () {
-                    controller.currentPage(PagesNames.RESERVE_APPOINMENT);
-                    controller.isHome.value = false;
+                    // controller.currentPage(PagesNames.reserveAppointment);
+                    // controller.isHome.value = false;
+                    Get.toNamed(PagesNames.reserveAppointment);
                   },
                   child: const Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -66,20 +66,17 @@ class MainScreen extends GetView<MainScreenController> {
       body: GetX<MainScreenController>(
           builder: (MainScreenController controller) {
         return Container(
-          child: controller.currentPage.value == PagesNames.MEDICA_FILE
+          child: controller.currentPage.value == PagesNames.medicalFile
               ? const MedicalFileScreen()
-              : controller.currentPage.value == PagesNames.FAMILY_FILE
+              : controller.currentPage.value == PagesNames.familyFile
                   ? const FamilyMedicalFileScreen()
-                  : controller.currentPage.value == PagesNames.HOME
+                  : controller.currentPage.value == PagesNames.home
                       ? const HomeScreen()
-                      : controller.currentPage.value == PagesNames.TASKS
+                      : controller.currentPage.value == PagesNames.tasks
                           ? const TasksScreen()
-                          : controller.currentPage.value == PagesNames.HELP
+                          : controller.currentPage.value == PagesNames.help
                               ? const HelpScreen()
-                              : controller.currentPage.value ==
-                                      PagesNames.RESERVE_APPOINMENT
-                                  ? const ReserveAppointmentScreen()
-                                  : null,
+                              : null,
         );
       }),
       bottomNavigationBar: const CustomBottomBar(),

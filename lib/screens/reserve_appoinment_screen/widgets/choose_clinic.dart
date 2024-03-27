@@ -21,10 +21,20 @@ class ChooseClinic extends GetView<ReserveAppointmentScreenController> {
                 children: [
                   ExpansionPanel(
                     headerBuilder: (BuildContext context, bool isExpanded) {
-                      return const ListTile(
-                        title: Text(
-                          "اسم العيادة",
-                          textAlign: TextAlign.end,
+                      return InkWell(
+                        onTap: () {
+                          controller.toogleExpanded(0, true);
+                        },
+                        child: ListTile(
+                          title: Column(
+                            children: [
+                              const Text(
+                                "اسم العيادة",
+                                textAlign: TextAlign.end,
+                              ),
+                              Text(controller.clinicName.value),
+                            ],
+                          ),
                         ),
                       );
                     },
@@ -40,7 +50,7 @@ class ChooseClinic extends GetView<ReserveAppointmentScreenController> {
                                     controller.toogleExpanded(1, true);
                                     controller.toogleExpanded(0, false);
                                     await controller.getBranches(c.id);
-                                    controller.clinicName = c.name;
+                                    controller.clinicName.value = c.name;
                                   },
                                   child: Card(
                                     child: Center(
@@ -72,18 +82,17 @@ class ChooseClinic extends GetView<ReserveAppointmentScreenController> {
                               .map((b) => InkWell(
                                     onTap: () async {
                                       controller.setSelectedClinic(false);
-                                      // await controller.getDoctors(
-                                      //     b.depId, b.id);
-
-                                      Get.to(() => DocotrsListScreen(),
+                                      Get.to(() => const DocotrsListScreen(),
                                           arguments: {
                                             "arguments": DoctorsListArguments(
                                               depId: b.depId,
                                               branchId: b.id,
                                               branchName: b.label,
-                                              depName: controller.clinicName,
+                                              depName:
+                                                  controller.clinicName.value,
                                             )
                                           });
+                                      controller.clinicName.value = '';
                                     },
                                     child: Card(
                                       child: Center(

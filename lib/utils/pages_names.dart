@@ -1,12 +1,15 @@
 class PagesNames {
-  static String ROOT = '/';
-  static String MAIN = '/main';
-  static String HOME = 'Home';
-  static String HELP = 'Help';
-  static String FAMILY_FILE = 'Family Files';
-  static String TASKS = 'Tasks';
-  static String MEDICA_FILE = 'Medical File';
-  static String REGISTRATION = '/registration';
-  static String RESERVE_APPOINMENT = 'reserveAppointment';
-  static String DOCTORS_LIST = 'doctorsList';
+  static String root = '/';
+  static String preLogin = '/preLogin';
+  static String login = '/login';
+  static String loginOptions = '/loginOptions';
+  static String home = 'Home';
+  static String help = 'Help';
+  static String familyFile = 'Family Files';
+  static String tasks = 'Tasks';
+  static String medicalFile = 'Medical File';
+  static String registration = '/registration';
+  static String reserveAppointment = '/reserveAppointment';
+  static String reserveAssurence = '/reserveAssurence';
+  static String doctorsList = 'doctorsList';
 }

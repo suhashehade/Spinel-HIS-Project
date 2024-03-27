@@ -14,8 +14,16 @@ class PrefsService extends GetxService {
     return await _prefs!.setString(key, value);
   }
 
+  Future<bool> setInt(String key, int value) async {
+    return await _prefs!.setInt(key, value);
+  }
+
   String? getString(String key) {
     return _prefs!.getString(key);
+  }
+
+  int? getInt(String key) {
+    return _prefs!.getInt(key);
   }
 
   Future<bool> remove(String key) async {

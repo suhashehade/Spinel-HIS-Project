@@ -1,9 +1,7 @@
 import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:his_project/utils/urls.dart';
 import 'package:http/http.dart' as http;
-
 import '../../models/doctor/branch_dep_doctor.dart';
 
 class DoctorsListScreenController extends GetxController {
@@ -13,14 +11,6 @@ class DoctorsListScreenController extends GetxController {
   late int depId;
   late int branchId;
   RxList<Doctor> doctors = <Doctor>[].obs;
-  // getDoctorName(int doctorId) async {
-  //   http.Response response = await http.get(Uri.parse(
-  //       "http://192.236.146.134:9000/api/Account/UserDetails?Id=$doctorId"));
-  //   print(json.decode(response.body));
-  //   doctorName = json.decode(response.body)['nameEn1'] +
-  //       "jjjjjj" +
-  //       json.decode(response.body)['nameEn4'];
-  // }
 
   getDoctors() async {
     http.Response response = await http.get(Uri.parse(
@@ -42,17 +32,13 @@ class DoctorsListScreenController extends GetxController {
     return list;
   }
 
-  getDoctorsList() {
-    return doctors;
-  }
-
   @override
-  void onInit() {
+  void onInit() async {
     depId = Get.arguments['arguments'].depId;
     branchId = Get.arguments['arguments'].branchId;
     depName = Get.arguments['arguments'].depName;
     branchName = Get.arguments['arguments'].branchName;
-    getDoctors();
+    await getDoctors();
     super.onInit();
   }
 }
