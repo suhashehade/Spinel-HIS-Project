@@ -4,6 +4,7 @@ import 'package:his_project/screens/login_options_screen/login_options_screen.da
 import 'package:his_project/screens/login_screen/login_middleware.dart';
 import 'package:his_project/screens/login_screen/login_screen.dart';
 import 'package:his_project/screens/main_screen/main_screen.dart';
+import 'package:his_project/screens/patient_appointments_screen/patient_appointments_screen.dart';
 import 'package:his_project/screens/pre_login_screen/pre_login_screen.dart';
 import 'package:his_project/screens/registration_screen/registration_screen.dart';
 import 'package:his_project/screens/reservation_assurence_screen/reservation_assurence_screen.dart';
@@ -41,6 +42,10 @@ void main() async {
       GetPage(
         name: PagesNames.reserveAssurence,
         page: () => ReservationAssurrenceScreen(),
+      ),
+      GetPage(
+        name: PagesNames.patientAppiontments,
+        page: () => const PatientAppointmentsScreen(),
       ),
       GetPage(
           name: PagesNames.registration,

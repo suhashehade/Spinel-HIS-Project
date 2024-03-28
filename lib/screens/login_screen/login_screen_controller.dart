@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:his_project/models/user/login.dart';
+import 'package:his_project/models/user/user.dart';
 import 'package:his_project/screens/login_options_screen/login_options_screen_controller.dart';
+import 'package:his_project/screens/reservation_assurence_screen/reservation_assurence_screen_controller.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
 import 'package:his_project/utils/messages.dart';
 import 'package:his_project/utils/pages_names.dart';
@@ -14,6 +16,8 @@ class LoginScreenController extends GetxController {
   TextEditingController mrnController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  ReservationAssurenceScreenController reservationAssurenceScreenController =
+      Get.put(ReservationAssurenceScreenController());
   RxBool isLogin = false.obs;
   RxMap<String, dynamic> listError = <String, dynamic>{}.obs;
   RxString error = ''.obs;
@@ -21,6 +25,7 @@ class LoginScreenController extends GetxController {
   LoginOptionsScreenController loginOptionsScreenController =
       Get.put(LoginOptionsScreenController());
   int? option;
+  Rx<User> patient = User(id: 0, phone: "").obs;
 
   toggleChecked(value) {
     isChecked.value = value;
@@ -38,10 +43,15 @@ class LoginScreenController extends GetxController {
   }
 
   logout() {
-    if (PrefsService.to.getString('phone') != null) {
+    if (PrefsService.to.getString('phone') != null ||
+        PrefsService.to.getString('idNumber') != null) {
       PrefsService.to.remove('phone');
+      PrefsService.to.remove('idNumber');
     }
     PrefsService.to.remove('token');
+    PrefsService.to.remove('id');
+    PrefsService.to.remove('afterLogin');
+
     isLogin.value = false;
     Get.offNamed(PagesNames.root);
   }
@@ -77,6 +87,9 @@ class LoginScreenController extends GetxController {
       isLogin.value = true;
       PrefsService.to.setString("token", loginResponse.token!);
       PrefsService.to.setString("phone", userCredintals.phone!);
+      PrefsService.to.setString("idNumber", userCredintals.nationalId!);
+
+      await getPatientId();
 
       error.value = '';
       nationalIdController.text = '';
@@ -84,7 +97,11 @@ class LoginScreenController extends GetxController {
       phoneController.text = '';
       passwordController.text = '';
       isChecked.value = false;
-      Get.offNamed(PagesNames.reserveAssurence);
+      if (PrefsService.to.getInt("afterLogin") == 0) {
+        Get.offNamed(PagesNames.patientAppiontments);
+      } else {
+        Get.offNamed(PagesNames.reserveAssurence);
+      }
     } else {
       if (loginResponse.lstError!['nationalId'] != null) {
         listError['nationalId'] = loginResponse.lstError!['nationalId'];
@@ -132,6 +149,32 @@ class LoginScreenController extends GetxController {
 
   registrationRedirect() {
     Get.offNamed(PagesNames.registration);
+  }
+
+  getPatientId() async {
+    Map<String, String> headers = {
+      "content-type": "application/json; charset=utf-8",
+    };
+    if (PrefsService.to.getString("token") != null) {
+      String? token = PrefsService.to.getString("token");
+      headers['Authorization'] = 'Bearer $token';
+    }
+    http.Response response = await http.get(
+        Uri.parse("${Urls.account}UserList?page=1&pageSize=1000&UserType=3"),
+        headers: headers);
+
+    patient.value.id =
+        returnPatient(json.decode(response.body)['lstData'])[0]['id'];
+    PrefsService.to.setInt("id", patient.value.id);
+  }
+
+  returnPatient(List list) {
+    Iterable iterable = list
+        .where((element) =>
+            element['phone1'] == PrefsService.to.getString("phone") &&
+            element['idNumber'] == PrefsService.to.getString("idNumber"))
+        .toList();
+    return iterable;
   }
 
   @override

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:his_project/models/doctor/branch_dep_doctor.dart';
+import 'package:his_project/models/doctor/doctor_info_screen_args.dart';
 import 'package:his_project/screens/doctor_screen/doctor_screen_controller.dart';
 import 'package:his_project/screens/doctor_screen/widgets/available_appointments.dart';
 import 'package:his_project/screens/doctor_screen/widgets/doctor_info.dart';
@@ -10,9 +10,9 @@ class DoctorInfoScreen extends GetView<DoctorScreenController> {
 
   @override
   Widget build(BuildContext context) {
-    Doctor doctor = Get.arguments['doctor'];
+    DoctorInfoScreenArgs args = Get.arguments['doctorInfoArgs'];
     Get.put(DoctorScreenController());
-
+    controller.doctorName.value = args.doctorName;
     return DefaultTabController(
       animationDuration: const Duration(microseconds: 5),
       initialIndex: 0,
@@ -20,7 +20,7 @@ class DoctorInfoScreen extends GetView<DoctorScreenController> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            doctor.label,
+            args.d.label,
             textAlign: TextAlign.end,
           ),
           bottom: TabBar(

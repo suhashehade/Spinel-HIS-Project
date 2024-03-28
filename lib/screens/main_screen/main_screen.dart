@@ -44,8 +44,6 @@ class MainScreen extends GetView<MainScreenController> {
                   shape: const CircleBorder(eccentricity: 0.6),
                   backgroundColor: Colors.red,
                   onPressed: () {
-                    // controller.currentPage(PagesNames.reserveAppointment);
-                    // controller.isHome.value = false;
                     Get.toNamed(PagesNames.reserveAppointment);
                   },
                   child: const Column(

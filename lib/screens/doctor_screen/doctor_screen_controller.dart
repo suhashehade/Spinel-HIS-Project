@@ -1,11 +1,13 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:his_project/models/appointment/available_appointment.dart';
-import 'package:his_project/models/appointment/reservArguments.dart';
+import 'package:his_project/models/appointment/reserve_arguments.dart';
 import 'package:his_project/models/doctor/branch_dep_doctor.dart';
 import 'package:his_project/models/doctor/doctor_info.dart';
 import 'package:his_project/models/event.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
+import 'package:his_project/utils/pages_names.dart';
 import 'package:his_project/utils/urls.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -25,6 +27,7 @@ class DoctorScreenController extends GetxController {
   Rx<ReserveArguments> reserveArguments = ReserveArguments(
           doctorId: 0, depId: 0, branchId: 0, fromDate: "", toDate: "")
       .obs;
+  RxString doctorName = ''.obs;
   changeChoice(int value) {
     choice.value = value == 0 ? 'info' : 'available appointments';
   }
@@ -120,7 +123,6 @@ class DoctorScreenController extends GetxController {
   formatTime(String fromTime) {
     if (fromTime != '') {
       DateTime fromDateTime = makeDate(fromTime);
-      // print(fromDateTime);
       String formatedTime = DateFormat("HH:mm a").format(fromDateTime);
       return formatedTime;
     } else {
@@ -156,6 +158,27 @@ class DoctorScreenController extends GetxController {
       nationality: infoMap['nationalityEn'] ?? "",
       description: infoMap['description'] ?? "",
     );
+  }
+
+  goToReserveAssurence() {
+    if (reserveArguments.value.fromDate != '') {
+      for (var aa in availableAppointments) {
+        aa.isSelected.value = false;
+      }
+      Get.toNamed(PagesNames.preLogin, arguments: {
+        "reserveArgs": reserveArguments,
+      });
+      reserveArguments.value.fromDate = '';
+    } else {
+      Get.snackbar(
+        "Fail",
+        "You Have to choose time",
+        colorText: Colors.white,
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: const Color.fromARGB(255, 240, 43, 43),
+        icon: const Icon(Icons.error),
+      );
+    }
   }
 
   @override

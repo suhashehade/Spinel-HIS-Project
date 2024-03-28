@@ -5,9 +5,8 @@ import 'package:http/http.dart' as http;
 import '../../models/doctor/branch_dep_doctor.dart';
 
 class DoctorsListScreenController extends GetxController {
-  late String depName;
-  late String branchName;
-  late String doctorName;
+  RxString depName = ''.obs;
+  RxString branchName = ''.obs;
   late int depId;
   late int branchId;
   RxList<Doctor> doctors = <Doctor>[].obs;
@@ -36,8 +35,8 @@ class DoctorsListScreenController extends GetxController {
   void onInit() async {
     depId = Get.arguments['arguments'].depId;
     branchId = Get.arguments['arguments'].branchId;
-    depName = Get.arguments['arguments'].depName;
-    branchName = Get.arguments['arguments'].branchName;
+    depName.value = Get.arguments['arguments'].depName;
+    branchName.value = Get.arguments['arguments'].branchName;
     await getDoctors();
     super.onInit();
   }

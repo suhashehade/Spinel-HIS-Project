@@ -15,12 +15,4 @@ class MainScreenController extends GetxController {
     }
     currentPage.value = page;
   }
-
- 
-
-  @override
-  void onInit() async {
-    
-    super.onInit();
-  }
 }

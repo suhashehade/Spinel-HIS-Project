@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:his_project/screens/doctor_screen/doctor_screen_controller.dart';
-import 'package:his_project/utils/pages_names.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class AvailableAppointment extends GetView<DoctorScreenController> {
@@ -47,10 +46,9 @@ class AvailableAppointment extends GetView<DoctorScreenController> {
                   onDaySelected: controller.onSelectedDay,
                   eventLoader: (day) {
                     return controller.events
-                            .where((element) =>
-                                element[day.toLocal()] == day.toLocal())
-                            .toList() ??
-                        [];
+                        .where((element) =>
+                            element[day.toLocal()] == day.toLocal())
+                        .toList();
                   },
                 )),
             Obx(() =>
@@ -72,9 +70,10 @@ class AvailableAppointment extends GetView<DoctorScreenController> {
                                           .toString();
                                   controller.reserveArguments.value.toDate =
                                       controller.makeDate(aa.toTime).toString();
-
-                                  print(controller
-                                      .reserveArguments.value.fromDate);
+                                } else {
+                                  controller.reserveArguments.value.fromDate =
+                                      '';
+                                  controller.reserveArguments.value.toDate = '';
                                 }
                               },
                               child: Container(
@@ -99,9 +98,7 @@ class AvailableAppointment extends GetView<DoctorScreenController> {
                   )),
             MaterialButton(
               onPressed: () {
-                Get.toNamed(PagesNames.preLogin, arguments: {
-                  "reserveArgs": controller.reserveArguments,
-                });
+                controller.goToReserveAssurence();
               },
               color: Colors.amber,
               child: const Text("Reserve an appointment"),

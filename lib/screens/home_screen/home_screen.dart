@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:his_project/screens/home_screen/widgets/all_services.dart';
 import 'package:his_project/screens/home_screen/widgets/call_to_action.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -13,6 +14,7 @@ class HomeScreen extends StatelessWidget {
       child: const Column(
         children: <Widget>[
           CallToAction(),
+          Services(),
         ],
       ),
     );

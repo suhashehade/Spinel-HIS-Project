@@ -32,7 +32,11 @@ class LoginMiddleware extends GetMiddleware {
         ),
       );
       if (authenticated == true) {
-        Get.offNamed(PagesNames.reserveAssurence);
+        if (PrefsService.to.getInt("afterLogin") == 0) {
+          Get.offNamed(PagesNames.patientAppiontments);
+        } else {
+          Get.offNamed(PagesNames.reserveAssurence);
+        }
       }
     } on Exception catch (e) {
       isAuthenticating = false;

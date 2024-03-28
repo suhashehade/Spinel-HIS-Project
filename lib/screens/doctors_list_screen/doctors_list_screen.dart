@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:his_project/models/doctor/doctor_info_screen_args.dart';
 import 'package:his_project/screens/doctor_screen/doctor_screen.dart';
 import 'package:his_project/screens/doctor_screen/doctor_screen_controller.dart';
 import 'package:his_project/screens/doctors_list_screen/doctors_list_screen_controller.dart';
@@ -33,15 +34,20 @@ class DocotrsListScreen extends GetView<DoctorsListScreenController> {
                             //       );
                             //     });
                             await doctorScreenController.getDoctorInfo(d.id);
-                            await doctorScreenController
-                                .getDoctorAvailableAppointementsDays(
-                                    d.id, d.depId, d.branchId);
+                            // await doctorScreenController
+                            //     .getDoctorAvailableAppointementsDays(
+                            //         d.id, d.depId, d.branchId);
                             await doctorScreenController
                                 .getDoctorAvailableAppointements(
                                     d.id, d.depId, d.branchId);
 
-                            Get.to(() => const DoctorInfoScreen(),
-                                arguments: {"doctor": d});
+                            Get.to(() => const DoctorInfoScreen(), arguments: {
+                              "doctorInfoArgs": DoctorInfoScreenArgs(
+                                  d: d,
+                                  doctorName: d.label,
+                                  branchName: controller.branchName.value,
+                                  depName: controller.depName.value)
+                            });
                           },
                           child: Card(
                             child: Container(

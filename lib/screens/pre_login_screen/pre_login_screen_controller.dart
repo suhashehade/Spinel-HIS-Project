@@ -6,7 +6,7 @@ class PreLoginScreenController extends GetxController {
 
   yesOption() {
     loginMethod.value = 1;
-    Get.toNamed(PagesNames.loginOptions);
+    Get.toNamed(PagesNames.loginOptions, arguments: ['reserveArgs']);
   }
 
   noOption() {
