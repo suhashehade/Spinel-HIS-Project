@@ -18,6 +18,7 @@ void main() async {
   await prefsService.init();
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
+    theme: ThemeData(fontFamily: 'TheSans'),
     getPages: [
       GetPage(
         name: PagesNames.root,

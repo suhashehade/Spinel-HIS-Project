@@ -54,6 +54,7 @@ class LoginScreenController extends GetxController {
 
     isLogin.value = false;
     Get.offNamed(PagesNames.root);
+    
   }
 
   login(UserCredintals userCredintals) async {

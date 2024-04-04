@@ -1,27 +1,44 @@
 class PatientAppointment {
+  int id;
   String branchName;
   String doctorName;
   String patientName;
   String departmentName;
   String fromDate;
   String toDate;
-  int reasonId;
-  String statusName;
+  int? reasonId;
+  String? statusName;
   int patientId;
   int doctorId;
   int departmentId;
 
-  PatientAppointment({
-    required this.branchName,
-    required this.departmentName,
-    required this.doctorName,
-    required this.fromDate,
-    required this.toDate,
-    required this.patientName,
-    required this.departmentId,
-    required this.doctorId,
-    required this.patientId,
-    required this.reasonId,
-    required this.statusName,
-  });
+  PatientAppointment(
+    this.id,
+    this.branchName,
+    this.departmentName,
+    this.doctorName,
+    this.fromDate,
+    this.toDate,
+    this.patientName,
+    this.departmentId,
+    this.doctorId,
+    this.patientId,
+    this.statusName,
+  );
+
+  factory PatientAppointment.fromJson(dynamic json) {
+    return PatientAppointment(
+      json['id'] as int,
+      json['branchName'].toString(),
+      json['departmentName'].toString(),
+      json['doctorName'].toString(),
+      json['fromDate'].toString(),
+      json['toDate'].toString(),
+      json['patientName'].toString(),
+      json['departmentId'] as int,
+      json['doctorId'] as int,
+      json['patientId'] as int,
+      json['statusName'].toString(),
+    );
+  }
 }

@@ -1,11 +1,16 @@
 class Branch {
   int id;
-  int depId;
   String label;
 
-  Branch({
-    required this.id,
-    required this.label,
-    required this.depId,
-  });
+  Branch(
+    this.id,
+    this.label,
+  );
+
+  factory Branch.fromJson(dynamic json) {
+    return Branch(
+      json['value'] as int,
+      json['label'].toString(),
+    );
+  }
 }

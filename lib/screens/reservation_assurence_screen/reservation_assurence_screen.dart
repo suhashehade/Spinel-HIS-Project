@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:his_project/common/custom_app_bar.dart';
 import 'package:his_project/common/custom_button.dart';
 import 'package:his_project/common/custom_text_field.dart';
 import 'package:his_project/screens/doctor_screen/doctor_screen_controller.dart';
-import 'package:his_project/screens/doctors_list_screen/doctors_list_screen_controller.dart';
 import 'package:his_project/screens/reservation_assurence_screen/reservation_assurence_screen_controller.dart';
+import 'package:his_project/screens/reserve_appoinment_screen/reserve_appoinment_screen_controller.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
+import 'package:intl/intl.dart';
 
 class ReservationAssurrenceScreen
     extends GetView<ReservationAssurenceScreenController> {
@@ -16,30 +18,39 @@ class ReservationAssurrenceScreen
     Get.put(ReservationAssurenceScreenController());
     DoctorScreenController doctorScreenController =
         Get.put(DoctorScreenController());
-    DoctorsListScreenController doctorsListScreenController =
-        Get.put(DoctorsListScreenController());
+
+    ReserveAppointmentScreenController reserveAppointmentScreenController =
+        Get.put(ReserveAppointmentScreenController());
     return Scaffold(
-      appBar: AppBar(),
+      appBar: const CustomAppBar(backWidget: Text("")),
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
           child: Column(
             children: [
-              const Text("Appointment Assurence"),
+              const SizedBox(
+                height: 20.0,
+              ),
+              const Center(child: Text("Appointment Assurence")),
+              const SizedBox(
+                height: 20.0,
+              ),
               Form(
                 key: _keyForm,
                 child: Column(
                   children: <Widget>[
                     Text(
-                        "Branch Name: ${doctorsListScreenController.branchName.value}"),
+                        "Branch Name: ${reserveAppointmentScreenController.doctorsListArguments.value.branchName}"),
                     Text(
-                        "Department Name: ${doctorsListScreenController.depName.value}"),
+                        "Department Name: ${reserveAppointmentScreenController.doctorsListArguments.value.depName}"),
                     Text(
-                        "Doctor Name: ${doctorScreenController.doctorName.value}"),
+                        "Doctor Name: ${reserveAppointmentScreenController.doctorsListArguments.value.doctorName}"),
                     Text(
-                        "From Time: ${doctorScreenController.reserveArguments.value.fromDate}"),
+                        "Date: ${DateFormat.yMMMd().format(DateTime.parse(doctorScreenController.reserveArguments.value.fromDate))}"),
                     Text(
-                        "To Time: ${doctorScreenController.reserveArguments.value.toDate}"),
+                        "From Time: ${DateFormat('HH:mm a').format(DateTime.parse(doctorScreenController.reserveArguments.value.fromDate))}"),
+                    Text(
+                        "To Time: ${DateFormat('HH:mm a').format(DateTime.parse(doctorScreenController.reserveArguments.value.toDate))}"),
                     PrefsService.to.getInt("id") == null
                         ? Column(
                             children: [

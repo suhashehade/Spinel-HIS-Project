@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:his_project/screens/main_screen/main_screen_controller.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
 import 'package:his_project/utils/pages_names.dart';
 import 'package:local_auth/local_auth.dart';
 
 class LoginMiddleware extends GetMiddleware {
   final LocalAuthentication auth = LocalAuthentication();
-
+  MainScreenController mainScreenController = Get.put(MainScreenController());
   String authorized = 'Not Authorized';
   bool isAuthenticating = false;
   @override
@@ -35,7 +36,11 @@ class LoginMiddleware extends GetMiddleware {
         if (PrefsService.to.getInt("afterLogin") == 0) {
           Get.offNamed(PagesNames.patientAppiontments);
         } else {
-          Get.offNamed(PagesNames.reserveAssurence);
+          if (PrefsService.to.getInt("afterLogin") == 8) {
+            mainScreenController.currentPage.value = PagesNames.medicalFile;
+          } else {
+            Get.offNamed(PagesNames.reserveAssurence);
+          }
         }
       }
     } on Exception catch (e) {

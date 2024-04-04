@@ -5,6 +5,7 @@ import 'package:his_project/models/clinic/clinic.dart';
 import 'package:his_project/models/branch/branch.dart';
 import 'package:his_project/models/clinic/clinic_list_item.dart';
 import 'package:his_project/models/doctor/branch_dep_doctor.dart';
+import 'package:his_project/models/doctor/doctor_list_arguments.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
 import 'package:his_project/utils/urls.dart';
 import 'package:http/http.dart' as http;
@@ -15,11 +16,20 @@ class ReserveAppointmentScreenController extends GetxController {
   RxBool isDoctorExpanded = false.obs;
   RxBool isClinicSelected = false.obs;
   RxString clinicName = ''.obs;
+  RxInt depId = 0.obs;
+  RxInt branchId = 0.obs;
   RxList<Clinic> clinics = <Clinic>[].obs;
   RxList<Branch> branches = <Branch>[].obs;
   RxList<Doctor> doctors = <Doctor>[].obs;
+  Rx<DoctorsListArguments> doctorsListArguments = DoctorsListArguments(
+          branchId: 0,
+          branchName: "",
+          depName: "",
+          doctorName: "",
+          depId: 0,
+          doctorId: 0)
+      .obs;
 
-  
   changeChoice(int value) {
     choice.value = value == 0 ? 'doctor' : 'clinic';
   }
@@ -66,37 +76,17 @@ class ReserveAppointmentScreenController extends GetxController {
       Uri.parse(Urls.getClinicsUrl),
       headers: headers,
     );
-    clinics.value = toClinicList(json.decode(response.body)['lstData']);
+    clinics.value = (json.decode(response.body)['lstData'] as List)
+        .map((tagJson) => Clinic.fromJson(tagJson))
+        .toList();
   }
 
-  getBranches(int depId) async {
-    http.Response response = await http.get(
-        Uri.parse("${Urls.lkps}categoryCode=Branches&DepartmentId=$depId"));
-    branches.value = toBranchList(json.decode(response.body), depId);
+  getBranches(int dId) async {
+    depId.value = dId;
+    http.Response response = await http.get(Uri.parse(
+        "${Urls.lkps}categoryCode=Branches&DepartmentId=${depId.value}"));
+    branches.value = (json.decode(response.body) as List)
+        .map((tagJson) => Branch.fromJson(tagJson))
+        .toList();
   }
-
-  List<Branch> toBranchList(dynamicList, int depId) {
-    List<Branch> list = <Branch>[];
-    dynamicList.forEach((element) {
-      list.add(
-          Branch(id: element['value'], label: element['label'], depId: depId));
-    });
-    return list;
-  }
-
-  List<Clinic> toClinicList(dynamicList) {
-    List<Clinic> list = <Clinic>[];
-    dynamicList.forEach((element) {
-      list.add(Clinic(
-        id: element['id'],
-        name: element['nameEn'],
-        departmentTypeEn: element['departmentTypeEn'],
-        visitTypeEn: element['visitTypeEn'],
-      ));
-    });
-    return list;
-  }
-
-// {id: 1, nameEn: Department1, nameAr: string1, departmentTypeEn: DepartmentType1, visitTypeEn: VisitType2,
-// lstDepartmentBranches: [{branchNameEn: Branch2}]}
 }

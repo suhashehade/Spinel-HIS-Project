@@ -1,13 +1,23 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:his_project/models/appointment/appointment_details.dart';
 import 'package:his_project/models/appointment/patient_appointments.dart';
+import 'package:his_project/screens/appointment_details_screen/appointment_details_screen.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
+import 'package:his_project/utils/colors_res.dart';
 import 'package:his_project/utils/urls.dart';
 import "package:http/http.dart" as http;
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class PatientAppointmentsScreenController extends GetxController {
   RxList<PatientAppointment> appointments = <PatientAppointment>[].obs;
+  RxList<Appointment> meetings = <Appointment>[].obs;
+  Rx<DateTime?> currentDay = DateTime.now().obs;
+  Rx<AppointmentDetails> appointmetDetails = AppointmentDetails(
+          0, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
+      .obs;
 
   getPatientAppointments() async {
     Map<String, String> headers = {
@@ -22,30 +32,48 @@ class PatientAppointmentsScreenController extends GetxController {
             "${Urls.logicUrl}AppointmentsList?Page=1&PageSize=1000&PatientId=${PrefsService.to.getInt("id")}"),
         headers: headers);
 
-    appointments.value =
-        toPatientAppointmentsList(json.decode(response.body)['lstData']);
+    appointments.value = (json.decode(response.body)['lstData'] as List)
+        .map((tagJson) => PatientAppointment.fromJson(tagJson))
+        .toList();
+    getAppointments(response);
   }
 
-  List<PatientAppointment> toPatientAppointmentsList(
-      List<dynamic> dynamicList) {
-    List<PatientAppointment> list = <PatientAppointment>[];
+  getAppointments(response) {
+    appointments.forEach((a) =>
+        DateTime.parse(a.fromDate).isAfter(DateTime.now()) ||
+                DateTime.parse(a.fromDate).day == DateTime.now().day
+            ? meetings.add(
+                Appointment(
+                  id: a.id,
+                  startTime: DateTime.parse(a.fromDate),
+                  endTime: DateTime.parse(a.toDate),
+                  subject: a.statusName.toString(),
+                  color: Color(CustomColors.pacificBlue),
+                  recurrenceId: response.body,
+                ),
+              )
+            : null);
+  }
 
-    for (int i = 0; i < dynamicList.length; i++) {
-      list.add(PatientAppointment(
-          branchName: dynamicList[i]['branchName'] ?? '',
-          departmentName: dynamicList[i]['departmentName'] ?? '',
-          doctorName: dynamicList[i]['doctorName'] ?? '',
-          fromDate: dynamicList[i]['fromDate'] ?? '',
-          toDate: dynamicList[i]['toDate'] ?? '',
-          patientName: dynamicList[i]['patientName'] ?? '',
-          departmentId: dynamicList[i]['departmentId'] ?? 0,
-          doctorId: dynamicList[i]['doctorId'] ?? 0,
-          patientId: dynamicList[i]['patientId'] ?? 0,
-          reasonId: dynamicList[i]['reasonId'] ?? 0,
-          statusName: dynamicList[i]['statusName'] ?? ''));
+  void handleEventTap(CalendarTapDetails calendarTapDetails) async {
+    await getAppointmentDetails(calendarTapDetails.appointments![0].id);
+    Get.to(() => const AppointmentDetailsScreen());
+  }
+
+  getAppointmentDetails(int id) async {
+    Map<String, String> headers = {
+      "content-type": "application/json; charset=utf-8",
+    };
+    if (PrefsService.to.getString("token") != null) {
+      String? token = PrefsService.to.getString("token");
+      headers['Authorization'] = 'Bearer $token';
     }
-
-    return list;
+    http.Response response = await http.get(
+        Uri.parse("${Urls.logicUrl}AppointmentViewDetails?Id=$id"),
+        headers: headers);
+    appointmetDetails.value =
+        AppointmentDetails.fromJson(json.decode(response.body));
+    // print(json.decode(response.body));
   }
 
   @override

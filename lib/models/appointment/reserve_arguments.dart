@@ -2,7 +2,6 @@ class ReserveArguments {
   int doctorId;
   int depId;
   int branchId;
-
   String fromDate;
   String toDate;
 

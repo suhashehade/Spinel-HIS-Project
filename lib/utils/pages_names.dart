@@ -13,4 +13,14 @@ class PagesNames {
   static String reserveAssurence = '/reserveAssurence';
   static String patientAppiontments = '/patientAppiontments';
   static String doctorsList = 'doctorsList';
+
+
+
+  static String registration1 = 'registration';
+  static String reserveAppointment1 = 'reserveAppointment';
+  static String reserveAssurence1 = 'reserveAssurence';
+  static String patientAppiontments1 = 'patientAppiontments';
+  static String doctorInfo = 'doctorInfo';
+
+  static String emergency = 'emergency';
 }

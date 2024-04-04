@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:his_project/services/shared_prefs_service.dart';
+import 'package:his_project/utils/colors_res.dart';
 
 class CallToAction extends StatelessWidget {
   const CallToAction({super.key});
@@ -6,77 +9,86 @@ class CallToAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200.0,
+      padding: const EdgeInsets.all(10.0),
+      height: 150.0,
+      width: 500.0,
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 43, 43, 43),
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: Container(
-        padding: const EdgeInsets.all(10.0),
-        decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 108, 108, 108),
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(120.0),
-            bottomRight: Radius.circular(10.0),
-            topLeft: Radius.circular(10.0),
-            topRight: Radius.circular(10.0),
-          ),
-        ),
-        child: ListView(
-          children: <Widget>[
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-                  height: 30.0,
-                  margin: const EdgeInsets.all(0),
-                  decoration: const BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(100.0),
-                        bottomRight: Radius.circular(0.0),
-                        topLeft: Radius.circular(100.0),
-                        topRight: Radius.circular(0.0),
-                      ),
-                      boxShadow: [
-                        BoxShadow(offset: Offset(10, 0), color: Colors.red)
-                      ]),
-                  child: const Text('ملفي الطبي',
-                      textAlign: TextAlign.end,
-                      style: TextStyle(fontSize: 16.0, color: Colors.white)),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            const Text('لتصفح ملفك الطبي الرجاء تسجيل الدخول أو التسجيل اللآن',
-                textAlign: TextAlign.end,
-                style: TextStyle(fontSize: 20.0, color: Colors.white)),
-            const SizedBox(
-              height: 20.0,
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Material(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0)),
-                  color: Colors.red,
-                  child: MaterialButton(
-                    height: 20,
-                    onPressed: () {},
-                    child: const Text('دخول',
-                        style: TextStyle(fontSize: 16.0, color: Colors.white)),
-                  ),
-                ),
-              ],
-            ),
+        gradient: LinearGradient(
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+          colors: [
+            Color(CustomColors.lightGreen),
+            Color(CustomColors.lightBlue),
           ],
         ),
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              const SizedBox(
+                height: 10.0,
+              ),
+              const Text(
+                'ملفي الطبي',
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const Text(
+                "لتصفح ملفك الطبي", // textAlign: TextAlign.end,
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color: Colors.white,
+                  height: 1.0,
+                ),
+              ),
+              const Text(
+                "الرجاء تسجيل الدخول", // textAlign: TextAlign.end,
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color: Colors.white,
+                  height: 1.0,
+                ),
+              ),
+              const Text(
+                "أو انشاء حساب جديد", // textAlign: TextAlign.end,
+                style: TextStyle(
+                  fontSize: 16.0,
+                  height: 1.0,
+                  color: Colors.white,
+                ),
+              ),
+              MaterialButton(
+                color: Colors.white,
+                height: 20,
+                onPressed: () {
+                  PrefsService.to.setInt("afterLogin", 8);
+                  Get.toNamed('/preLogin');
+                },
+                child: Text(
+                  'دخول',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: Color(CustomColors.pacificBlue),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Container(
+            padding: const EdgeInsets.all(0),
+            width: 200,
+            height: 100,
+            child: Image.asset("assets/images/call_to_action_icon.png"),
+          )
+        ],
       ),
     );
   }

@@ -27,6 +27,9 @@ class CustomTextField extends StatelessWidget {
       keyboardType: textInputType,
       obscureText: obscureText,
       decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
         label: Text(labelText),
       ),
     );

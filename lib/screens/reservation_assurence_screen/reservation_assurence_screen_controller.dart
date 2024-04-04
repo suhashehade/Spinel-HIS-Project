@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:his_project/models/appointment/reserve_arguments.dart';
 import 'package:his_project/screens/doctor_screen/doctor_screen_controller.dart';
+import 'package:his_project/screens/main_screen/main_screen_controller.dart';
 import 'package:his_project/utils/pages_names.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
@@ -26,7 +27,7 @@ class ReservationAssurenceScreenController extends GetxController {
   TextEditingController dateOfBirthController = TextEditingController();
 
   RxBool isHaveReservation = false.obs;
-
+  MainScreenController mainScreenController = Get.put(MainScreenController());
   getUserReservations() async {
     Map<String, String> headers = {
       "content-type": "application/json; charset=utf-8",
@@ -39,6 +40,7 @@ class ReservationAssurenceScreenController extends GetxController {
         Uri.parse(
             "${Urls.logicUrl}AppointmentsList?Page=1&PageSize=1000&PatientId=${PrefsService.to.getInt("id")}"),
         headers: headers);
+
     return json.decode(response.body)['lstData'];
   }
 
@@ -58,6 +60,7 @@ class ReservationAssurenceScreenController extends GetxController {
         doctorScreenController.reserveArguments.value;
 
     Map<String, String> headers = {
+      "accept": "*/*",
       "content-type": "application/json; charset=utf-8",
     };
     if (PrefsService.to.getString("token") != null) {
@@ -73,38 +76,16 @@ class ReservationAssurenceScreenController extends GetxController {
       "toDate": reserveArgs.toDate,
       "reasonId": null,
       "statusId": null,
-      "patientId": PrefsService.to.getInt("id"),
       "departmentId": reserveArgs.depId,
       "note": "string"
     };
-    await isPatientHaveReservation();
-    if (PrefsService.to.getInt("id") == null) {
-      body['patient'] = {
-        "manualUserId": mrnController.text,
-        "nameEn1": name1EnController.text,
-        "nameEn2": name2EnController.text,
-        "nameEn3": name3EnController.text,
-        "nameEn4": name4EnController.text,
-        "nameAr1": name1ArController.text,
-        "nameAr2": name2ArController.text,
-        "nameAr3": name3ArController.text,
-        "nameAr4": name4ArController.text,
-        "phone1": phoneController.text,
-        "idNumber": idController.text,
-        "birthDate": dateOfBirthController.text,
-        "genderId": 0,
-        "countryId": 0,
-        "addressEn": addressEnController.text,
-        "addressAr": addressArController.text,
-        "userType": 3,
-        "isActive": true
-      };
-    }
 
     http.Response response = await http.post(
-        Uri.parse("${Urls.logicUrl}AddAppointment"),
-        body: jsonEncode(body),
-        headers: headers);
+      Uri.parse("${Urls.logicUrl}AddAppointment"),
+      body: jsonEncode(body),
+      headers: headers,
+    );
+
     if (response.statusCode == 200) {
       Get.toNamed(PagesNames.patientAppiontments);
     }

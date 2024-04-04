@@ -1,6 +1,7 @@
-{  
-    "workbench.colorCustomizations": {
-        "editor.lineHighlightBackground": "#00000000",
-        "editor.lineHighlightBorder": "#00000000"
-    }
+{
+  "workbench.colorCustomizations": {
+    "editor.lineHighlightBackground": "#00000000",
+    "editor.lineHighlightBorder": "#00000000"
+  },
+  "editor.fontSize": 18
 }

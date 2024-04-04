@@ -1,31 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:gradient_borders/gradient_borders.dart';
+import 'package:his_project/utils/colors_res.dart';
 
 class Service extends StatelessWidget {
-  const Service({super.key, required this.serviceName});
+  const Service({
+    super.key,
+    required this.serviceName,
+    required this.serviceIcon,
+  });
   final String serviceName;
+  final String serviceIcon;
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(10.0),
-      height: 60.0,
-      width: 130.0,
+      height: 100.0,
+      width: 100.0,
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 43, 43, 43),
         borderRadius: BorderRadius.circular(10.0),
+        border: GradientBoxBorder(
+            gradient: LinearGradient(colors: [
+          Color(CustomColors.lightBlue),
+          Color(CustomColors.lightGreen),
+        ])),
       ),
-      child: Container(
-        padding: const EdgeInsets.all(10.0),
-        decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 108, 108, 108),
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(120.0),
-            bottomRight: Radius.circular(10.0),
-            topLeft: Radius.circular(10.0),
-            topRight: Radius.circular(10.0),
+      child: Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(0.0),
+            height: 50.0,
+            width: 50.0,
+            child: Image.asset(serviceIcon),
           ),
-        ),
-        child: Text(serviceName),
-      ),
+          Text(serviceName),
+        ],
+      )),
     );
   }
 }
