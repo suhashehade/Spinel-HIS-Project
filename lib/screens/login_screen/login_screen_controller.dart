@@ -54,7 +54,6 @@ class LoginScreenController extends GetxController {
 
     isLogin.value = false;
     Get.offNamed(PagesNames.root);
-    
   }
 
   login(UserCredintals userCredintals) async {
@@ -176,11 +175,5 @@ class LoginScreenController extends GetxController {
             element['idNumber'] == PrefsService.to.getString("idNumber"))
         .toList();
     return iterable;
-  }
-
-  @override
-  void onInit() {
-    // option = Get.arguments['option'];
-    super.onInit();
   }
 }

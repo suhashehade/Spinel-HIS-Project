@@ -13,7 +13,7 @@ class LoginScreen extends GetView<LoginScreenController> {
   @override
   Widget build(BuildContext context) {
     Get.put(LoginScreenController());
-    // controller.option = Get.arguments['option'];
+   
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(

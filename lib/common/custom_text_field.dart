@@ -17,8 +17,6 @@ class CustomTextField extends StatelessWidget {
   final TextInputType textInputType;
   Function validator;
 
-  // final int maxLine;
-  // final String hintText;
   @override
   Widget build(BuildContext context) {
     return TextFormField(

@@ -198,17 +198,7 @@ class ChooseClinic extends GetView<ReserveAppointmentScreenController> {
                                               .value = PagesNames.doctorsList;
                                           await doctorsListScreenController
                                               .getDoctors();
-                                          // Get.to(
-                                          //     () => const DocotrsListScreen(),
-                                          //     arguments: {
-                                          //       "arguments":
-                                          //           DoctorsListArguments(
-                                          //         branchId: b.id,
-                                          //         branchName: b.label,
-                                          //         depName: controller
-                                          //             .clinicName.value,
-                                          //       )
-                                          //     });
+
                                           controller.clinicName.value = '';
                                         },
                                         child: Container(

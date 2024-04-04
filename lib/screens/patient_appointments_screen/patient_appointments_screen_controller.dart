@@ -73,7 +73,6 @@ class PatientAppointmentsScreenController extends GetxController {
         headers: headers);
     appointmetDetails.value =
         AppointmentDetails.fromJson(json.decode(response.body));
-    // print(json.decode(response.body));
   }
 
   @override
