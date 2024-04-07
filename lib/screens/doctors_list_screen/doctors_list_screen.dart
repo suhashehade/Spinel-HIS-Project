@@ -14,9 +14,9 @@ class DocotrsListScreen extends GetView<DoctorsListScreenController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(DoctorsListScreenController());
+    Get.put(DoctorsListScreenController()); // هاد هيك صح ؟
     ReserveAppointmentScreenController reserveAppointmentScreenController =
-        Get.put(ReserveAppointmentScreenController());
+        Get.find();
     DoctorScreenController doctorScreenController =
         Get.put(DoctorScreenController());
     MainScreenController mainScreenController = Get.put(MainScreenController());
@@ -94,7 +94,7 @@ class DocotrsListScreen extends GetView<DoctorsListScreenController> {
                                     .doctorsListArguments
                                     .value
                                     .doctorName = d.label;
-
+                              
                                 await doctorScreenController.getDoctorInfo();
                                 await doctorScreenController
                                     .getDoctorAvailableAppointements();

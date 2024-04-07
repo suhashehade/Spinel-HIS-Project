@@ -1,84 +1,68 @@
-import 'dart:convert';
+import 'package:his_project/services/api_service.dart';
+import 'package:his_project/models/appointment/available_appointments_days.dart';
+import 'package:his_project/models/event.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:his_project/models/appointment/available_appointment.dart';
 import 'package:his_project/models/appointment/reserve_arguments.dart';
 import 'package:his_project/models/doctor/doctor_info.dart';
-import 'package:his_project/models/event.dart';
 import 'package:his_project/screens/doctors_list_screen/doctors_list_screen_controller.dart';
 import 'package:his_project/screens/reserve_appoinment_screen/reserve_appoinment_screen_controller.dart';
-import 'package:his_project/services/shared_prefs_service.dart';
 import 'package:his_project/utils/pages_names.dart';
-import 'package:his_project/utils/urls.dart';
-import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart';
 
 class DoctorScreenController extends GetxController {
-  RxString choice = 'info'.obs;
   RxList<AvailableAppointment> availableAppointments =
       <AvailableAppointment>[].obs;
   Rx<DateTime> today = DateTime.now().obs;
-  Rx<DoctorInfo> doctorInfo = DoctorInfo("", "", "").obs;
-  RxList events = [].obs;
-  RxMap selectedEvents = {}.obs;
+  Rx<DoctorInfo> doctorInfo = DoctorInfo("", "", "", "", "", "").obs;
+  RxList<AvailableAppointmentsDays> events = <AvailableAppointmentsDays>[].obs;
+
   Rx<ReserveArguments> reserveArguments = ReserveArguments(
           doctorId: 0, depId: 0, branchId: 0, fromDate: "", toDate: "")
       .obs;
-  RxString doctorName = ''.obs;
 
   ReserveAppointmentScreenController reserveAppointmentScreenController =
       Get.put(ReserveAppointmentScreenController());
   DoctorsListScreenController doctorsListScreenController =
       Get.put(DoctorsListScreenController());
 
-  changeChoice(int value) {
-    choice.value = value == 0 ? 'info' : 'available appointments';
-  }
-
   changeIsAppointmentSelected(AvailableAppointment aa) {
     aa.isSelected.value = !aa.isSelected.value;
   }
 
+  List<Event> checkMarker(DateTime day) {
+    try {
+      bool dd = events
+          .firstWhere((p0) =>
+              DateTime.parse(p0.dayDate).year == day.year &&
+              DateTime.parse(p0.dayDate).month == day.month &&
+              DateTime.parse(p0.dayDate).day == day.day)
+          .isAvailable;
+
+      if (dd) {
+        return [Event('Today\'s Event ')];
+      } else {
+        return [];
+      }
+    } catch (e) {
+      return [];
+    }
+  }
+
   getDoctorAvailableAppointementsDays() async {
+    int branchId = doctorsListScreenController.branchId.value;
+    int depId = doctorsListScreenController.depId.value;
     int doctorId =
         reserveAppointmentScreenController.doctorsListArguments.value.doctorId;
-    Map<String, String> headers = {};
-    if (PrefsService.to.getString("token") != null) {
-      String? token = PrefsService.to.getString("token");
-      headers['Authorization'] = 'Bearer $token';
-    }
-    int branchId = doctorsListScreenController.branchId.value;
-    int depId = reserveAppointmentScreenController.depId.value;
 
-    http.Response response = await http.get(
-        Uri.parse(
-            "${Urls.logicUrl}DoctorAvailableAppointmentsList?DoctorId=$doctorId&DepartmentId=$depId&BranchId=$branchId&FromDate=${today.value.toIso8601String()}&ToDate=${today.value.add(const Duration(days: 90)).toIso8601String()}"),
-        headers: headers);
-    events.clear();
-    selectedEvents.value = toEvents(json.decode(response.body)['lstData']);
-  }
-
-  List<Event> getEventsFromDay(DateTime date) {
-    return selectedEvents[date] ?? [];
-  }
-
-  Map<DateTime, List<dynamic>> toEvents(List<dynamic> appointments) {
-    Map<DateTime, List<dynamic>> parsedEvents = {};
-
-    for (var appointment in appointments) {
-      if (appointment['isAvailable']) {
-        DateTime date = DateTime.parse(appointment['dayDate']);
-        DateTime d = DateTime(date.year, date.month, date.day);
-        if (parsedEvents[d] == null) {
-          parsedEvents[d] = [];
-        }
-
-        parsedEvents[d]!.add(appointment);
-        events.add({d: appointment});
-      }
-    }
-    return parsedEvents;
+    events.value = await Api.getDoctorAvailableAppointementsDaysAPI(
+        doctorId,
+        depId,
+        branchId,
+        today.value.toIso8601String(),
+        today.value.add(const Duration(days: 90)).toIso8601String());
   }
 
   getDoctorAvailableAppointements() async {
@@ -86,26 +70,14 @@ class DoctorScreenController extends GetxController {
         reserveAppointmentScreenController.doctorsListArguments.value.doctorId;
 
     int branchId = doctorsListScreenController.branchId.value;
-    int depId = reserveAppointmentScreenController.depId.value;
+    int depId = doctorsListScreenController.depId.value;
+
     reserveArguments.value.doctorId = doctorId;
     reserveArguments.value.branchId = branchId;
     reserveArguments.value.depId = depId;
 
-    Map<String, String> headers = {
-      "content-type": "application/json; charset=utf-8",
-    };
-    if (PrefsService.to.getString("token") != null) {
-      String? token = PrefsService.to.getString("token");
-      headers['Authorization'] = 'Bearer $token';
-    }
-    http.Response response = await http.get(
-        Uri.parse(
-            "${Urls.logicUrl}DoctorAvailableAppointmentsQuery?DoctorId=$doctorId&DepartmentId=$depId&BranchId=$branchId&CurrentDate=${today.value}"),
-        headers: headers);
-    availableAppointments.value =
-        (json.decode(response.body)['lstData'] as List)
-            .map((tagJson) => AvailableAppointment.fromJson(tagJson))
-            .toList();
+    availableAppointments.value = await Api.getDoctorAvailableAppointementsAPI(
+        doctorId, depId, branchId, today.value.toIso8601String());
   }
 
   onTimeSelected(AvailableAppointment aa) {
@@ -134,6 +106,7 @@ class DoctorScreenController extends GetxController {
   }
 
   formatTime(String fromTime) {
+    // لشو هاد ؟
     if (fromTime != '') {
       DateTime fromDateTime = makeDate(fromTime);
       String formatedTime = DateFormat("HH:mm a").format(fromDateTime);
@@ -154,18 +127,7 @@ class DoctorScreenController extends GetxController {
   getDoctorInfo() async {
     int doctorId =
         reserveAppointmentScreenController.doctorsListArguments.value.doctorId;
-    Map<String, String> headers = {
-      "content-type": "application/json; charset=utf-8",
-    };
-    if (PrefsService.to.getString("token") != null) {
-      String? token = PrefsService.to.getString("token");
-      headers['Authorization'] = 'Bearer $token';
-    }
-    http.Response response = await http.get(
-      Uri.parse('${Urls.account}DoctorViewDetails?Id=$doctorId'),
-      headers: headers,
-    );
-    doctorInfo.value = DoctorInfo.fromJson(json.decode(response.body));
+    doctorInfo.value = await Api.getDoctorInfoAPI(doctorId);
   }
 
   goToReserveAssurence() {
@@ -188,5 +150,27 @@ class DoctorScreenController extends GetxController {
     }
   }
 
- 
+// كملي حاليا هيك بس تخلصي الجزئية الي بايدك بتبلشي تصليح بالكود اهم اشي الي حكيتلك عنهم
+// بالنسبة للموضع الي الحق علي فيه بس تخلصي الجزئية هاي بفرجيكي كيف بالحرف
+// اول ما تخلصيها بتحكيلي تمام ؟
+  // @override
+  // void onInit() async {
+  //   ReserveAppointmentScreenController reserveAppointmentScreenController =
+  //       Get.find();
+  //   // int doctorId =
+  //   //     reserveAppointmentScreenController.doctorsListArguments.value.doctorId;
+
+  //   // int branchId = doctorsListScreenController.branchId.value;
+  //   // int depId = reserveAppointmentScreenController.depId.value;
+  //   // reserveArguments.value.doctorId = doctorId;
+  //   // reserveArguments.value.branchId = branchId;
+  //   // reserveArguments.value.depId = depId;
+
+  //   // print(
+  //   //     reserveAppointmentScreenController.doctorsListArguments.value.doctorId);
+  //   await getDoctorInfo();
+  //   await getDoctorAvailableAppointements();
+  //   await getDoctorAvailableAppointementsDays();
+  //   super.onInit();
+  // }
 }

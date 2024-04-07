@@ -16,7 +16,7 @@ class ChooseClinic extends GetView<ReserveAppointmentScreenController> {
     MainScreenController mainScreenController = Get.put(MainScreenController());
     DoctorsListScreenController doctorsListScreenController =
         Get.put(DoctorsListScreenController());
-    controller.getClinics();
+
     return Container(
       margin: const EdgeInsets.fromLTRB(0, 30.0, 0, 0),
       child: Column(
@@ -54,6 +54,7 @@ class ChooseClinic extends GetView<ReserveAppointmentScreenController> {
                       onPressed: () {
                         mainScreenController.currentPage.value =
                             PagesNames.home;
+                        mainScreenController.isHome.value = true;
                       },
                       alignment: Alignment.topRight,
                       icon: const Icon(
@@ -81,14 +82,14 @@ class ChooseClinic extends GetView<ReserveAppointmentScreenController> {
                 child: ExpansionPanelList(
                     elevation: 0,
                     expansionCallback: (int index, bool isExpanded) {
-                      controller.toogleExpanded(index, isExpanded);
+                      controller.toggleExpanded(index, isExpanded);
                     },
                     children: [
                       ExpansionPanel(
                         headerBuilder: (BuildContext context, bool isExpanded) {
                           return InkWell(
                             onTap: () {
-                              controller.toogleExpanded(0, true);
+                              controller.toggleExpanded(0, true);
                             },
                             child: ListTile(
                               title: TextFieldTapRegion(
@@ -118,8 +119,8 @@ class ChooseClinic extends GetView<ReserveAppointmentScreenController> {
                                 .map((c) => InkWell(
                                       onTap: () async {
                                         controller.setSelectedClinic(true);
-                                        controller.toogleExpanded(1, true);
-                                        controller.toogleExpanded(0, false);
+                                        controller.toggleExpanded(1, true);
+                                        controller.toggleExpanded(0, false);
                                         await controller.getBranches(c.id);
                                         controller.clinicName.value = c.nameEn;
                                         controller.doctorsListArguments.value

@@ -5,6 +5,7 @@ import 'package:his_project/models/user/login.dart';
 import 'package:his_project/models/user/user.dart';
 import 'package:his_project/screens/login_options_screen/login_options_screen_controller.dart';
 import 'package:his_project/screens/reservation_assurence_screen/reservation_assurence_screen_controller.dart';
+import 'package:his_project/services/api_service.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
 import 'package:his_project/utils/messages.dart';
 import 'package:his_project/utils/pages_names.dart';
@@ -57,35 +58,17 @@ class LoginScreenController extends GetxController {
   }
 
   login(UserCredintals userCredintals) async {
-    http.Response response = await http.post(
-      Uri.parse("${Urls.account}OtherLogin"),
-      headers: {
-        "accept": "*/*",
-        "Content-Type": "application/json-patch+json",
-        "charset": "utf-8"
-      },
-      body: jsonEncode(
-        {
-          "loginMethod": loginOptionsScreenController.option.value,
-          "password": userCredintals.password,
-          "phone": userCredintals.phone,
-          "mrn": userCredintals.mrn ?? "",
-          "nationalId": userCredintals.nationalId ?? ""
-        },
-      ),
-    );
-    if (jsonDecode(response.body)['token'] == null) {
-      error.value = jsonDecode(response.body)['lstError'][0];
+    var res = await Api.login(userCredintals);
+
+    if (res.token == null) {
+      error.value = jsonDecode(res.body)['lstError'][0];
 
       return;
     }
-    LoginResponse loginResponse = LoginResponse(
-        token: jsonDecode(response.body)['token'],
-        lstError: jsonDecode(response.body)['errors']);
 
-    if (response.statusCode == 200) {
+    if (res.token != null) {
       isLogin.value = true;
-      PrefsService.to.setString("token", loginResponse.token!);
+      PrefsService.to.setString("token", res.token!);
       PrefsService.to.setString("phone", userCredintals.phone!);
       PrefsService.to.setString("idNumber", userCredintals.nationalId!);
 
@@ -97,18 +80,19 @@ class LoginScreenController extends GetxController {
       phoneController.text = '';
       passwordController.text = '';
       isChecked.value = false;
+
       if (PrefsService.to.getInt("afterLogin") == 0) {
         Get.offNamed(PagesNames.patientAppiontments);
       } else {
         Get.offNamed(PagesNames.reserveAssurence);
       }
     } else {
-      if (loginResponse.lstError!['nationalId'] != null) {
-        listError['nationalId'] = loginResponse.lstError!['nationalId'];
+      if (res.lstError!['nationalId'] != null) {
+        listError['nationalId'] = res.lstError!['nationalId'];
       }
 
-      if (loginResponse.lstError!['Password'] != null) {
-        listError['Password'] = loginResponse.lstError!['Password'];
+      if (res.lstError!['Password'] != null) {
+        listError['Password'] = res.lstError!['Password'];
       }
     }
   }

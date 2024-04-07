@@ -1,9 +1,16 @@
 class AvailableAppointmentsDays {
   bool isAvailable;
-  DateTime dayDate;
+  String dayDate;
 
-  AvailableAppointmentsDays({
-    required this.dayDate,
-    required this.isAvailable,
-  });
+  AvailableAppointmentsDays(
+    this.dayDate,
+    this.isAvailable,
+  );
+
+  factory AvailableAppointmentsDays.fromJson(dynamic json) {
+    return AvailableAppointmentsDays(
+      json['dayDate'].toString(),
+      json['isAvailable'] as bool,
+    );
+  }
 }

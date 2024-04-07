@@ -41,16 +41,17 @@ void main() async {
           page: () => LoginScreen(),
           middlewares: [LoginMiddleware()]),
       GetPage(
-        name: PagesNames.reserveAssurence,
-        page: () => ReservationAssurrenceScreen(),
-      ),
+          name: PagesNames.reserveAssurence,
+          page: () => ReservationAssurrenceScreen(),
+          middlewares: [LoginMiddleware()]),
       GetPage(
-        name: PagesNames.patientAppiontments,
-        page: () => const PatientAppointmentsScreen(),
-      ),
+          name: PagesNames.patientAppiontments,
+          page: () => const PatientAppointmentsScreen(),
+          middlewares: [LoginMiddleware()]),
       GetPage(
-          name: PagesNames.registration,
-          page: () => const RegistrationScreen()),
+        name: PagesNames.registration,
+        page: () => const RegistrationScreen(),
+      ),
     ],
   ));
 }

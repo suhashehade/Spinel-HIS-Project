@@ -43,7 +43,8 @@ dependencies:
   jiffy: ^6.2.2
   gradient_borders: ^1.0.0
   syncfusion_flutter_calendar: ^25.1.38
-  flutter_svg: ^0.22.0
+  flutter_svg: ^1.0.0
+  iconify_flutter: ^0.0.5
 
 dev_dependencies:
   flutter_test:

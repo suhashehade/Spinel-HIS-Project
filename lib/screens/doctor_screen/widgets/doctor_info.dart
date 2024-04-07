@@ -18,7 +18,7 @@ class DoctorInfo extends GetView<DoctorScreenController> {
             Container(
               padding: const EdgeInsets.all(10.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   Container(
                     padding: const EdgeInsets.all(10.0),
@@ -54,18 +54,18 @@ class DoctorInfo extends GetView<DoctorScreenController> {
                       ),
                     ),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         const Text(
-                          "Doctor Inforamation",
+                          "معلومات الطبيب",
                           style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text("Gender: ${controller.doctorInfo.value.gender}"),
+                        Text("الجنس: ${controller.doctorInfo.value.genderAr}"),
                         Text(
-                            "Nationality:  ${controller.doctorInfo.value.nationality}")
+                            "الجنسية:  ${controller.doctorInfo.value.nationalityAr}")
                       ],
                     ),
                   ),
@@ -87,17 +87,17 @@ class DoctorInfo extends GetView<DoctorScreenController> {
                       ),
                     ),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         const Text(
-                          "Doctor Description",
+                          "التفاصيل",
                           style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
-                            "Description: ${controller.doctorInfo.value.description}")
+                            "وصف الطبيب: ${controller.doctorInfo.value.descriptionAr}")
                       ],
                     ),
                   )

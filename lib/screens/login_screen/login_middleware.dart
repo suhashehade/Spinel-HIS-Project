@@ -33,13 +33,20 @@ class LoginMiddleware extends GetMiddleware {
         ),
       );
       if (authenticated == true) {
+        print(PrefsService.to.getInt("afterLogin"));
         if (PrefsService.to.getInt("afterLogin") == 0) {
-          Get.offNamed(PagesNames.patientAppiontments);
+          Get.toNamed(PagesNames.patientAppiontments);
+          PrefsService.to.remove("afterLogin");
         } else {
           if (PrefsService.to.getInt("afterLogin") == 8) {
             mainScreenController.currentPage.value = PagesNames.medicalFile;
+            PrefsService.to.remove("afterLogin");
           } else {
-            Get.offNamed(PagesNames.reserveAssurence);
+            if (PrefsService.to.getInt("afterLogin") == 1) {
+              Get.toNamed(PagesNames.reserveAssurence);
+              PrefsService.to.remove("afterLogin");
+            }
+           
           }
         }
       }

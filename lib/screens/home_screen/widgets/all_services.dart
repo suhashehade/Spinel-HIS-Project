@@ -30,6 +30,7 @@ class Services extends StatelessWidget {
           InkWell(
             onTap: () {
               PrefsService.to.setInt("afterLogin", 2);
+              mainScreenController.isHome.value = false;
               Get.toNamed(PagesNames.reserveAppointment);
             },
             child: const Service(
@@ -40,6 +41,7 @@ class Services extends StatelessWidget {
           InkWell(
             onTap: () {
               PrefsService.to.setInt("afterLogin", 1);
+              mainScreenController.isHome.value = false;
               mainScreenController.currentPage.value =
                   PagesNames.reserveAppointment1;
             },
@@ -51,6 +53,7 @@ class Services extends StatelessWidget {
           InkWell(
             onTap: () {
               PrefsService.to.setInt("afterLogin", 5);
+              mainScreenController.isHome.value = false;
               Get.toNamed(PagesNames.reserveAppointment);
             },
             child: const Service(
@@ -60,11 +63,11 @@ class Services extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              if (PrefsService.to.getInt("afterLogin") != null) {
-                Get.toNamed(PagesNames.patientAppiontments);
-              } else {
-                PrefsService.to.setInt("afterLogin", 0);
+              PrefsService.to.setInt("afterLogin", 0);
+              if (PrefsService.to.getString("token") == null) {
                 Get.toNamed(PagesNames.preLogin);
+              } else {
+                Get.toNamed(PagesNames.patientAppiontments);
               }
             },
             child: const Service(

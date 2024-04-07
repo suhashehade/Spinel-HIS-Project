@@ -21,7 +21,7 @@ class AvailableAppointment extends GetView<DoctorScreenController> {
                     calendarBuilders: CalendarBuilders(
                       markerBuilder: (context, day, events) {
                         final hasEvent = controller.events
-                            .any((element) => element[day.toLocal()] != null);
+                            .any((element) => element.isAvailable == true);
                         return hasEvent
                             ? Container(
                                 margin:
@@ -47,13 +47,11 @@ class AvailableAppointment extends GetView<DoctorScreenController> {
                     selectedDayPredicate: (day) =>
                         isSameDay(day, controller.today.value),
                     onDaySelected: controller.onSelectedDay,
-                    eventLoader: (day) {
-                      return controller.events
-                          .where((element) =>
-                              element[day.toLocal()] == day.toLocal())
-                          .toList();
-                    },
+                    eventLoader: controller.checkMarker,
                   )),
+              const SizedBox(
+                height: 10.0,
+              ),
               Obx(() => Text(
                   controller.formatDate(controller.today.value.toString()))),
               Obx(() => controller.availableAppointments.isEmpty
@@ -66,7 +64,7 @@ class AvailableAppointment extends GetView<DoctorScreenController> {
                               (aa) => InkWell(
                                 onTap: () {
                                   controller.changeIsAppointmentSelected(aa);
-                                  controller.onTimeSelected(aa);
+                                  // controller.onTimeSelected(aa);
                                   if (aa.isSelected.value) {
                                     controller.reserveArguments.value.fromDate =
                                         controller
@@ -77,21 +75,22 @@ class AvailableAppointment extends GetView<DoctorScreenController> {
                                             .makeDate(aa.toTime)
                                             .toIso8601String();
                                   } else {
-                                    controller.reserveArguments.value.fromDate =
-                                        '';
-                                    controller.reserveArguments.value.toDate =
-                                        '';
+                                    // controller.reserveArguments.value.fromDate =
+                                    //     '';
+                                    // controller.reserveArguments.value.toDate =
+                                    //     '';
                                   }
                                 },
                                 child: aa.status == 0
                                     ? Container(
                                         decoration: BoxDecoration(
                                             color: aa.isSelected.value
-                                                ? Colors.green
-                                                : Colors.white,
+                                                ? Color(CustomColors.lightGreen)
+                                                : Color(CustomColors.white),
                                             border: Border.all(
                                                 style: BorderStyle.solid,
-                                                color: Colors.green)),
+                                                color: Color(
+                                                    CustomColors.lightGreen))),
                                         margin: const EdgeInsets.all(5.0),
                                         padding: const EdgeInsets.all(5.0),
                                         child: Text(
@@ -105,13 +104,15 @@ class AvailableAppointment extends GetView<DoctorScreenController> {
                             .toList(),
                       ),
                     )),
-              MaterialButton(
-                onPressed: () {
-                  controller.goToReserveAssurence();
-                },
-                color: Color(CustomColors.lightGreen),
-                child: const Text("Reserve an appointment"),
-              ),
+              controller.availableAppointments.isNotEmpty
+                  ? MaterialButton(
+                      onPressed: () {
+                        controller.goToReserveAssurence();
+                      },
+                      color: Color(CustomColors.lightGreen),
+                      child: const Text("Reserve an appointment"),
+                    )
+                  : const Text(""),
             ],
           ),
         ),

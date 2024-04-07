@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:his_project/models/appointment/appointment_details.dart';
 import 'package:his_project/models/appointment/patient_appointments.dart';
 import 'package:his_project/screens/appointment_details_screen/appointment_details_screen.dart';
+import 'package:his_project/services/api_service.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
 import 'package:his_project/utils/colors_res.dart';
 import 'package:his_project/utils/urls.dart';
@@ -20,18 +21,7 @@ class PatientAppointmentsScreenController extends GetxController {
       .obs;
 
   getPatientAppointments() async {
-    Map<String, String> headers = {
-      "content-type": "application/json; charset=utf-8",
-    };
-    if (PrefsService.to.getString("token") != null) {
-      String? token = PrefsService.to.getString("token");
-      headers['Authorization'] = 'Bearer $token';
-    }
-    http.Response response = await http.get(
-        Uri.parse(
-            "${Urls.logicUrl}AppointmentsList?Page=1&PageSize=1000&PatientId=${PrefsService.to.getInt("id")}"),
-        headers: headers);
-
+    var response = await Api.getPatientAppointments();
     appointments.value = (json.decode(response.body)['lstData'] as List)
         .map((tagJson) => PatientAppointment.fromJson(tagJson))
         .toList();

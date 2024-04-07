@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:gradient_borders/gradient_borders.dart';
+import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:his_project/utils/colors_res.dart';
+import 'package:iconify_flutter/iconify_flutter.dart';
 
-class Service extends StatelessWidget {
-  const Service({
-    super.key,
-    required this.serviceName,
-    required this.serviceIcon,
-  });
-  final String serviceName;
-  final String serviceIcon;
+class MedicalFileDepartment extends StatelessWidget {
+  const MedicalFileDepartment(
+      {super.key, required this.depName, required this.depIcon});
+  final String depName;
+  final String depIcon;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,13 +30,13 @@ class Service extends StatelessWidget {
             padding: const EdgeInsets.all(0.0),
             height: 50.0,
             width: 50.0,
-            child: Image.asset(serviceIcon),
+            child: Iconify(depIcon),
           ),
           const SizedBox(
             height: 4.0,
           ),
           Text(
-            serviceName,
+            depName,
             style: const TextStyle(fontSize: 12.0),
           ),
         ],

@@ -1,13 +1,11 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:his_project/models/appointment/reserve_arguments.dart';
 import 'package:his_project/screens/doctor_screen/doctor_screen_controller.dart';
 import 'package:his_project/screens/main_screen/main_screen_controller.dart';
-import 'package:his_project/utils/pages_names.dart';
-import 'package:http/http.dart' as http;
+import 'package:his_project/services/api_service.dart';
 import 'package:get/get.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
-import 'package:his_project/utils/urls.dart';
+import 'package:his_project/utils/pages_names.dart';
 import 'package:intl/intl.dart';
 
 class ReservationAssurenceScreenController extends GetxController {
@@ -28,30 +26,6 @@ class ReservationAssurenceScreenController extends GetxController {
 
   RxBool isHaveReservation = false.obs;
   MainScreenController mainScreenController = Get.put(MainScreenController());
-  getUserReservations() async {
-    Map<String, String> headers = {
-      "content-type": "application/json; charset=utf-8",
-    };
-    if (PrefsService.to.getString("token") != null) {
-      String? token = PrefsService.to.getString("token");
-      headers['Authorization'] = 'Bearer $token';
-    }
-    http.Response response = await http.get(
-        Uri.parse(
-            "${Urls.logicUrl}AppointmentsList?Page=1&PageSize=1000&PatientId=${PrefsService.to.getInt("id")}"),
-        headers: headers);
-
-    return json.decode(response.body)['lstData'];
-  }
-
-  isPatientHaveReservation() async {
-    List res = await getUserReservations();
-    if (res.isEmpty) {
-      isHaveReservation.value = false;
-    } else {
-      isHaveReservation.value = true;
-    }
-  }
 
   addAppointment() async {
     DoctorScreenController doctorScreenController =
@@ -59,35 +33,12 @@ class ReservationAssurenceScreenController extends GetxController {
     ReserveArguments reserveArgs =
         doctorScreenController.reserveArguments.value;
 
-    Map<String, String> headers = {
-      "accept": "*/*",
-      "content-type": "application/json; charset=utf-8",
-    };
-    if (PrefsService.to.getString("token") != null) {
-      String? token = PrefsService.to.getString("token");
-      headers['Authorization'] = 'Bearer $token';
-    }
+    var res = await Api.addAppointmentAPI(reserveArgs);
 
-    Map<String, dynamic> body = {
-      "branchId": reserveArgs.branchId,
-      "clinicId": null,
-      "doctorId": reserveArgs.doctorId,
-      "fromDate": reserveArgs.fromDate,
-      "toDate": reserveArgs.toDate,
-      "reasonId": null,
-      "statusId": null,
-      "departmentId": reserveArgs.depId,
-      "note": "string"
-    };
-
-    http.Response response = await http.post(
-      Uri.parse("${Urls.logicUrl}AddAppointment"),
-      body: jsonEncode(body),
-      headers: headers,
-    );
-
-    if (response.statusCode == 200) {
-      Get.toNamed(PagesNames.patientAppiontments);
+    if (res.statusCode == 200) {
+      reserveArgs.fromDate = '';
+      PrefsService.to.setInt("afterLogin", 0);
+      Get.offAndToNamed(PagesNames.patientAppiontments);
     }
   }
 

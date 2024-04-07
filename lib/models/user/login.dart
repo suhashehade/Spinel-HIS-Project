@@ -46,25 +46,25 @@ class UserCredintals {
 
 class LoginResponse {
   String? _token;
-  Map<String, dynamic>? _lstError;
+  List? _lstError;
 
-  LoginResponse({String? token, Map<String, dynamic>? lstError}) {
-    _token = token;
-    _lstError = lstError;
-  }
+  LoginResponse(this._token, this._lstError);
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> jsonRes = {};
     jsonRes['token'] = _token;
     jsonRes['lstError'] = _lstError;
+
     return jsonRes;
   }
 
-  LoginResponse fromJson(Map<String, dynamic> jsonRes) {
+  factory LoginResponse.fromJson(dynamic json) {
     return LoginResponse(
-        token: jsonRes['token'], lstError: jsonRes['lstError']);
+      json['token'].toString(),
+      json['lstError'] as List,
+    );
   }
 
   String? get token => _token;
-  Map<String, dynamic>? get lstError => _lstError;
+  List? get lstError => _lstError;
 }
