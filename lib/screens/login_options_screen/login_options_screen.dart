@@ -22,7 +22,7 @@ class LoginOptionsScreen extends GetView<LoginOptionsScreenController> {
               const SizedBox(
                 height: 100.0,
               ),
-              const Text("Choose one of these ways to login"),
+              Text("optionSentence".tr),
               const SizedBox(
                 height: 100.0,
               ),
@@ -49,7 +49,7 @@ class LoginOptionsScreen extends GetView<LoginOptionsScreenController> {
                             size: 40.0,
                           ),
                           Text(
-                            "رقم الهوية/ الرقم الوطني",
+                            "nationalId".tr,
                             style: TextStyle(
                               color: Color(CustomColors.lightBlue),
                             ),
@@ -78,7 +78,7 @@ class LoginOptionsScreen extends GetView<LoginOptionsScreenController> {
                             size: 40.0,
                           ),
                           Text(
-                            "رقم الملف الطبي",
+                            "mrn".tr,
                             style: TextStyle(
                               color: Color(CustomColors.lightBlue),
                             ),

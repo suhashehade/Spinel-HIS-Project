@@ -37,9 +37,12 @@ class Service extends StatelessWidget {
           const SizedBox(
             height: 4.0,
           ),
-          Text(
-            serviceName,
-            style: const TextStyle(fontSize: 12.0),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+            child: Text(
+              serviceName,
+              style: const TextStyle(fontSize: 12.0),
+            ),
           ),
         ],
       )),

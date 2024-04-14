@@ -6,18 +6,16 @@ import 'package:his_project/models/appointment/appointment_details.dart';
 import 'package:his_project/models/appointment/patient_appointments.dart';
 import 'package:his_project/screens/appointment_details_screen/appointment_details_screen.dart';
 import 'package:his_project/services/api_service.dart';
-import 'package:his_project/services/shared_prefs_service.dart';
 import 'package:his_project/utils/colors_res.dart';
-import 'package:his_project/utils/urls.dart';
-import "package:http/http.dart" as http;
+import 'package:his_project/utils/consts_res.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class PatientAppointmentsScreenController extends GetxController {
   RxList<PatientAppointment> appointments = <PatientAppointment>[].obs;
   RxList<Appointment> meetings = <Appointment>[].obs;
   Rx<DateTime?> currentDay = DateTime.now().obs;
-  Rx<AppointmentDetails> appointmetDetails = AppointmentDetails(
-          0, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
+  Rx<AppointmentDetails> appointmetDetails = AppointmentDetails(0, "", "", "",
+          "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
       .obs;
 
   getPatientAppointments() async {
@@ -29,20 +27,22 @@ class PatientAppointmentsScreenController extends GetxController {
   }
 
   getAppointments(response) {
-    appointments.forEach((a) =>
-        DateTime.parse(a.fromDate).isAfter(DateTime.now()) ||
-                DateTime.parse(a.fromDate).day == DateTime.now().day
-            ? meetings.add(
-                Appointment(
-                  id: a.id,
-                  startTime: DateTime.parse(a.fromDate),
-                  endTime: DateTime.parse(a.toDate),
-                  subject: a.statusName.toString(),
-                  color: Color(CustomColors.pacificBlue),
-                  recurrenceId: response.body,
-                ),
-              )
-            : null);
+    for (var a in appointments) {
+      DateTime.parse(a.fromDate).isAfter(DateTime.now()) ||
+              DateTime.parse(a.fromDate).day == DateTime.now().day
+          ? meetings.add(
+              Appointment(
+                id: a.id,
+                startTime: DateTime.parse(a.fromDate),
+                endTime: DateTime.parse(a.toDate),
+                subject:
+                    a.keys[ConstRes.languageCode]!['statusName']!.toString(),
+                color: Color(CustomColors.pacificBlue),
+                recurrenceId: response.body,
+              ),
+            )
+          : null;
+    }
   }
 
   void handleEventTap(CalendarTapDetails calendarTapDetails) async {
@@ -51,18 +51,7 @@ class PatientAppointmentsScreenController extends GetxController {
   }
 
   getAppointmentDetails(int id) async {
-    Map<String, String> headers = {
-      "content-type": "application/json; charset=utf-8",
-    };
-    if (PrefsService.to.getString("token") != null) {
-      String? token = PrefsService.to.getString("token");
-      headers['Authorization'] = 'Bearer $token';
-    }
-    http.Response response = await http.get(
-        Uri.parse("${Urls.logicUrl}AppointmentViewDetails?Id=$id"),
-        headers: headers);
-    appointmetDetails.value =
-        AppointmentDetails.fromJson(json.decode(response.body));
+    appointmetDetails.value = await Api.getAppointmentDetails(id);
   }
 
   @override

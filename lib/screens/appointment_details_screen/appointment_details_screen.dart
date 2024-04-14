@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:his_project/common/custom_app_bar.dart';
 import 'package:his_project/screens/patient_appointments_screen/patient_appointments_screen_controller.dart';
+import 'package:his_project/utils/consts_res.dart';
 import 'package:intl/intl.dart';
 
 class AppointmentDetailsScreen extends StatelessWidget {
@@ -20,30 +21,30 @@ class AppointmentDetailsScreen extends StatelessWidget {
               const SizedBox(
                 height: 20.0,
               ),
-              const Center(child: Text("Appointment Details")),
+              Center(child: Text("appointmentDetails".tr)),
               const SizedBox(
                 height: 20.0,
               ),
               Text(
-                  "Patient Name: ${patientAppointmentsScreenController.appointmetDetails.value.patientNameEn}"),
+                  "${'patient'.tr}: ${patientAppointmentsScreenController.appointmetDetails.value.keys[ConstRes.languageCode]!['patientName']!}"),
               Text(
-                  "Doctor Name: ${patientAppointmentsScreenController.appointmetDetails.value.doctorNameEn}"),
+                  "${'doctor'.tr}: ${patientAppointmentsScreenController.appointmetDetails.value.keys[ConstRes.languageCode]!['doctorName']!}"),
               Text(
-                  "Department Name: ${patientAppointmentsScreenController.appointmetDetails.value.departmentNameEn}"),
+                  "${'clinic'.tr}: ${patientAppointmentsScreenController.appointmetDetails.value.keys[ConstRes.languageCode]!['departmentName']!}"),
               Text(
-                  "Branch Name: ${patientAppointmentsScreenController.appointmetDetails.value.branchNameEn}"),
+                  "${'branch'.tr}: ${patientAppointmentsScreenController.appointmetDetails.value.keys[ConstRes.languageCode]!['branchName']!}"),
               Text(
-                  "Reason Name: ${patientAppointmentsScreenController.appointmetDetails.value.reasonEn}"),
+                  "${'reason'.tr}: ${patientAppointmentsScreenController.appointmetDetails.value.keys[ConstRes.languageCode]!['reasonName']!}"),
               Text(
-                  "Reason Name: ${patientAppointmentsScreenController.appointmetDetails.value.reasonEn}"),
+                  "${'status'.tr}: ${patientAppointmentsScreenController.appointmetDetails.value.keys[ConstRes.languageCode]!['statusName']!}"),
               Text(
-                  "Date: ${DateFormat.yMMMd().format(DateTime.parse(patientAppointmentsScreenController.appointmetDetails.value.fromDate))}"),
+                  "${'date'.tr}: ${DateFormat.yMMMd().format(DateTime.parse(patientAppointmentsScreenController.appointmetDetails.value.fromDate))}"),
               Text(
-                  "From Time: ${DateFormat('HH:mm a').format(DateTime.parse(patientAppointmentsScreenController.appointmetDetails.value.fromDate))}"),
+                  "${'fromTime'.tr}: ${DateFormat('HH:mm a').format(DateTime.parse(patientAppointmentsScreenController.appointmetDetails.value.fromDate))}"),
               Text(
-                  "To Time: ${DateFormat('HH:mm a').format(DateTime.parse(patientAppointmentsScreenController.appointmetDetails.value.toDate.toString()))}"),
+                  "${'toTime'.tr}: ${DateFormat('HH:mm a').format(DateTime.parse(patientAppointmentsScreenController.appointmetDetails.value.toDate))}"),
               Text(
-                  "Notes: ${patientAppointmentsScreenController.appointmetDetails.value.note}"),
+                  "${'notes'.tr}: ${patientAppointmentsScreenController.appointmetDetails.value.note}"),
             ],
           ),
         ));

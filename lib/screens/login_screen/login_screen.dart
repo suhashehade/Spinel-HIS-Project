@@ -13,7 +13,7 @@ class LoginScreen extends GetView<LoginScreenController> {
   @override
   Widget build(BuildContext context) {
     Get.put(LoginScreenController());
-   
+
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
@@ -31,20 +31,20 @@ class LoginScreen extends GetView<LoginScreenController> {
                   ],
                 ),
               ),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(
-                    Icons.home,
-                    size: 30.0,
-                    color: Colors.white,
-                  ),
                   Text(
-                    "تسجيل",
-                    style: TextStyle(
+                    "login".tr,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20.0,
                     ),
+                  ),
+                  const Icon(
+                    Icons.home,
+                    size: 30.0,
+                    color: Colors.white,
                   ),
                 ],
               ),
@@ -66,7 +66,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                         child:
                             Image.asset("assets/images/login_process_icon.png"),
                       ),
-                      const Text("أدخل التفاصيل")
+                      Text("enterDetails".tr)
                     ],
                   ),
                   Container(
@@ -83,7 +83,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                         child:
                             Image.asset("assets/images/login_process_icon.png"),
                       ),
-                      const Text("معلومات المراجع")
+                      Text("referenecInfo".tr)
                     ],
                   ),
                   Container(
@@ -101,7 +101,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                           child: Image.asset(
                               "assets/images/login_process_icon.png"),
                         ),
-                        const Text("تفاصيل أخرى"),
+                        Text("otherDetails".tr),
                       ],
                     ),
                   ),
@@ -119,14 +119,14 @@ class LoginScreen extends GetView<LoginScreenController> {
                             validator: controller.validate,
                             controller: controller.nationalIdController,
                             textInputType: TextInputType.name,
-                            labelText: 'National ID',
+                            labelText: 'nationalId'.tr,
                             obscureText: false,
                           )
                         : CustomTextField(
                             validator: controller.validate,
                             controller: controller.mrnController,
                             textInputType: TextInputType.name,
-                            labelText: 'MRN',
+                            labelText: 'mrn'.tr,
                             obscureText: false,
                           ),
                     const SizedBox(
@@ -136,7 +136,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                       validator: controller.validate,
                       controller: controller.phoneController,
                       textInputType: TextInputType.name,
-                      labelText: 'Phone Number',
+                      labelText: 'phone'.tr,
                       obscureText: false,
                     ),
                     const SizedBox(
@@ -146,7 +146,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                       validator: controller.validate,
                       controller: controller.passwordController,
                       textInputType: TextInputType.visiblePassword,
-                      labelText: 'Password',
+                      labelText: 'password'.tr,
                       obscureText: true,
                     ),
                     const SizedBox(
@@ -164,12 +164,12 @@ class LoginScreen extends GetView<LoginScreenController> {
                                     controller.phoneController.text, value),
                               ),
                             ),
-                            const Text("Remember me"),
+                            Text("rememberMe".tr),
                           ],
                         ),
                         InkWell(
                           onTap: () {},
-                          child: const Text("Forget Password?"),
+                          child: Text("forgetPass".tr),
                         ),
                       ],
                     ),
@@ -177,12 +177,12 @@ class LoginScreen extends GetView<LoginScreenController> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         CustomButton(
-                          title: 'الغاء',
+                          title: "login".tr,
                           handle: controller.handleLogin,
                           formKey: _keyForm,
                         ),
                         CustomButton(
-                          title: 'تسجيل دخول',
+                          title: "cancel".tr,
                           handle: controller.handleLogin,
                           formKey: _keyForm,
                         ),

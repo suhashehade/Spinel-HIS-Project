@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:his_project/common/custom_bottombar/custom_bottombar_controller.dart';
 import 'package:his_project/utils/colors_res.dart';
-import 'package:his_project/utils/pages_names.dart';
 
 class CustomBottomBar extends GetView<CustomBottombarController> {
   const CustomBottomBar({super.key});
@@ -33,32 +32,32 @@ class CustomBottomBar extends GetView<CustomBottombarController> {
               icon: const Icon(
                 Icons.file_present,
               ),
-              label: PagesNames.medicalFile,
+              label: "medicalFile".tr,
             ),
             BottomNavigationBarItem(
               icon: const Icon(
                 Icons.family_restroom,
               ),
-              label: PagesNames.familyFile,
+              label: "familyFile".tr,
             ),
             BottomNavigationBarItem(
               icon: const Icon(
                 Icons.home,
               ),
-              label: PagesNames.home,
+              label: "home".tr,
             ),
             BottomNavigationBarItem(
               icon: const Icon(
                 Icons.calendar_month,
               ),
-              label: PagesNames.tasks,
+              label: "tasks".tr,
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.help,
                 color: Color(CustomColors.white),
               ),
-              label: PagesNames.help,
+              label: "help".tr,
             ),
           ],
           onTap: (index) {

@@ -26,43 +26,38 @@ class CallToAction extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
+          Container(
+            padding: const EdgeInsets.all(0),
+            width: 200,
+            height: 100,
+            child: Image.asset("assets/images/call_to_action_icon.png"),
+          ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(
                 height: 10.0,
               ),
-              const Text(
-                'ملفي الطبي',
-                style: TextStyle(
+              Text(
+                "myMedicalFile".tr,
+                textAlign: TextAlign.start,
+                style: const TextStyle(
                   fontSize: 16.0,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const Text(
-                "لتصفح ملفك الطبي", // textAlign: TextAlign.end,
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: Colors.white,
-                  height: 1.0,
-                ),
-              ),
-              const Text(
-                "الرجاء تسجيل الدخول", // textAlign: TextAlign.end,
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: Colors.white,
-                  height: 1.0,
-                ),
-              ),
-              const Text(
-                "أو انشاء حساب جديد", // textAlign: TextAlign.end,
-                style: TextStyle(
-                  fontSize: 16.0,
-                  height: 1.0,
-                  color: Colors.white,
+              SizedBox(
+                width: 170.0,
+                child: Text(
+                  "callToAction".tr,
+                  textAlign: TextAlign.start,
+                  style: const TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.white,
+                    height: 1.0,
+                  ),
                 ),
               ),
               MaterialButton(
@@ -73,7 +68,7 @@ class CallToAction extends StatelessWidget {
                   Get.toNamed('/preLogin');
                 },
                 child: Text(
-                  'دخول',
+                  "login".tr,
                   style: TextStyle(
                     fontSize: 16.0,
                     color: Color(CustomColors.pacificBlue),
@@ -82,12 +77,6 @@ class CallToAction extends StatelessWidget {
               ),
             ],
           ),
-          Container(
-            padding: const EdgeInsets.all(0),
-            width: 200,
-            height: 100,
-            child: Image.asset("assets/images/call_to_action_icon.png"),
-          )
         ],
       ),
     );

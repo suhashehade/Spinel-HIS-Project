@@ -1,4 +1,6 @@
-class DoctorInfo {
+import 'package:get/get_navigation/src/root/internacionalization.dart';
+
+class DoctorInfo implements Translations{
   String? genderEn = "";
   String? genderAr = "";
   String? nationalityEn = "";
@@ -33,4 +35,18 @@ class DoctorInfo {
           : json['descriptionAr'].toString(),
     );
   }
+
+  @override
+  Map<String, Map<String, String>> get keys => {
+        'en': {
+          'gender': genderEn ?? '',
+          'nationality': nationalityEn ?? '',
+          'description': descriptionEn ?? '',
+        },
+        'ar': {
+          'gender': genderAr ?? '',
+          'nationality': nationalityAr ?? '',
+          'description': descriptionAr ?? '',
+        },
+      };
 }

@@ -15,13 +15,12 @@ class ReserveAppointmentScreen
 
     return DefaultTabController(
       animationDuration: const Duration(microseconds: 5),
-      initialIndex: 1,
+      initialIndex: 0,
       length: 2,
       child: Scaffold(
-        
         body: DefaultTabController(
           length: 2,
-          initialIndex: 1,
+          initialIndex: 0,
           child: Column(
             children: [
               TabBar(
@@ -29,16 +28,16 @@ class ReserveAppointmentScreen
                 indicatorColor: Color(CustomColors.lightGreen),
                 indicatorWeight: 5.0,
                 indicatorSize: TabBarIndicatorSize.tab,
-                tabs: const [
-                  Tab(text: 'اسم الطبيب'),
-                  Tab(text: 'اسم العيادة'),
+                tabs: [
+                  Tab(text: "clinic".tr),
+                  Tab(text: "doctor".tr),
                 ],
               ),
               const Expanded(
                 child: TabBarView(
                   children: [
-                    ChooseDoctor(),
                     ChooseClinic(),
+                    ChooseDoctor(),
                   ],
                 ),
               ),

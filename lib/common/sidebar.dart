@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:his_project/screens/home_screen/home_screen_controller.dart';
 import 'package:his_project/screens/login_screen/login_screen_controller.dart';
 
-class CustomSidebar extends GetView<HomeController> {
+class CustomSidebar extends GetView<HomeScreenController> {
   const CustomSidebar({super.key});
 
   @override

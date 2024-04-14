@@ -18,4 +18,7 @@ class Urls {
   static String login = "${account}OtherLogin";
   static String patientAppointments =
       "${logicUrl}AppointmentsList?Page=1&PageSize=1000&";
+      static String appointmentViewDetails = "${Urls.logicUrl}AppointmentViewDetails?";
+      static String patientDetails = 'http://192.236.146.134:9000/api/Account/UserList?page=1&pageSize=1000&UserType=3';
+
 }

@@ -13,7 +13,7 @@ class PatientAppointmentsScreen
     CalendarController calendarController = CalendarController();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("My Appointments"),
+        title:  Text("myAppointments".tr),
       ),
       body: Container(
           padding: const EdgeInsets.all(10.0),

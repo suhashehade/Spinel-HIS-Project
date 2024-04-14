@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:his_project/models/branch/branch_details.dart';
+import 'package:his_project/screens/main_screen/main_screen_controller.dart';
 import 'package:his_project/services/api_service.dart';
 import 'package:his_project/models/clinic/clinic.dart';
 import 'package:his_project/models/branch/branch.dart';
@@ -13,7 +15,7 @@ class ReserveAppointmentScreenController extends GetxController {
   RxInt branchId = 0.obs;
   RxList<Clinic> clinics = <Clinic>[].obs;
   RxList<Branch> branches = <Branch>[].obs;
-
+  MainScreenController mainScreenController = Get.put(MainScreenController());
   Rx<DoctorsListArguments> doctorsListArguments = DoctorsListArguments(
           branchId: 0,
           branchName: "",
@@ -22,6 +24,7 @@ class ReserveAppointmentScreenController extends GetxController {
           depId: 0,
           doctorId: 0)
       .obs;
+  Rx<BranchDetails> branchDetails = BranchDetails(0, "", "").obs;
 
   toggleExpanded(int index, bool isExpanded) {
     if (index == 0) {
@@ -45,6 +48,11 @@ class ReserveAppointmentScreenController extends GetxController {
 
   getClinics() async {
     clinics.value = await Api.getClinicsAPI();
+  }
+
+  returnToHomePage() {
+    mainScreenController.currentPage.value = "home".tr;
+    mainScreenController.isHome.value = true;
   }
 
   getBranches(int dId) async {

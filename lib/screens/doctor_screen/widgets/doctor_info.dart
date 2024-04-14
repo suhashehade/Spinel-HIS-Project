@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:gradient_borders/gradient_borders.dart';
 import 'package:his_project/screens/doctor_screen/doctor_screen_controller.dart';
 import 'package:his_project/utils/colors_res.dart';
+import 'package:his_project/utils/consts_res.dart';
 
 class DoctorInfo extends GetView<DoctorScreenController> {
   const DoctorInfo({super.key});
@@ -18,7 +19,7 @@ class DoctorInfo extends GetView<DoctorScreenController> {
             Container(
               padding: const EdgeInsets.all(10.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Container(
                     padding: const EdgeInsets.all(10.0),
@@ -54,18 +55,19 @@ class DoctorInfo extends GetView<DoctorScreenController> {
                       ),
                     ),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "معلومات الطبيب",
-                          style: TextStyle(
+                        Text(
+                          "doctorInfo".tr,
+                          style: const TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text("الجنس: ${controller.doctorInfo.value.genderAr}"),
                         Text(
-                            "الجنسية:  ${controller.doctorInfo.value.nationalityAr}")
+                            "${'gender'.tr}: ${controller.doctorInfo.value.keys[ConstRes.languageCode]!['gender']!}"),
+                        Text(
+                            "${'nationality'.tr}:  ${controller.doctorInfo.value.keys[ConstRes.languageCode]!['nationality']!}")
                       ],
                     ),
                   ),
@@ -87,17 +89,17 @@ class DoctorInfo extends GetView<DoctorScreenController> {
                       ),
                     ),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "التفاصيل",
-                          style: TextStyle(
+                        Text(
+                          "details".tr,
+                          style: const TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
-                            "وصف الطبيب: ${controller.doctorInfo.value.descriptionAr}")
+                            "${'description'.tr}: ${controller.doctorInfo.value.keys[ConstRes.languageCode]!['description']!}")
                       ],
                     ),
                   )

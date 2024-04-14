@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class CustomSearchBar extends StatelessWidget {
@@ -11,10 +12,10 @@ class CustomSearchBar extends StatelessWidget {
       controller: seacrhController,
       decoration: InputDecoration(
         focusColor: Colors.green,
-        label: const Row(
+        label: Row(
           children: [
-            Icon(Icons.search),
-            Text("Search Here"),
+            const Icon(Icons.search),
+            Text("search".tr),
           ],
         ),
         border: OutlineInputBorder(

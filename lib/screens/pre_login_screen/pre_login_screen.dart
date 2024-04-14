@@ -18,7 +18,7 @@ class PreLoginScreen extends GetView<PreLoginScreenController> {
           const SizedBox(
             height: 100.0,
           ),
-          const Text("هل قمت مسبقاً بزيارة مركزنا؟"),
+          Text("preLoginSentence".tr),
           const SizedBox(
             height: 500.0,
           ),
@@ -30,13 +30,13 @@ class PreLoginScreen extends GetView<PreLoginScreenController> {
                   onPressed: controller.yesOption,
                   minWidth: 180.0,
                   color: Colors.green,
-                  child: const Text("Yes"),
+                  child: Text("yes".tr),
                 ),
                 MaterialButton(
                   onPressed: controller.noOption,
                   minWidth: 180.0,
                   color: Colors.red,
-                  child: const Text("No"),
+                  child: Text("no".tr),
                 ),
               ],
             ),

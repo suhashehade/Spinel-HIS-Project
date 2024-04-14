@@ -1,3 +1,4 @@
+import 'package:his_project/screens/main_screen/main_screen_controller.dart';
 import 'package:his_project/services/api_service.dart';
 import 'package:his_project/models/appointment/available_appointments_days.dart';
 import 'package:his_project/models/event.dart';
@@ -27,7 +28,7 @@ class DoctorScreenController extends GetxController {
       Get.put(ReserveAppointmentScreenController());
   DoctorsListScreenController doctorsListScreenController =
       Get.put(DoctorsListScreenController());
-
+  MainScreenController mainScreenController = Get.put(MainScreenController());
   changeIsAppointmentSelected(AvailableAppointment aa) {
     aa.isSelected.value = !aa.isSelected.value;
   }
@@ -130,7 +131,12 @@ class DoctorScreenController extends GetxController {
     doctorInfo.value = await Api.getDoctorInfoAPI(doctorId);
   }
 
-  goToReserveAssurence() {
+  returnToDoctorList() {
+    mainScreenController.currentPage.value = 'doctorsList';
+    mainScreenController.isHome.value = false;
+  }
+
+  goToReserveConfirmation() {
     if (reserveArguments.value.fromDate != '') {
       for (var aa in availableAppointments) {
         aa.isSelected.value = false;

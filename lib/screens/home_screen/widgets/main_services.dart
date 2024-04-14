@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:his_project/utils/colors_res.dart';
 
 class MainServices extends StatelessWidget {
@@ -23,32 +24,33 @@ class MainServices extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          const Column(
+           Container(
+            padding: const EdgeInsets.all(0.0),
+            width: 120,
+            height: 100,
+            child: Image.asset("assets/images/main_service_icon.png"),
+          ),
+           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "خدمات الطوارئ",
-                style: TextStyle(
+                "emergencyServices".tr,
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
-                "في خدمتكم دائماً",
-                style: TextStyle(
+                "mainServicesCallToAction".tr,
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16.0,
                 ),
               ),
             ],
           ),
-          Container(
-            padding: const EdgeInsets.all(0.0),
-            width: 120,
-            height: 100,
-            child: Image.asset("assets/images/main_service_icon.png"),
-          )
+         
         ],
       ),
     );

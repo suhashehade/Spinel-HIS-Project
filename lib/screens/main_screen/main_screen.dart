@@ -59,11 +59,11 @@ class MainScreen extends GetView<MainScreenController> {
                         child:
                             Image.asset("assets/images/reserve_btn_icon.png"),
                       ),
-                      const Text(
-                        'احجز موعد',
+                      Text(
+                        "reserveAppointment".tr,
                         textAlign: TextAlign.center,
                         maxLines: 2,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 20.0,
                           color: Colors.white,
                         ),

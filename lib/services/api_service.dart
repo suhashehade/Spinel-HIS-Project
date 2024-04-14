@@ -2,12 +2,14 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:get/get.dart';
+import 'package:his_project/models/appointment/appointment_details.dart';
 import 'package:his_project/models/appointment/available_appointment.dart';
 import 'package:his_project/models/appointment/available_appointments_days.dart';
 import 'package:his_project/models/branch/branch.dart';
 import 'package:his_project/models/clinic/clinic.dart';
 import 'package:his_project/models/doctor/branch_dep_doctor.dart';
 import 'package:his_project/models/doctor/doctor_info.dart';
+import 'package:his_project/models/patient/patient.dart';
 import 'package:his_project/models/user/login.dart';
 import 'package:his_project/screens/login_options_screen/login_options_screen_controller.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
@@ -17,7 +19,7 @@ import '../models/appointment/reserve_arguments.dart';
 
 class Api {
   static Map<String, String> headers = {
-    "content-type": "application/json; charset=utf-8",
+    "Content-Type": "application/json; charset=utf-8",
   };
 
   static LoginOptionsScreenController loginOptionsScreenController =
@@ -41,6 +43,7 @@ class Api {
           "${Urls.getAvailableAppointmentsDays}DoctorId=$doctorId&DepartmentId=$depId&BranchId=$branchId&FromDate=$fromDate&ToDate=$toDate"),
       headers: headers,
     );
+
     return (json.decode(response.body)['lstData'] as List)
         .map((tagJson) => AvailableAppointmentsDays.fromJson(tagJson))
         .toList();
@@ -82,6 +85,7 @@ class Api {
       Uri.parse(Urls.getClinics),
       headers: getHeaders(headers),
     );
+
     return (json.decode(response.body)['lstData'] as List)
         .map((tagJson) => Clinic.fromJson(tagJson))
         .toList();
@@ -122,6 +126,7 @@ class Api {
       body: jsonEncode(body),
       headers: headers,
     );
+
     return response;
   }
 
@@ -143,7 +148,7 @@ class Api {
         },
       ),
     );
-    print(json.decode(response.body));
+
     return LoginResponse.fromJson(json.decode(response.body));
   }
 
@@ -157,5 +162,29 @@ class Api {
             "${Urls.patientAppointments}PatientId=${PrefsService.to.getInt("id")}"),
         headers: headers);
     return response;
+  }
+
+  static Future<AppointmentDetails> getAppointmentDetails(int id) async {
+    if (PrefsService.to.getString("token") != null) {
+      String? token = PrefsService.to.getString("token");
+      headers['Authorization'] = 'Bearer $token';
+    }
+    http.Response response = await http.get(
+        Uri.parse("${Urls.appointmentViewDetails}Id=$id"),
+        headers: headers);
+
+    return AppointmentDetails.fromJson(json.decode(response.body));
+  }
+
+  static Future<Patient> getPatients(String phone) async {
+    if (PrefsService.to.getString("token") != null) {
+      String? token = PrefsService.to.getString("token");
+      headers['Authorization'] = 'Bearer $token';
+    }
+    http.Response response = await http.get(
+        Uri.parse("${Urls.patientDetails}&strSearch=$phone"),
+        headers: headers);
+
+    return Patient.fromJson(json.decode(response.body)['lstData'][0]);
   }
 }

@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
+import 'package:his_project/locale/my_locale.dart';
 import 'package:his_project/utils/pages_names.dart';
 
-
 class MainScreenController extends GetxController {
-  RxString currentPage = PagesNames.home.obs;
+  RxString currentPage =
+      MyLocal().keys[Get.deviceLocale!.languageCode]!['home']!.obs;
   RxBool isHome = true.obs;
-  
 
   changeCurrentPage(String page) {
     if (page != PagesNames.home) {
@@ -14,5 +14,11 @@ class MainScreenController extends GetxController {
       isHome.value = true;
     }
     currentPage.value = page;
+  }
+
+  @override
+  void onInit() {
+    currentPage = MyLocal().keys[Get.deviceLocale!.languageCode]!['home']!.obs;
+    super.onInit();
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:his_project/utils/colors_res.dart';
-import 'package:iconify_flutter/iconify_flutter.dart';
+import 'package:get/get.dart';
 
 class MedicalFileDepartment extends StatelessWidget {
   const MedicalFileDepartment(
@@ -30,14 +30,14 @@ class MedicalFileDepartment extends StatelessWidget {
             padding: const EdgeInsets.all(0.0),
             height: 50.0,
             width: 50.0,
-            child: Iconify(depIcon),
+            child: Image.asset(depIcon),
           ),
           const SizedBox(
             height: 4.0,
           ),
           Text(
-            depName,
-            style: const TextStyle(fontSize: 12.0),
+            depName.tr,
+            style: const TextStyle(fontSize: 10.0),
           ),
         ],
       )),

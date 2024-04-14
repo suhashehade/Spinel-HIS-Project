@@ -6,6 +6,7 @@ import 'package:his_project/screens/doctors_list_screen/doctors_list_screen_cont
 import 'package:his_project/screens/main_screen/main_screen_controller.dart';
 import 'package:his_project/screens/reserve_appoinment_screen/reserve_appoinment_screen_controller.dart';
 import 'package:his_project/utils/colors_res.dart';
+import 'package:his_project/utils/consts_res.dart';
 import 'package:his_project/utils/pages_names.dart';
 
 // ignore: must_be_immutable
@@ -41,15 +42,8 @@ class DocotrsListScreen extends GetView<DoctorsListScreenController> {
               ),
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const Text(
-                  "حجز موعد",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.0,
-                  ),
-                ),
                 IconButton(
                   onPressed: () {
                     mainScreenController.currentPage.value =
@@ -57,8 +51,15 @@ class DocotrsListScreen extends GetView<DoctorsListScreenController> {
                   },
                   alignment: Alignment.topRight,
                   icon: const Icon(
-                    Icons.arrow_forward,
+                    Icons.arrow_back,
                     color: Colors.white,
+                  ),
+                ),
+                Text(
+                  "reserveAppointment".tr,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.0,
                   ),
                 ),
               ],
@@ -80,21 +81,12 @@ class DocotrsListScreen extends GetView<DoctorsListScreenController> {
                     children: controller.doctors
                         .map((d) => InkWell(
                               onTap: () async {
-                                // showDialog(
-                                //     context: context,
-                                //     builder: (context) {
-                                //       return const Center(
-                                //         child: CircularProgressIndicator(),
-                                //       );
-                                //     });
-
                                 reserveAppointmentScreenController
                                     .doctorsListArguments.value.doctorId = d.id;
                                 reserveAppointmentScreenController
-                                    .doctorsListArguments
-                                    .value
-                                    .doctorName = d.label;
-                              
+                                        .doctorsListArguments.value.doctorName =
+                                    d.keys[ConstRes.languageCode]!['label']!;
+
                                 await doctorScreenController.getDoctorInfo();
                                 await doctorScreenController
                                     .getDoctorAvailableAppointements();
@@ -115,17 +107,8 @@ class DocotrsListScreen extends GetView<DoctorsListScreenController> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const Icon(Icons.arrow_back),
                                     Row(
                                       children: [
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(d.label),
-                                            Text("${d.id}"),
-                                          ],
-                                        ),
                                         Container(
                                           padding: const EdgeInsets.all(10.0),
                                           height: 80.0,
@@ -133,8 +116,18 @@ class DocotrsListScreen extends GetView<DoctorsListScreenController> {
                                           child: Image.asset(
                                               "assets/images/help_doctor_icon.png"),
                                         ),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(d.keys[ConstRes.languageCode]![
+                                                'label']!),
+                                            Text("${d.id}"),
+                                          ],
+                                        ),
                                       ],
                                     ),
+                                    const Icon(Icons.arrow_forward),
                                   ],
                                 ),
                               ),

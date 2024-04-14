@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
-import 'package:his_project/screens/main_screen/main_screen_controller.dart';
+import 'package:his_project/common/sub_app_bar.dart';
+import 'package:his_project/screens/emergency_screen/emergency_screen_controller.dart';
 import 'package:his_project/utils/colors_res.dart';
-import 'package:his_project/utils/pages_names.dart';
 
 class EmergencyScreen extends StatelessWidget {
   const EmergencyScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    MainScreenController mainScreenController = Get.put(MainScreenController());
+    EmergencyScreenController emergencyScreenController =
+        Get.put(EmergencyScreenController());
+
     return Container(
       padding: const EdgeInsets.all(10.0),
       child: SingleChildScrollView(
@@ -19,40 +21,9 @@ class EmergencyScreen extends StatelessWidget {
             const SizedBox(
               height: 20.0,
             ),
-            Container(
-              padding: const EdgeInsets.all(10.0),
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                  colors: [
-                    Colors.lightGreen,
-                    Colors.lightBlue,
-                  ],
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      mainScreenController.currentPage.value = PagesNames.home;
-                    },
-                    child: const Icon(
-                      Icons.home,
-                      size: 30.0,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const Text(
-                    "خدمة الطوارئ",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20.0,
-                    ),
-                  ),
-                ],
-              ),
+            SubAppBar(
+              title: "emergency",
+              handleReturn: emergencyScreenController.returnToHome,
             ),
             const SizedBox(
               height: 20.0,
@@ -70,13 +41,13 @@ class EmergencyScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  Text("askAmbulance".tr),
                   Container(
                     padding: const EdgeInsets.all(0.0),
                     height: 100.0,
                     width: 100.0,
                     child: Image.asset("assets/images/amblance_icon.png"),
                   ),
-                  const Text("طلب نقل اسعافي"),
                 ],
               ),
             ),
@@ -96,13 +67,13 @@ class EmergencyScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  Text("closestEmergencyLocation".tr),
                   Container(
                     padding: const EdgeInsets.all(0.0),
                     height: 100.0,
                     width: 100.0,
                     child: Image.asset("assets/images/amplifire_icon.png"),
                   ),
-                  const Text("أقرب طوارئ للموقع"),
                 ],
               ),
             ),
@@ -122,13 +93,13 @@ class EmergencyScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  Text("fastResponseTeam".tr),
                   Container(
                     padding: const EdgeInsets.all(0.0),
                     height: 100.0,
                     width: 100.0,
                     child: Image.asset("assets/images/fast_response_icon.png"),
                   ),
-                  const Text("خدمة فريق الاستجابة السريع"),
                 ],
               ),
             ),
@@ -148,13 +119,13 @@ class EmergencyScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  Text("ourLocation".tr),
                   Container(
                     padding: const EdgeInsets.all(0.0),
                     height: 100.0,
                     width: 100.0,
                     child: Image.asset("assets/images/location_icon.png"),
                   ),
-                  const Text("أين تجدنا"),
                 ],
               ),
             ),
@@ -174,13 +145,13 @@ class EmergencyScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  Text("yourOpinion".tr),
                   Container(
                     padding: const EdgeInsets.all(0.0),
                     height: 100.0,
                     width: 100.0,
                     child: Image.asset("assets/images/opinion_icon.png"),
                   ),
-                  const Text("رأيك يهمنا"),
                 ],
               ),
             ),
@@ -200,13 +171,13 @@ class EmergencyScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  Text("chat".tr),
                   Container(
                     padding: const EdgeInsets.all(0.0),
                     height: 100.0,
                     width: 100.0,
                     child: Image.asset("assets/images/chat_icon.png"),
                   ),
-                  const Text("محادثة مباشرة"),
                 ],
               ),
             ),

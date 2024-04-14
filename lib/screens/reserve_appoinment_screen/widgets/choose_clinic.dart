@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:his_project/common/sub_app_bar.dart';
 import 'package:his_project/screens/doctors_list_screen/doctors_list_screen_controller.dart';
 import 'package:his_project/screens/main_screen/main_screen_controller.dart';
 import 'package:his_project/screens/reserve_appoinment_screen/reserve_appoinment_screen_controller.dart';
 import 'package:his_project/utils/colors_res.dart';
+import 'package:his_project/utils/consts_res.dart';
 import 'package:his_project/utils/pages_names.dart';
 
 class ChooseClinic extends GetView<ReserveAppointmentScreenController> {
@@ -21,51 +23,9 @@ class ChooseClinic extends GetView<ReserveAppointmentScreenController> {
       margin: const EdgeInsets.fromLTRB(0, 30.0, 0, 0),
       child: Column(
         children: [
-          Container(
-            padding: const EdgeInsets.all(10.0),
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                colors: [
-                  Colors.lightGreen,
-                  Colors.lightBlue,
-                ],
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Icon(
-                  Icons.home,
-                  size: 30.0,
-                  color: Colors.white,
-                ),
-                Row(
-                  children: [
-                    const Text(
-                      "حجز موعد",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        mainScreenController.currentPage.value =
-                            PagesNames.home;
-                        mainScreenController.isHome.value = true;
-                      },
-                      alignment: Alignment.topRight,
-                      icon: const Icon(
-                        Icons.arrow_forward,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+          SubAppBar(
+            title: "reserveAppointment",
+            handleReturn: controller.returnToHomePage,
           ),
           const SizedBox(
             height: 20.0,
@@ -97,11 +57,11 @@ class ChooseClinic extends GetView<ReserveAppointmentScreenController> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(controller.clinicName.value),
-                                    const Text(
-                                      "اسم العيادة",
+                                    Text(
+                                      "clinic".tr,
                                       textAlign: TextAlign.end,
                                     ),
+                                    Text(controller.clinicName.value),
                                   ],
                                 ),
                               ),
@@ -122,11 +82,15 @@ class ChooseClinic extends GetView<ReserveAppointmentScreenController> {
                                         controller.toggleExpanded(1, true);
                                         controller.toggleExpanded(0, false);
                                         await controller.getBranches(c.id);
-                                        controller.clinicName.value = c.nameEn;
+
+                                        controller.clinicName.value = c.keys[
+                                            ConstRes.languageCode]!['name']!;
                                         controller.doctorsListArguments.value
                                             .depId = c.id;
                                         controller.doctorsListArguments.value
-                                            .depName = c.nameEn;
+                                                .depName =
+                                            c.keys[ConstRes.languageCode]![
+                                                'name']!;
                                       },
                                       child: Container(
                                         height: 120.0,
@@ -153,7 +117,8 @@ class ChooseClinic extends GetView<ReserveAppointmentScreenController> {
                                                     ),
                                                   )),
                                               Text(
-                                                c.nameEn,
+                                                c.keys[ConstRes.languageCode]![
+                                                    'name']!,
                                                 style: TextStyle(
                                                     color: Color(
                                                   CustomColors.lightBlue,
@@ -173,10 +138,10 @@ class ChooseClinic extends GetView<ReserveAppointmentScreenController> {
                         ExpansionPanel(
                           headerBuilder:
                               (BuildContext context, bool isExpanded) {
-                            return const ListTile(
+                            return ListTile(
                               title: Text(
-                                "الفرع",
-                                textAlign: TextAlign.end,
+                                "branch".tr,
+                                textAlign: TextAlign.start,
                               ),
                             );
                           },
@@ -186,51 +151,55 @@ class ChooseClinic extends GetView<ReserveAppointmentScreenController> {
                             child: GridView.count(
                               crossAxisCount: 4,
                               crossAxisSpacing: 5.0,
-                              children: controller.branches
-                                  .map((b) => InkWell(
-                                        onTap: () async {
-                                          controller.setSelectedClinic(false);
-                                          controller.branchId.value = b.id;
-                                          controller.doctorsListArguments.value
-                                              .branchId = b.id;
-                                          controller.doctorsListArguments.value
-                                              .branchName = b.label;
-                                          mainScreenController.currentPage
-                                              .value = PagesNames.doctorsList;
-                                          await doctorsListScreenController
-                                              .getDoctors();
+                              children: controller.branches.map((b) {
+                                return InkWell(
+                                  onTap: () async {
+                                    controller.setSelectedClinic(false);
+                                    controller.branchId.value = b.id;
+                                    controller.doctorsListArguments.value
+                                        .branchId = b.id;
+                                    controller.doctorsListArguments.value
+                                            .branchName =
+                                        b.keys[ConstRes.languageCode]![
+                                            'label']!;
 
-                                          controller.clinicName.value = '';
-                                        },
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: Color(CustomColors.grey),
-                                            borderRadius:
-                                                BorderRadius.circular(5.0),
+                                    mainScreenController.currentPage.value =
+                                        PagesNames.doctorsList;
+
+                                    await doctorsListScreenController
+                                        .getDoctors();
+
+                                    controller.clinicName.value = '';
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(CustomColors.grey),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                    child: Container(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Column(
+                                        children: [
+                                          Icon(
+                                            Icons.home,
+                                            size: 40.0,
+                                            color:
+                                                Color(CustomColors.lightBlue),
                                           ),
-                                          child: Container(
-                                            padding: const EdgeInsets.all(10.0),
-                                            child: Column(
-                                              children: [
-                                                Icon(
-                                                  Icons.home,
-                                                  size: 40.0,
-                                                  color: Color(
-                                                      CustomColors.lightBlue),
-                                                ),
-                                                Text(
-                                                  b.label,
-                                                  style: TextStyle(
-                                                      color: Color(
-                                                    CustomColors.lightBlue,
-                                                  )),
-                                                ),
-                                              ],
-                                            ),
+                                          Text(
+                                            b.keys[ConstRes.languageCode]![
+                                                'label']!,
+                                            style: TextStyle(
+                                                color: Color(
+                                              CustomColors.lightBlue,
+                                            )),
                                           ),
-                                        ),
-                                      ))
-                                  .toList(),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
                             ),
                           ),
                           isExpanded: controller.isDoctorExpanded.value,

@@ -1,24 +1,22 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:his_project/models/patient/patient.dart';
 import 'package:his_project/models/user/login.dart';
-import 'package:his_project/models/user/user.dart';
 import 'package:his_project/screens/login_options_screen/login_options_screen_controller.dart';
-import 'package:his_project/screens/reservation_assurence_screen/reservation_assurence_screen_controller.dart';
+import 'package:his_project/screens/reservation_confirmation_screen/reservation_confirmation_screen_controller.dart';
 import 'package:his_project/services/api_service.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
 import 'package:his_project/utils/messages.dart';
 import 'package:his_project/utils/pages_names.dart';
-import 'package:his_project/utils/urls.dart';
-import 'package:http/http.dart' as http;
 
 class LoginScreenController extends GetxController {
   TextEditingController nationalIdController = TextEditingController();
   TextEditingController mrnController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  ReservationAssurenceScreenController reservationAssurenceScreenController =
-      Get.put(ReservationAssurenceScreenController());
+  ReservationConfirmationScreenController reservationAssurenceScreenController =
+      Get.put(ReservationConfirmationScreenController());
   RxBool isLogin = false.obs;
   RxMap<String, dynamic> listError = <String, dynamic>{}.obs;
   RxString error = ''.obs;
@@ -26,7 +24,7 @@ class LoginScreenController extends GetxController {
   LoginOptionsScreenController loginOptionsScreenController =
       Get.put(LoginOptionsScreenController());
   int? option;
-  Rx<User> patient = User(id: 0, phone: "").obs;
+  Rx<Patient> patient = Patient(0, "").obs;
 
   toggleChecked(value) {
     isChecked.value = value;
@@ -136,19 +134,7 @@ class LoginScreenController extends GetxController {
   }
 
   getPatientId() async {
-    Map<String, String> headers = {
-      "content-type": "application/json; charset=utf-8",
-    };
-    if (PrefsService.to.getString("token") != null) {
-      String? token = PrefsService.to.getString("token");
-      headers['Authorization'] = 'Bearer $token';
-    }
-    http.Response response = await http.get(
-        Uri.parse("${Urls.account}UserList?page=1&pageSize=1000&UserType=3"),
-        headers: headers);
-
-    patient.value.id =
-        returnPatient(json.decode(response.body)['lstData'])[0]['id'];
+    patient.value = await Api.getPatients(PrefsService.to.getString("phone")!);
     PrefsService.to.setInt("id", patient.value.id);
   }
 

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:his_project/screens/home_screen/home_screen_controller.dart';
 import 'package:his_project/screens/home_screen/widgets/all_services.dart';
 import 'package:his_project/screens/home_screen/widgets/call_to_action.dart';
 import 'package:his_project/common/custom_search_bar.dart';
@@ -9,6 +11,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    HomeScreenController homeScreenController = Get.put(HomeScreenController());
     return Container(
       padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
       color: Colors.white,
@@ -31,19 +34,21 @@ class HomeScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                Text(
+                  "eServices".tr,
+                  textAlign: TextAlign.end,
+                ),
                 InkWell(
-                  onTap: () {},
-                  child: const Text(
-                    "عرض جميع الخدمات",
+                  onTap: () {
+                    homeScreenController.goToAllServices();
+                  },
+                  child: Text(
+                    "showAllServices".tr,
                     textAlign: TextAlign.start,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
-                const Text(
-                  "الخدمات الإلكترونية",
-                  textAlign: TextAlign.start,
                 ),
               ],
             ),

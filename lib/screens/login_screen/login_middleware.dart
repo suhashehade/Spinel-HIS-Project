@@ -33,7 +33,6 @@ class LoginMiddleware extends GetMiddleware {
         ),
       );
       if (authenticated == true) {
-        print(PrefsService.to.getInt("afterLogin"));
         if (PrefsService.to.getInt("afterLogin") == 0) {
           Get.toNamed(PagesNames.patientAppiontments);
           PrefsService.to.remove("afterLogin");
@@ -46,7 +45,6 @@ class LoginMiddleware extends GetMiddleware {
               Get.toNamed(PagesNames.reserveAssurence);
               PrefsService.to.remove("afterLogin");
             }
-           
           }
         }
       }

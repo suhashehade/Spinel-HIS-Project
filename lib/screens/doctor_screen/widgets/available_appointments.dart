@@ -64,7 +64,7 @@ class AvailableAppointment extends GetView<DoctorScreenController> {
                               (aa) => InkWell(
                                 onTap: () {
                                   controller.changeIsAppointmentSelected(aa);
-                                  // controller.onTimeSelected(aa);
+                                  controller.onTimeSelected(aa);
                                   if (aa.isSelected.value) {
                                     controller.reserveArguments.value.fromDate =
                                         controller
@@ -74,11 +74,6 @@ class AvailableAppointment extends GetView<DoctorScreenController> {
                                         controller
                                             .makeDate(aa.toTime)
                                             .toIso8601String();
-                                  } else {
-                                    // controller.reserveArguments.value.fromDate =
-                                    //     '';
-                                    // controller.reserveArguments.value.toDate =
-                                    //     '';
                                   }
                                 },
                                 child: aa.status == 0
@@ -107,10 +102,10 @@ class AvailableAppointment extends GetView<DoctorScreenController> {
               controller.availableAppointments.isNotEmpty
                   ? MaterialButton(
                       onPressed: () {
-                        controller.goToReserveAssurence();
+                        controller.goToReserveConfirmation();
                       },
                       color: Color(CustomColors.lightGreen),
-                      child: const Text("Reserve an appointment"),
+                      child: Text("reserveAnAppointment".tr),
                     )
                   : const Text(""),
             ],
