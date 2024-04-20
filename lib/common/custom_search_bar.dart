@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gradient_borders/input_borders/gradient_outline_input_border.dart';
+import 'package:his_project/utils/colors_res.dart';
+import 'package:his_project/utils/consts_res.dart';
 
 // ignore: must_be_immutable
 class CustomSearchBar extends StatelessWidget {
@@ -8,20 +11,33 @@ class CustomSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: seacrhController,
-      decoration: InputDecoration(
-        focusColor: Colors.green,
-        label: Row(
-          children: [
-            const Icon(Icons.search),
-            Text("search".tr),
-          ],
-        ),
-        border: OutlineInputBorder(
-          gapPadding: 2.0,
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: Colors.red),
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.05,
+      width: MediaQuery.of(context).size.width * 0.90,
+      child: TextFormField(
+        controller: seacrhController,
+        decoration: InputDecoration(
+          border: GradientOutlineInputBorder(
+              gradient: LinearGradient(colors: [
+            Color(CustomColors.lightBlue),
+            Color(CustomColors.lightGreen),
+          ])),
+          label: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(
+                Icons.search,
+                size: 14.0,
+              ),
+              const SizedBox(
+                width: 5.0,
+              ),
+              Text(
+                ConstRes.search.tr,
+                style: const TextStyle(fontSize: 14.0),
+              ),
+            ],
+          ),
         ),
       ),
     );

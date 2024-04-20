@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-class AppointmentDetails implements Translations{
+class AppointmentDetails implements Translations {
   int id;
   String clinicNameEn;
   String clinicNameAr;

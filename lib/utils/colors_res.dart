@@ -5,4 +5,7 @@ class CustomColors {
   static int white = 0xffffffff;
   static int transparentWhite = 0xe0ffffff;
   static int grey = 0xFFE5E5E5;
+  static int black = 0xFF000000;
+  static int red = 0xFFF44336;
+  static int green = 0xFF4CAF50;
 }

@@ -14,8 +14,8 @@ class Service extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(10.0),
-      height: 100.0,
-      width: 100.0,
+      height: MediaQuery.of(context).size.width * 0.30,
+      width: MediaQuery.of(context).size.width * 0.25,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
         border: GradientBoxBorder(
@@ -30,8 +30,8 @@ class Service extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.all(0.0),
-            height: 50.0,
-            width: 50.0,
+            height: MediaQuery.of(context).size.width * 0.14,
+            width: MediaQuery.of(context).size.width * 0.20,
             child: Image.asset(serviceIcon),
           ),
           const SizedBox(
@@ -41,7 +41,8 @@ class Service extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
             child: Text(
               serviceName,
-              style: const TextStyle(fontSize: 12.0),
+              style: TextStyle(
+                  fontSize: 12.0, color: Color(CustomColors.lightBlue)),
             ),
           ),
         ],

@@ -1,44 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:his_project/screens/medical_file_screen/medical_file_screen_controller.dart';
 import 'package:his_project/screens/medical_file_screen/widgets/medical_file_department.dart';
+import 'package:his_project/utils/consts_res.dart';
 
 class MedicalFileDepartments extends StatelessWidget {
   const MedicalFileDepartments({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    MedicalFileScreenController medicalFileScreenController =
+        Get.put(MedicalFileScreenController());
+    return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             MedicalFileDepartment(
-              depName: "appointmentsList",
-              depIcon: 'assets/images/appointments_icon.png',
+              depName: ConstRes.appointmentsList,
+              depIcon: ConstRes.appointmentIcon,
+              handleClick: () {},
             ),
             MedicalFileDepartment(
-              depName: "labAnalysisResults",
-              depIcon: 'assets/images/lab_icon.png',
+              depName: ConstRes.medicalAnalyisResults,
+              depIcon: ConstRes.labIcon,
+              handleClick: medicalFileScreenController.toMedicalLabResult,
             ),
             MedicalFileDepartment(
-              depName: "xrays",
-              depIcon: 'assets/images/xray_icon.png',
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            MedicalFileDepartment(
-              depName: "prescriptions",
-              depIcon: 'assets/images/prescriptions_icon.png',
-            ),
-            MedicalFileDepartment(
-              depName: "vitalSigns",
-              depIcon: 'assets/images/vital_signs_icon.png',
-            ),
-            MedicalFileDepartment(
-              depName: "drugs",
-              depIcon: 'assets/images/drugs_icon.png',
+              depName: ConstRes.xrays,
+              depIcon: ConstRes.xrayIcon,
+              handleClick: () {},
             ),
           ],
         ),
@@ -46,33 +37,19 @@ class MedicalFileDepartments extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             MedicalFileDepartment(
-              depName: "doctorsVisited",
-              depIcon: 'assets/images/doctor_icon.png',
+              depName: ConstRes.prescriptions,
+              depIcon: ConstRes.prescriptionsIcon,
+              handleClick: () {},
             ),
             MedicalFileDepartment(
-              depName: "invoices",
-              depIcon: 'assets/images/invoices_icon.png',
+              depName: ConstRes.vitalSigns,
+              depIcon: ConstRes.vitalSignsIcon,
+              handleClick: () {},
             ),
             MedicalFileDepartment(
-              depName: "orders",
-              depIcon: 'assets/images/orders_icon.png',
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            MedicalFileDepartment(
-              depName: "eyeTest",
-              depIcon: 'assets/images/eye_test_icon.png',
-            ),
-            MedicalFileDepartment(
-              depName: "insuranceCards",
-              depIcon: 'assets/images/insurance_cards_icon.png',
-            ),
-            MedicalFileDepartment(
-              depName: "insuranceUpdates",
-              depIcon: 'assets/images/insurance_updates_icon.png',
+              depName: ConstRes.drugs,
+              depIcon: ConstRes.drugsIcon,
+              handleClick: () {},
             ),
           ],
         ),
@@ -80,33 +57,19 @@ class MedicalFileDepartments extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             MedicalFileDepartment(
-              depName: "insuranceApprovals",
-              depIcon: 'assets/images/insurance_approvals_icon.png',
+              depName: ConstRes.doctorsVisited,
+              depIcon: ConstRes.doctorIcon,
+              handleClick: () {},
             ),
             MedicalFileDepartment(
-              depName: "allergies",
-              depIcon: 'assets/images/allergies_icon.png',
+              depName: ConstRes.invoices,
+              depIcon: ConstRes.invoicesIcon,
+              handleClick: () {},
             ),
             MedicalFileDepartment(
-              depName: "immunization",
-              depIcon: 'assets/images/vaccinates_icon.png',
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            MedicalFileDepartment(
-              depName: "medicalReports",
-              depIcon: 'assets/images/medical_reports_icon.png',
-            ),
-            MedicalFileDepartment(
-              depName: "monthlyReports",
-              depIcon: 'assets/images/monthly_reports_icon.png',
-            ),
-            MedicalFileDepartment(
-              depName: "sickLeaves",
-              depIcon: 'assets/images/sick_leaves_icon.png',
+              depName: ConstRes.orders,
+              depIcon: ConstRes.orderIcon,
+              handleClick: () {},
             ),
           ],
         ),
@@ -114,16 +77,19 @@ class MedicalFileDepartments extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             MedicalFileDepartment(
-              depName: "walletBalance",
-              depIcon: 'assets/images/wallet_balance_icon.png',
+              depName: ConstRes.eyeTest,
+              depIcon: ConstRes.eyeTestIcon,
+              handleClick: () {},
             ),
             MedicalFileDepartment(
-              depName: "medicalReading",
-              depIcon: 'assets/images/medical_readings_icon.png',
+              depName: ConstRes.insuranceCards,
+              depIcon: ConstRes.insuranceCardsIcon,
+              handleClick: () {},
             ),
             MedicalFileDepartment(
-              depName: "smartWatch",
-              depIcon: 'assets/images/smart_watch_icon.png',
+              depName: ConstRes.insuranceUpdates,
+              depIcon: ConstRes.insuranceUpdatesIcon,
+              handleClick: () {},
             ),
           ],
         ),
@@ -131,20 +97,83 @@ class MedicalFileDepartments extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             MedicalFileDepartment(
-              depName: "askDoctor",
-              depIcon: 'assets/images/ask_doctor_icon.png',
+              depName: ConstRes.insuranceApprovals,
+              depIcon: ConstRes.insuranceApprovalsIcon,
+              handleClick: () {},
             ),
             MedicalFileDepartment(
-              depName: "internetConnection",
-              depIcon: 'assets/images/wifi_icon.png',
+              depName: ConstRes.allergies,
+              depIcon: ConstRes.allergiesIcon,
+              handleClick: () {},
             ),
             MedicalFileDepartment(
-              depName: "chatBot",
-              depIcon: 'assets/images/chatbot_icon.png',
+              depName: ConstRes.immunization,
+              depIcon: ConstRes.immunizationIcon,
+              handleClick: () {},
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            MedicalFileDepartment(
+              depName: ConstRes.medicalReports,
+              depIcon: ConstRes.medicalReportsIcon,
+              handleClick: () {},
+            ),
+            MedicalFileDepartment(
+              depName: ConstRes.monthlyReports,
+              depIcon: ConstRes.monthlyReportsIcon,
+              handleClick: () {},
+            ),
+            MedicalFileDepartment(
+              depName: ConstRes.sickLeaves,
+              depIcon: ConstRes.sickLeavesIcon,
+              handleClick: () {},
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            MedicalFileDepartment(
+              depName: ConstRes.walletBalance,
+              depIcon: ConstRes.walletBalanceIcon,
+              handleClick: () {},
+            ),
+            MedicalFileDepartment(
+              depName: ConstRes.medicalReading,
+              depIcon: ConstRes.medicalReadingIcon,
+              handleClick: () {},
+            ),
+            MedicalFileDepartment(
+              depName: ConstRes.smartWatch,
+              depIcon: ConstRes.smartWatchIcon,
+              handleClick: () {},
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            MedicalFileDepartment(
+              depName: ConstRes.askDoctor,
+              depIcon: ConstRes.doctorIcon,
+              handleClick: () {},
+            ),
+            MedicalFileDepartment(
+              depName: ConstRes.internetConnection,
+              depIcon: ConstRes.wifiIcon,
+              handleClick: () {},
+            ),
+            MedicalFileDepartment(
+              depName: ConstRes.chatBot,
+              depIcon: ConstRes.chatbotIcon,
+              handleClick: () {},
             ),
           ],
         ),
       ],
-    ); 
+    );
   }
 }

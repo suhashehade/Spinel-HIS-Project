@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:his_project/common/service.dart';
+import 'package:his_project/utils/consts_res.dart';
 
 class ServicesList extends StatelessWidget {
   const ServicesList({super.key});
@@ -13,33 +14,16 @@ class ServicesList extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Service(
-              serviceName: "reserveAppointment".tr,
-              serviceIcon: "assets/images/reserve_appointment_icon.png",
+              serviceName: ConstRes.reserveAppointment.tr,
+              serviceIcon: ConstRes.reserveAppointmentIcon,
             ),
             Service(
-              serviceName: "lifeCare".tr,
-              serviceIcon: "assets/images/life_care_icon.png",
+              serviceName: ConstRes.lifeCare.tr,
+              serviceIcon: ConstRes.lifeCareIcon,
             ),
             Service(
-              serviceName: "emergency".tr,
-              serviceIcon: "assets/images/emergency_icon.png",
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Service(
-              serviceName: "homeCare".tr,
-              serviceIcon: "assets/images/home_care_icon.png",
-            ),
-            Service(
-              serviceName: "comprehensiveExamination".tr,
-              serviceIcon: "assets/images/full_check_icon.png",
-            ),
-            Service(
-              serviceName: "pharmacy".tr,
-              serviceIcon: "assets/images/healthicons--pharmacy-negative.png",
+              serviceName: ConstRes.emergency.tr,
+              serviceIcon: ConstRes.emergencyIcon,
             ),
           ],
         ),
@@ -47,34 +31,16 @@ class ServicesList extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Service(
-              serviceName: "fileDetails".tr,
-              serviceIcon: "assets/images/uil--folder-medical.png",
+              serviceName: ConstRes.homeCare.tr,
+              serviceIcon: ConstRes.homeCareIcon,
             ),
             Service(
-              serviceName: "familyFiles".tr,
-              serviceIcon: "assets/images/noto-v1--family.png",
+              serviceName: ConstRes.comprehensiveExamination.tr,
+              serviceIcon: ConstRes.comprehensiveExaminationIcon,
             ),
             Service(
-              serviceName: "payment".tr,
-              serviceIcon: "assets/images/mage--visa-square.png",
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Service(
-              serviceName: "childrenVaccine".tr,
-              serviceIcon: "assets/images/vaccinates_icon.png",
-            ),
-            Service(
-              serviceName: "insuranceUpdate".tr,
-              serviceIcon: "assets/images/noto--identification-card.png",
-            ),
-            Service(
-              serviceName: "assignments".tr,
-              serviceIcon:
-                  "assets/images/material-symbols--assignment-return.png",
+              serviceName: ConstRes.pharmacy.tr,
+              serviceIcon: ConstRes.pharmacyIcon,
             ),
           ],
         ),
@@ -82,33 +48,16 @@ class ServicesList extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Service(
-              serviceName: "waterConsume".tr,
-              serviceIcon: "assets/images/ion--water.png",
+              serviceName: ConstRes.fileDetails.tr,
+              serviceIcon: ConstRes.fileDetailsIcon,
             ),
             Service(
-              serviceName: "calculator".tr,
-              serviceIcon: "assets/images/mdi--calculator.png",
+              serviceName: ConstRes.familyFiles.tr,
+              serviceIcon: ConstRes.familyFilesIcon,
             ),
             Service(
-              serviceName: "transformMesurments".tr,
-              serviceIcon: "assets/images/clarity--two-way-arrows-line.png",
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Service(
-              serviceName: "tasks".tr,
-              serviceIcon: "assets/images/fluent--tasks-app-20-filled.png",
-            ),
-            Service(
-              serviceName: "bloodDonation".tr,
-              serviceIcon: "assets/images/twemoji--drop-of-blood.png",
-            ),
-            Service(
-              serviceName: "covid19".tr,
-              serviceIcon: "assets/images/covid--covid19-virus-1.png",
+              serviceName: ConstRes.payment.tr,
+              serviceIcon: ConstRes.visaIcon,
             ),
           ],
         ),
@@ -116,16 +65,67 @@ class ServicesList extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Service(
-              serviceName: "virtualTour".tr,
-              serviceIcon: "assets/images/iconoir--view-360.png",
+              serviceName: ConstRes.childrenVaccine.tr,
+              serviceIcon: ConstRes.childrenVaccineIcon,
             ),
             Service(
-              serviceName: "smartWatches".tr,
-              serviceIcon: "assets/images/smart_watch_icon.png",
+              serviceName: ConstRes.insuranceUpdate.tr,
+              serviceIcon: ConstRes.cardIcon,
             ),
             Service(
-              serviceName: "parking".tr,
-              serviceIcon: "assets/images/icon-park-outline--parking.png",
+              serviceName: ConstRes.assignments.tr,
+              serviceIcon: ConstRes.assignmentsIcon,
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Service(
+              serviceName: ConstRes.waterConsume.tr,
+              serviceIcon: ConstRes.waterIcon,
+            ),
+            Service(
+              serviceName: ConstRes.calculator.tr,
+              serviceIcon: ConstRes.calculatorIcon,
+            ),
+            Service(
+              serviceName: ConstRes.transformMesurments.tr,
+              serviceIcon: ConstRes.twoWaysArrows,
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Service(
+              serviceName: ConstRes.tasks.tr,
+              serviceIcon: ConstRes.tasksIcon,
+            ),
+            Service(
+              serviceName: ConstRes.bloodDonation.tr,
+              serviceIcon: ConstRes.bloodIcon,
+            ),
+            Service(
+              serviceName: ConstRes.covid19.tr,
+              serviceIcon: ConstRes.covid19Icon,
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Service(
+              serviceName: ConstRes.virtualTour.tr,
+              serviceIcon: ConstRes.view360Icon,
+            ),
+            Service(
+              serviceName: ConstRes.smartWatches.tr,
+              serviceIcon: ConstRes.smartWatchIcon,
+            ),
+            Service(
+              serviceName: ConstRes.parking.tr,
+              serviceIcon: ConstRes.parkingIcon,
             ),
           ],
         ),
@@ -133,12 +133,12 @@ class ServicesList extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Service(
-              serviceName: "news".tr,
-              serviceIcon: "assets/images/twemoji--studio-microphone.png",
+              serviceName: ConstRes.news.tr,
+              serviceIcon: ConstRes.microphoneIcon,
             ),
             Service(
-              serviceName: "contactUs".tr,
-              serviceIcon: "assets/images/contact_icon.png",
+              serviceName: ConstRes.contactUs.tr,
+              serviceIcon: ConstRes.contactUsIcon,
             ),
           ],
         )

@@ -1,14 +1,13 @@
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:his_project/locale/my_locale.dart';
-import 'package:his_project/utils/pages_names.dart';
+import 'package:his_project/screens/home_screen/home_screen.dart';
 
 class MainScreenController extends GetxController {
-  RxString currentPage =
-      MyLocal().keys[Get.deviceLocale!.languageCode]!['home']!.obs;
+  Rx currentPage = const HomeScreen().obs;
   RxBool isHome = true.obs;
 
-  changeCurrentPage(String page) {
-    if (page != PagesNames.home) {
+  changeCurrentPage(Widget page) {
+    if (page != const HomeScreen()) {
       isHome.value = false;
     } else {
       isHome.value = true;
@@ -16,9 +15,8 @@ class MainScreenController extends GetxController {
     currentPage.value = page;
   }
 
-  @override
-  void onInit() {
-    currentPage = MyLocal().keys[Get.deviceLocale!.languageCode]!['home']!.obs;
-    super.onInit();
-  }
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  // }
 }

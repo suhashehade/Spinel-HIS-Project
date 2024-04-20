@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:his_project/common/custom_bottombar/custom_bottombar_controller.dart';
 import 'package:his_project/utils/colors_res.dart';
+import 'package:his_project/utils/consts_res.dart';
 
-class CustomBottomBar extends GetView<CustomBottombarController> {
+class CustomBottomBar extends StatelessWidget {
   const CustomBottomBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Get.put(CustomBottombarController());
+    CustomBottombarController customBottombarController =
+        Get.put(CustomBottombarController());
 
     return GetX(builder: (CustomBottombarController controller) {
       return Container(
@@ -32,37 +34,38 @@ class CustomBottomBar extends GetView<CustomBottombarController> {
               icon: const Icon(
                 Icons.file_present,
               ),
-              label: "medicalFile".tr,
+              label: ConstRes.medicalFile.tr,
             ),
             BottomNavigationBarItem(
               icon: const Icon(
                 Icons.family_restroom,
               ),
-              label: "familyFile".tr,
+              label: ConstRes.familyFile.tr,
             ),
             BottomNavigationBarItem(
               icon: const Icon(
                 Icons.home,
               ),
-              label: "home".tr,
+              label: ConstRes.home.tr,
             ),
             BottomNavigationBarItem(
               icon: const Icon(
                 Icons.calendar_month,
               ),
-              label: "tasks".tr,
+              label: ConstRes.tasks.tr,
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.help,
                 color: Color(CustomColors.white),
               ),
-              label: "help".tr,
+              label: ConstRes.help.tr,
             ),
           ],
           onTap: (index) {
-            controller.changeIndex(index);
-            controller.switchPages(index);
+            Get.back();
+            customBottombarController.changeIndex(index);
+            customBottombarController.switchPages(index);
           },
         ),
       );

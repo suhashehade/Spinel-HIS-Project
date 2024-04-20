@@ -10,7 +10,9 @@ class SubAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(10.0),
+      margin: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 10.0),
+      padding: const EdgeInsets.all(5.0),
+      height: 50.0,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topRight,

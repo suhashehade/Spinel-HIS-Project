@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
+import 'package:his_project/utils/consts_res.dart';
 import 'package:his_project/utils/pages_names.dart';
 
 class PreLoginScreenController extends GetxController {
@@ -7,11 +8,16 @@ class PreLoginScreenController extends GetxController {
 
   yesOption() {
     loginMethod.value = 1;
-    if (PrefsService.to.getString("token") == null) {
-      Get.offAndToNamed(PagesNames.loginOptions, arguments: ['reserveArgs']);
+    if (PrefsService.to.getString(ConstRes.tokenKey) == null) {
+      Get.offAndToNamed(PagesNames.loginOptions,
+          arguments: [ConstRes.reserveArgsKey]);
     } else {
-      PrefsService.to.setInt("afterLogin", 1);
-      Get.offAndToNamed(PagesNames.reserveAssurence);
+      if (PrefsService.to.getInt(ConstRes.afterLoginKey) == 8) {
+        Get.toNamed(PagesNames.medicalFile1);
+      } else {
+        PrefsService.to.setInt(ConstRes.afterLoginKey, 1);
+        Get.offAndToNamed(PagesNames.reserveAssurence);
+      }
     }
   }
 

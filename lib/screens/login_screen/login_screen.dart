@@ -2,18 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:his_project/common/custom_button.dart';
 import 'package:his_project/common/custom_text_field.dart';
+import 'package:his_project/screens/login_options_screen/login_options_screen_controller.dart';
 import 'package:his_project/screens/login_screen/login_screen_controller.dart';
 import 'package:his_project/utils/colors_res.dart';
+import 'package:his_project/utils/consts_res.dart';
 
 // ignore: must_be_immutable
-class LoginScreen extends GetView<LoginScreenController> {
+class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
   final GlobalKey<FormState> _keyForm = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    Get.put(LoginScreenController());
-
+    LoginScreenController loginScreenController =
+        Get.put(LoginScreenController());
+    LoginOptionsScreenController loginOptionsScreenController =
+        Get.put(LoginOptionsScreenController());
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
@@ -21,13 +25,13 @@ class LoginScreen extends GetView<LoginScreenController> {
           children: [
             Container(
               padding: const EdgeInsets.all(10.0),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft,
                   colors: [
-                    Colors.lightGreen,
-                    Colors.lightBlue,
+                    Color(CustomColors.lightGreen),
+                    Color(CustomColors.lightBlue),
                   ],
                 ),
               ),
@@ -35,119 +39,134 @@ class LoginScreen extends GetView<LoginScreenController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "login".tr,
+                    ConstRes.login.tr,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20.0,
                     ),
                   ),
-                  const Icon(
+                  Icon(
                     Icons.home,
                     size: 30.0,
-                    color: Colors.white,
+                    color: Color(CustomColors.white),
                   ),
                 ],
               ),
             ),
             const SizedBox(
-              height: 50.0,
+              height: 10.0,
             ),
-            Container(
-              padding: const EdgeInsets.all(10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(0),
-                        height: 40.0,
-                        width: 40.0,
-                        child:
-                            Image.asset("assets/images/login_process_icon.png"),
-                      ),
-                      Text("enterDetails".tr)
-                    ],
-                  ),
-                  Container(
-                    width: 70.0,
-                    height: 1.0,
-                    color: Color(CustomColors.lightBlue),
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(0),
-                        height: 40.0,
-                        width: 40.0,
-                        child:
-                            Image.asset("assets/images/login_process_icon.png"),
-                      ),
-                      Text("referenecInfo".tr)
-                    ],
-                  ),
-                  Container(
-                    width: 70.0,
-                    height: 1.0,
-                    color: Color(CustomColors.lightBlue),
-                  ),
-                  Expanded(
-                    child: Column(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    SizedBox(
+                      height: 100.0,
+                      width: 100.0,
+                      child: Image.asset(ConstRes.logoIcon),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          padding: const EdgeInsets.all(0),
-                          height: 40.0,
-                          width: 40.0,
-                          child: Image.asset(
-                              "assets/images/login_process_icon.png"),
+                        Text(
+                          ConstRes.welcome.tr,
+                          style: TextStyle(
+                            color: Color(
+                              CustomColors.lightBlue,
+                            ),
+                            fontSize: 14.0,
+                          ),
                         ),
-                        Text("otherDetails".tr),
+                        Text(
+                          ConstRes.appName,
+                          style: TextStyle(
+                            color: Color(
+                              CustomColors.lightBlue,
+                            ),
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          ConstRes.patientApp.tr,
+                          style: TextStyle(
+                            color: Color(
+                              CustomColors.lightBlue,
+                            ),
+                            fontSize: 14.0,
+                          ),
+                        ),
                       ],
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    loginOptionsScreenController.option.value == 1
+                        ? ConstRes.loginIdSentence.tr
+                        : ConstRes.loginMRNSentence.tr,
+                    style: TextStyle(
+                      color: Color(
+                        CustomColors.lightBlue,
+                      ),
+                      fontSize: 20.0,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             Container(
-              padding: const EdgeInsets.all(50.0),
+              padding: const EdgeInsets.all(20.0),
               child: Form(
                 key: _keyForm,
                 child: Column(
                   children: <Widget>[
-                    controller.loginOptionsScreenController.option.value == 1
+                    loginScreenController
+                                .loginOptionsScreenController.option.value ==
+                            1
                         ? CustomTextField(
-                            validator: controller.validate,
-                            controller: controller.nationalIdController,
+                            validator: loginScreenController.validate,
+                            controller:
+                                loginScreenController.nationalIdController,
                             textInputType: TextInputType.name,
-                            labelText: 'nationalId'.tr,
+                            labelText: ConstRes.nationalId.tr,
                             obscureText: false,
+                            onTap: () {},
                           )
                         : CustomTextField(
-                            validator: controller.validate,
-                            controller: controller.mrnController,
+                            validator: loginScreenController.validate,
+                            controller: loginScreenController.mrnController,
                             textInputType: TextInputType.name,
-                            labelText: 'mrn'.tr,
+                            labelText: ConstRes.mrn.tr,
                             obscureText: false,
+                            onTap: () {},
                           ),
                     const SizedBox(
                       height: 20.0,
                     ),
                     CustomTextField(
-                      validator: controller.validate,
-                      controller: controller.phoneController,
+                      validator: loginScreenController.validate,
+                      controller: loginScreenController.phoneController,
                       textInputType: TextInputType.name,
-                      labelText: 'phone'.tr,
+                      labelText: ConstRes.phone.tr,
                       obscureText: false,
+                      onTap: () {},
                     ),
                     const SizedBox(
                       height: 20.0,
                     ),
                     CustomTextField(
-                      validator: controller.validate,
-                      controller: controller.passwordController,
+                      validator: loginScreenController.validate,
+                      controller: loginScreenController.passwordController,
                       textInputType: TextInputType.visiblePassword,
-                      labelText: 'password'.tr,
+                      labelText: ConstRes.password.tr,
                       obscureText: true,
+                      onTap: () {},
                     ),
                     const SizedBox(
                       height: 10.0,
@@ -159,17 +178,20 @@ class LoginScreen extends GetView<LoginScreenController> {
                           children: [
                             Obx(
                               () => Checkbox(
-                                value: controller.isChecked.value,
-                                onChanged: (value) => controller.rememberMe(
-                                    controller.phoneController.text, value),
+                                value: loginScreenController.isChecked.value,
+                                onChanged: (value) =>
+                                    loginScreenController.rememberMe(
+                                        loginScreenController
+                                            .phoneController.text,
+                                        value),
                               ),
                             ),
-                            Text("rememberMe".tr),
+                            Text(ConstRes.rememberMe.tr),
                           ],
                         ),
                         InkWell(
                           onTap: () {},
-                          child: Text("forgetPass".tr),
+                          child: Text(ConstRes.forgetPass.tr),
                         ),
                       ],
                     ),
@@ -177,13 +199,13 @@ class LoginScreen extends GetView<LoginScreenController> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         CustomButton(
-                          title: "login".tr,
-                          handle: controller.handleLogin,
+                          title: ConstRes.login.tr,
+                          handle: loginScreenController.handleLogin,
                           formKey: _keyForm,
                         ),
                         CustomButton(
-                          title: "cancel".tr,
-                          handle: controller.handleLogin,
+                          title: ConstRes.cancel.tr,
+                          handle: loginScreenController.handleLogin,
                           formKey: _keyForm,
                         ),
                       ],
@@ -193,8 +215,8 @@ class LoginScreen extends GetView<LoginScreenController> {
                     ),
                     Obx(
                       () => Text(
-                        controller.error.value,
-                        style: const TextStyle(color: Colors.red),
+                        loginScreenController.error.value,
+                        style: TextStyle(color: Color(CustomColors.red)),
                       ),
                     ),
                   ],

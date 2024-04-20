@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:his_project/common/custom_app_bar.dart';
+import 'package:his_project/common/sidebar.dart';
 import 'package:his_project/screens/patient_appointments_screen/patient_appointments_screen_controller.dart';
+import 'package:his_project/services/shared_prefs_service.dart';
 import 'package:his_project/utils/consts_res.dart';
 import 'package:intl/intl.dart';
 
@@ -13,6 +15,7 @@ class AppointmentDetailsScreen extends StatelessWidget {
     PatientAppointmentsScreenController patientAppointmentsScreenController =
         Get.put(PatientAppointmentsScreenController());
     return Scaffold(
+        drawer: const CustomSidebar(),
         appBar: const CustomAppBar(backWidget: Text("")),
         body: Container(
           padding: const EdgeInsets.all(20.0),
@@ -21,30 +24,40 @@ class AppointmentDetailsScreen extends StatelessWidget {
               const SizedBox(
                 height: 20.0,
               ),
-              Center(child: Text("appointmentDetails".tr)),
+              Center(child: Text(ConstRes.appointmentDetails.tr)),
               const SizedBox(
                 height: 20.0,
               ),
               Text(
-                  "${'patient'.tr}: ${patientAppointmentsScreenController.appointmetDetails.value.keys[ConstRes.languageCode]!['patientName']!}"),
+                "${ConstRes.patient.tr}: ${patientAppointmentsScreenController.appointmetDetails.value.keys[PrefsService.to.getString(ConstRes.langkey) ?? Get.locale?.languageCode]![ConstRes.patientNameKey]!}",
+              ),
               Text(
-                  "${'doctor'.tr}: ${patientAppointmentsScreenController.appointmetDetails.value.keys[ConstRes.languageCode]!['doctorName']!}"),
+                "${ConstRes.doctor.tr}: ${patientAppointmentsScreenController.appointmetDetails.value.keys[PrefsService.to.getString(ConstRes.langkey) ?? Get.locale?.languageCode]![ConstRes.doctorNameKey]!}",
+              ),
               Text(
-                  "${'clinic'.tr}: ${patientAppointmentsScreenController.appointmetDetails.value.keys[ConstRes.languageCode]!['departmentName']!}"),
+                "${ConstRes.clinic.tr}: ${patientAppointmentsScreenController.appointmetDetails.value.keys[PrefsService.to.getString(ConstRes.langkey) ?? Get.locale?.languageCode]![ConstRes.departmentNameKey]!}",
+              ),
               Text(
-                  "${'branch'.tr}: ${patientAppointmentsScreenController.appointmetDetails.value.keys[ConstRes.languageCode]!['branchName']!}"),
+                "${ConstRes.branch.tr}: ${patientAppointmentsScreenController.appointmetDetails.value.keys[PrefsService.to.getString(ConstRes.langkey) ?? Get.locale?.languageCode]![ConstRes.branchNameKey]!}",
+              ),
               Text(
-                  "${'reason'.tr}: ${patientAppointmentsScreenController.appointmetDetails.value.keys[ConstRes.languageCode]!['reasonName']!}"),
+                "${ConstRes.reason.tr}: ${patientAppointmentsScreenController.appointmetDetails.value.keys[PrefsService.to.getString(ConstRes.langkey) ?? Get.locale?.languageCode]![ConstRes.reasonNameKey]!}",
+              ),
               Text(
-                  "${'status'.tr}: ${patientAppointmentsScreenController.appointmetDetails.value.keys[ConstRes.languageCode]!['statusName']!}"),
+                "${ConstRes.status.tr}: ${patientAppointmentsScreenController.appointmetDetails.value.keys[PrefsService.to.getString(ConstRes.langkey) ?? Get.locale?.languageCode]![ConstRes.statusNameKey]!}",
+              ),
               Text(
-                  "${'date'.tr}: ${DateFormat.yMMMd().format(DateTime.parse(patientAppointmentsScreenController.appointmetDetails.value.fromDate))}"),
+                "${ConstRes.date.tr}: ${DateFormat.yMMMd().format(DateTime.parse(patientAppointmentsScreenController.appointmetDetails.value.fromDate))}",
+              ),
               Text(
-                  "${'fromTime'.tr}: ${DateFormat('HH:mm a').format(DateTime.parse(patientAppointmentsScreenController.appointmetDetails.value.fromDate))}"),
+                "${ConstRes.fromTime.tr}: ${DateFormat(ConstRes.timePattern1).format(DateTime.parse(patientAppointmentsScreenController.appointmetDetails.value.fromDate))}",
+              ),
               Text(
-                  "${'toTime'.tr}: ${DateFormat('HH:mm a').format(DateTime.parse(patientAppointmentsScreenController.appointmetDetails.value.toDate))}"),
+                "${ConstRes.toTime.tr}: ${DateFormat(ConstRes.timePattern1).format(DateTime.parse(patientAppointmentsScreenController.appointmetDetails.value.toDate))}",
+              ),
               Text(
-                  "${'notes'.tr}: ${patientAppointmentsScreenController.appointmetDetails.value.note}"),
+                "${ConstRes.notes.tr}: ${patientAppointmentsScreenController.appointmetDetails.value.note}",
+              ),
             ],
           ),
         ));

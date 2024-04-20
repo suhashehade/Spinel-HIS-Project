@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:his_project/utils/colors_res.dart';
+import 'package:his_project/utils/consts_res.dart';
 import 'package:intl/intl.dart';
 
 class Weather extends StatelessWidget {
@@ -21,7 +22,7 @@ class Weather extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "--",
+                ConstRes.weatherDash,
                 style: TextStyle(
                   color: Color(CustomColors.white),
                   fontWeight: FontWeight.bold,
@@ -42,7 +43,7 @@ class Weather extends StatelessWidget {
                 height: 10.0,
               ),
               Text(
-                "weatherMesurments".tr,
+                ConstRes.weatherMesurments.tr,
                 style: TextStyle(
                   color: Color(CustomColors.white),
                   fontWeight: FontWeight.bold,
@@ -53,7 +54,7 @@ class Weather extends StatelessWidget {
                 height: 10.0,
               ),
               Text(
-                "weatherSentence".tr,
+                ConstRes.weatherSentence.tr,
                 style: TextStyle(
                   color: Color(CustomColors.white),
                   fontSize: 12.0,
@@ -64,8 +65,7 @@ class Weather extends StatelessWidget {
           SizedBox(
             height: 100.0,
             width: 100.0,
-            child: Image.asset(
-                "assets/images/fluent--weather-partly-cloudy-day-20-regular.png"),
+            child: Image.asset(ConstRes.weatherIcon),
           )
         ],
       ),

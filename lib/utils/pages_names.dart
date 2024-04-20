@@ -15,7 +15,10 @@ class PagesNames {
   static String reserveAssurence = '/reserveAssurence';
   static String patientAppiontments = '/patientAppiontments';
   static String allEServices = "/allEServices";
-  static String doctorsList = 'doctorsList';
+  static String languagesScreen = "/languagesScreen";
+  static String doctorsList = '/doctorsList';
+  static String medicalFile1 = '/medicalFile'.tr;
+  static String doctorsList1 = 'doctorsList';
 
   static String registration1 = 'registration';
   static String reserveAppointment1 = 'reserveAppointment';

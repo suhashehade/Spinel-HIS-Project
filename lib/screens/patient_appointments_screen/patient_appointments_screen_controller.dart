@@ -6,6 +6,7 @@ import 'package:his_project/models/appointment/appointment_details.dart';
 import 'package:his_project/models/appointment/patient_appointments.dart';
 import 'package:his_project/screens/appointment_details_screen/appointment_details_screen.dart';
 import 'package:his_project/services/api_service.dart';
+import 'package:his_project/services/shared_prefs_service.dart';
 import 'package:his_project/utils/colors_res.dart';
 import 'package:his_project/utils/consts_res.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
@@ -35,8 +36,9 @@ class PatientAppointmentsScreenController extends GetxController {
                 id: a.id,
                 startTime: DateTime.parse(a.fromDate),
                 endTime: DateTime.parse(a.toDate),
-                subject:
-                    a.keys[ConstRes.languageCode]!['statusName']!.toString(),
+                subject: a.keys[PrefsService.to.getString(ConstRes.langkey) ??
+                        Get.locale?.languageCode]![ConstRes.statusNameKey]!
+                    .toString(),
                 color: Color(CustomColors.pacificBlue),
                 recurrenceId: response.body,
               ),

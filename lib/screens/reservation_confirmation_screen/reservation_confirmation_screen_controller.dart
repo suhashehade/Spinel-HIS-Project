@@ -4,6 +4,7 @@ import 'package:his_project/screens/main_screen/main_screen_controller.dart';
 import 'package:his_project/services/api_service.dart';
 import 'package:get/get.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
+import 'package:his_project/utils/consts_res.dart';
 import 'package:his_project/utils/pages_names.dart';
 
 class ReservationConfirmationScreenController extends GetxController {
@@ -21,7 +22,7 @@ class ReservationConfirmationScreenController extends GetxController {
       doctorScreenController.availableAppointments.removeWhere((aa) =>
           doctorScreenController.makeDate(aa.fromTime).toIso8601String() ==
           reserveArgs.fromDate);
-      PrefsService.to.setInt("afterLogin", 0);
+      PrefsService.to.setInt(ConstRes.afterLoginKey, 0);
       doctorScreenController.reserveArguments.value.fromDate = '';
       Get.offAndToNamed(PagesNames.patientAppiontments);
     }

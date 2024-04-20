@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:his_project/services/shared_prefs_service.dart';
+import 'package:his_project/screens/home_screen/home_screen_controller.dart';
 import 'package:his_project/utils/colors_res.dart';
+import 'package:his_project/utils/consts_res.dart';
 
 class CallToAction extends StatelessWidget {
   const CallToAction({super.key});
 
   @override
   Widget build(BuildContext context) {
+    HomeScreenController homeScreenController = Get.put(HomeScreenController());
     return Container(
-      padding: const EdgeInsets.all(10.0),
-      height: 150.0,
-      width: 500.0,
+      padding: const EdgeInsets.all(5.0),
+      height: 140.0,
+      width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topRight,
@@ -28,9 +30,9 @@ class CallToAction extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.all(0),
-            width: 200,
-            height: 100,
-            child: Image.asset("assets/images/call_to_action_icon.png"),
+            width: MediaQuery.of(context).size.width * 0.20,
+            height: MediaQuery.of(context).size.width * 0.20,
+            child: Image.asset(ConstRes.homeCallToAcationIcon),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -40,37 +42,36 @@ class CallToAction extends StatelessWidget {
                 height: 10.0,
               ),
               Text(
-                "myMedicalFile".tr,
+                ConstRes.myMedicalFile.tr,
                 textAlign: TextAlign.start,
-                style: const TextStyle(
-                  fontSize: 16.0,
-                  color: Colors.white,
+                style: TextStyle(
+                  fontSize: 15.0,
+                  color: Color(CustomColors.white),
                   fontWeight: FontWeight.bold,
                 ),
               ),
               SizedBox(
-                width: 170.0,
+                width: 160.0,
                 child: Text(
-                  "callToAction".tr,
+                  ConstRes.callToAction.tr,
                   textAlign: TextAlign.start,
-                  style: const TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.white,
+                  style: TextStyle(
+                    fontSize: 15.0,
+                    color: Color(CustomColors.white),
                     height: 1.0,
                   ),
                 ),
               ),
               MaterialButton(
-                color: Colors.white,
+                color: Color(CustomColors.white),
                 height: 20,
                 onPressed: () {
-                  PrefsService.to.setInt("afterLogin", 8);
-                  Get.toNamed('/preLogin');
+                  homeScreenController.login();
                 },
                 child: Text(
-                  "login".tr,
+                  ConstRes.login.tr,
                   style: TextStyle(
-                    fontSize: 16.0,
+                    fontSize: 15.0,
                     color: Color(CustomColors.pacificBlue),
                   ),
                 ),

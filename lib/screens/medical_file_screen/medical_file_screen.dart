@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:his_project/screens/medical_file_screen/widgets/call_to_action.dart';
 import 'package:his_project/screens/medical_file_screen/widgets/medical_file_departments.dart';
 import 'package:his_project/utils/colors_res.dart';
+import 'package:his_project/utils/consts_res.dart';
 
 class MedicalFileScreen extends StatelessWidget {
   const MedicalFileScreen({super.key});
@@ -21,13 +22,13 @@ class MedicalFileScreen extends StatelessWidget {
             ),
             Container(
               padding: const EdgeInsets.all(10.0),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft,
                   colors: [
-                    Colors.lightGreen,
-                    Colors.lightBlue,
+                    Color(CustomColors.lightGreen),
+                    Color(CustomColors.lightBlue),
                   ],
                 ),
               ),
@@ -37,7 +38,7 @@ class MedicalFileScreen extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        "medicalFile".tr,
+                        ConstRes.medicalFile.tr,
                         style: TextStyle(
                           color: Color(CustomColors.white),
                           fontSize: 20.0,
@@ -68,7 +69,7 @@ class MedicalFileScreen extends StatelessWidget {
               child: SizedBox(
                 width: 500.0,
                 child: Text(
-                  "medicalFile".tr,
+                  ConstRes.medicalFile.tr,
                   style: const TextStyle(fontSize: 20.0),
                   textAlign: TextAlign.start,
                 ),

@@ -3,16 +3,12 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:his_project/models/appointment/appointment_details.dart';
-import 'package:his_project/models/appointment/available_appointment.dart';
 import 'package:his_project/models/appointment/available_appointments_days.dart';
-import 'package:his_project/models/branch/branch.dart';
-import 'package:his_project/models/clinic/clinic.dart';
-import 'package:his_project/models/doctor/branch_dep_doctor.dart';
-import 'package:his_project/models/doctor/doctor_info.dart';
 import 'package:his_project/models/patient/patient.dart';
 import 'package:his_project/models/user/login.dart';
 import 'package:his_project/screens/login_options_screen/login_options_screen_controller.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
+import 'package:his_project/utils/consts_res.dart';
 import 'package:his_project/utils/urls.dart';
 import 'package:http/http.dart' as http;
 import '../models/appointment/reserve_arguments.dart';
@@ -26,8 +22,8 @@ class Api {
       Get.put(LoginOptionsScreenController());
 
   static Map<String, String> getHeaders(Map<String, String> content) {
-    if (PrefsService.to.getString("token") != null) {
-      String? token = PrefsService.to.getString("token");
+    if (PrefsService.to.getString(ConstRes.tokenKey) != null) {
+      String? token = PrefsService.to.getString(ConstRes.tokenKey);
       headers['Authorization'] = 'Bearer $token';
     }
     if (content.isNotEmpty) {
@@ -56,9 +52,7 @@ class Api {
           "${Urls.getAvailableAppointments}?DoctorId=$doctorId&DepartmentId=$depId&BranchId=$branchId&CurrentDate=$currenDate"),
       headers: headers,
     );
-    return (json.decode(response.body)['lstData'] as List)
-        .map((tagJson) => AvailableAppointment.fromJson(tagJson))
-        .toList();
+    return response;
   }
 
   static Future getDoctorInfoAPI(doctorId) async {
@@ -66,7 +60,7 @@ class Api {
       Uri.parse("${Urls.getDoctorInfo}Id=$doctorId"),
       headers: headers,
     );
-    return DoctorInfo.fromJson(json.decode(response.body));
+    return response;
   }
 
   static Future getDoctorsAPI(branchId, depId) async {
@@ -75,9 +69,7 @@ class Api {
           "${Urls.getDoctors}BranchId=$branchId&DepartmentId=$depId&UserTypeId=2"),
       headers: headers,
     );
-    return (json.decode(response.body) as List)
-        .map((tagJson) => Doctor.fromJson(tagJson))
-        .toList();
+    return response;
   }
 
   static Future getClinicsAPI() async {
@@ -86,9 +78,7 @@ class Api {
       headers: getHeaders(headers),
     );
 
-    return (json.decode(response.body)['lstData'] as List)
-        .map((tagJson) => Clinic.fromJson(tagJson))
-        .toList();
+    return response;
   }
 
   static Future getBranchesAPI(depId) async {
@@ -97,15 +87,13 @@ class Api {
       headers: Api.getHeaders({}),
     );
 
-    return (json.decode(response.body) as List)
-        .map((tagJson) => Branch.fromJson(tagJson))
-        .toList();
+    return response;
   }
 
   static Future addAppointmentAPI(ReserveArguments reserveArgs) async {
     headers["accept"] = "*/*";
-    if (PrefsService.to.getString("token") != null) {
-      String? token = PrefsService.to.getString("token");
+    if (PrefsService.to.getString(ConstRes.tokenKey) != null) {
+      String? token = PrefsService.to.getString(ConstRes.tokenKey);
       headers['Authorization'] = 'Bearer $token';
     }
 
@@ -153,8 +141,8 @@ class Api {
   }
 
   static Future getPatientAppointments() async {
-    if (PrefsService.to.getString("token") != null) {
-      String? token = PrefsService.to.getString("token");
+    if (PrefsService.to.getString(ConstRes.tokenKey) != null) {
+      String? token = PrefsService.to.getString(ConstRes.tokenKey);
       headers['Authorization'] = 'Bearer $token';
     }
     http.Response response = await http.get(
@@ -165,8 +153,8 @@ class Api {
   }
 
   static Future<AppointmentDetails> getAppointmentDetails(int id) async {
-    if (PrefsService.to.getString("token") != null) {
-      String? token = PrefsService.to.getString("token");
+    if (PrefsService.to.getString(ConstRes.tokenKey) != null) {
+      String? token = PrefsService.to.getString(ConstRes.tokenKey);
       headers['Authorization'] = 'Bearer $token';
     }
     http.Response response = await http.get(
@@ -177,8 +165,8 @@ class Api {
   }
 
   static Future<Patient> getPatients(String phone) async {
-    if (PrefsService.to.getString("token") != null) {
-      String? token = PrefsService.to.getString("token");
+    if (PrefsService.to.getString(ConstRes.tokenKey) != null) {
+      String? token = PrefsService.to.getString(ConstRes.tokenKey);
       headers['Authorization'] = 'Bearer $token';
     }
     http.Response response = await http.get(

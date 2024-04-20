@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:his_project/utils/colors_res.dart';
 
 // ignore: must_be_immutable
 class CustomButton extends StatelessWidget {
@@ -14,18 +15,18 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ButtonStyle(
-        minimumSize: MaterialStateProperty.all(const Size(150.0, 40.0)),
-        shape: MaterialStateProperty.all(
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0))),
-      ),
+    return MaterialButton(
+      color: Color(CustomColors.lightBlue),
+      minWidth: MediaQuery.of(context).size.width * 0.40,
       onPressed: () async {
         if (formKey.currentState!.validate()) {
           await handle();
         }
       },
-      child: Text(title),
+      child: Text(
+        title,
+        style: TextStyle(color: Color(CustomColors.white)),
+      ),
     );
   }
 }
