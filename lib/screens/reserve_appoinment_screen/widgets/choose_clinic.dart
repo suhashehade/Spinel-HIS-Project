@@ -61,8 +61,8 @@ class ChooseClinic extends StatelessWidget {
                             width: MediaQuery.of(context).size.width * 0.05,
                             child: reserveAppointmentScreenController
                                     .isClinicExpanded.value
-                                ? Image.asset(ConstRes.arrowDownward)
-                                : Image.asset(ConstRes.arrowUpward),
+                                ? Image.asset(ConstRes.arrowUpward)
+                                : Image.asset(ConstRes.arrowDownward),
                           ),
                         ],
                       ),
@@ -146,202 +146,9 @@ class ChooseClinic extends StatelessWidget {
             const SizedBox(
               height: 10.0,
             ),
-
-            // Obx(
-            //   () => SingleChildScrollView(
-            //     child: ExpansionPanelList(
-            //         elevation: 0,
-            //         expansionCallback: (int index, bool isExpanded) {
-            //           reserveAppointmentScreenController.toggleExpanded(
-            //               index, isExpanded);
-            //         },
-            //         children: [
-            //           ExpansionPanel(
-            //             headerBuilder:
-            //                 (BuildContext context, bool isExpanded) {
-            //               return InkWell(
-            //                 onTap: () {
-            //                   reserveAppointmentScreenController
-            //                       .toggleExpanded(0, true);
-            //                 },
-            //                 child: ListTile(
-            //                   title: TextFieldTapRegion(
-            //                     child: Row(
-            //                       mainAxisAlignment:
-            //                           MainAxisAlignment.spaceBetween,
-            //                       children: [
-            //                         Row(
-            //                           children: [
-            //                             Icon(
-            //                               Icons.search,
-            //                               color:
-            //                                   Color(CustomColors.lightBlue),
-            //                             ),
-            //                             Text(
-            //                               ConstRes.clinic.tr,
-            //                               style: TextStyle(
-            //                                   color: Color(
-            //                                       CustomColors.lightBlue)),
-            //                               textAlign: TextAlign.end,
-            //                             ),
-            //                           ],
-            //                         ),
-            //                         Text(reserveAppointmentScreenController
-            //                             .clinicName.value),
-            //                       ],
-            //                     ),
-            //                   ),
-            //                 ),
-            //               );
-            //             },
-            //             body: Container(
-            //               height: MediaQuery.of(context).size.height * 0.25,
-            //               padding: const EdgeInsets.all(10),
-            //               child: GridView.count(
-            //                 scrollDirection: Axis.vertical,
-            //                 crossAxisCount: 3,
-            //                 crossAxisSpacing: 5.0,
-            //                 children: reserveAppointmentScreenController
-            //                     .clinics
-            //                     .map((c) => InkWell(
-            //                           onTap: () async {
-            //                             reserveAppointmentScreenController
-            //                                 .handleBranches(c);
-            //                           },
-            //                           child: Container(
-            //                             height: MediaQuery.of(context)
-            //                                     .size
-            //                                     .height *
-            //                                 0.75,
-            //                             width: MediaQuery.of(context)
-            //                                     .size
-            //                                     .width *
-            //                                 0.50,
-            //                             decoration: BoxDecoration(
-            //                               color: Color(CustomColors.grey),
-            //                               borderRadius:
-            //                                   BorderRadius.circular(5.0),
-            //                             ),
-            //                             child: Center(
-            //                               child: Column(
-            //                                 children: [
-            //                                   Container(
-            //                                       padding:
-            //                                           const EdgeInsets.all(
-            //                                               10.0),
-            //                                       height: 60.0,
-            //                                       width: 50.0,
-            //                                       child: SvgPicture.asset(
-            //                                         ConstRes.clinicImageIcon,
-            //                                         height: 50.0,
-            //                                         width: 50.0,
-            //                                         color: Color(
-            //                                           CustomColors.lightBlue,
-            //                                         ),
-            //                                       )),
-            //                                   Text(
-            //                                     c.keys[PrefsService.to
-            //                                                 .getString(ConstRes
-            //                                                     .langkey) ??
-            //                                             Get.locale
-            //                                                 ?.languageCode]![
-            //                                         ConstRes.nameKey]!,
-            //                                     style: TextStyle(
-            //                                         color: Color(
-            //                                       CustomColors.lightBlue,
-            //                                     )),
-            //                                   ),
-            //                                 ],
-            //                               ),
-            //                             ),
-            //                           ),
-            //                         ))
-            //                     .toList(),
-            //               ),
-            //             ),
-            //             isExpanded: reserveAppointmentScreenController
-            //                 .isClinicExpanded.value,
-            //           ),
-            //           if (reserveAppointmentScreenController
-            //               .isClinicSelected.value)
-            //             ExpansionPanel(
-            //               headerBuilder:
-            //                   (BuildContext context, bool isExpanded) {
-            //                 return ListTile(
-            //                   title: Row(
-            //                     children: [
-            //                       Icon(
-            //                         Icons.search,
-            //                         color: Color(CustomColors.lightBlue),
-            //                       ),
-            //                       Text(
-            //                         ConstRes.branch.tr,
-            //                         style: TextStyle(
-            //                             color: Color(CustomColors.lightBlue)),
-            //                         textAlign: TextAlign.start,
-            //                       ),
-            //                     ],
-            //                   ),
-            //                 );
-            //               },
-            //               body: Container(
-            //                 height: 120.0,
-            //                 padding: const EdgeInsets.all(10),
-            //                 child: GridView.count(
-            //                   crossAxisCount: 4,
-            //                   crossAxisSpacing: 5.0,
-            //                   children: reserveAppointmentScreenController
-            //                       .branches
-            //                       .map((b) {
-            //                     return InkWell(
-            //                       onTap: () {
-            //                         reserveAppointmentScreenController
-            //                             .goToDoctorsList(b);
-            //                       },
-            //                       child: Container(
-            //                         decoration: BoxDecoration(
-            //                           color: Color(CustomColors.grey),
-            //                           borderRadius:
-            //                               BorderRadius.circular(5.0),
-            //                         ),
-            //                         child: Container(
-            //                           padding: const EdgeInsets.all(10.0),
-            //                           child: Column(
-            //                             children: [
-            //                               Icon(
-            //                                 Icons.home,
-            //                                 size: 40.0,
-            //                                 color:
-            //                                     Color(CustomColors.lightBlue),
-            //                               ),
-            //                               Text(
-            //                                 b.keys[PrefsService.to.getString(
-            //                                             ConstRes.langkey) ??
-            //                                         Get.locale
-            //                                             ?.languageCode]![
-            //                                     ConstRes.labelKey]!,
-            //                                 style: TextStyle(
-            //                                     color: Color(
-            //                                   CustomColors.lightBlue,
-            //                                 )),
-            //                               ),
-            //                             ],
-            //                           ),
-            //                         ),
-            //                       ),
-            //                     );
-            //                   }).toList(),
-            //                 ),
-            //               ),
-            //               isExpanded: reserveAppointmentScreenController
-            //                   .isDoctorExpanded.value,
-            //             )
-            //         ]),
-            //   ),
-            // ),
-
             Obx(
-              () => reserveAppointmentScreenController.isClinicSelected.value
+              () => reserveAppointmentScreenController.isClinicSelected.value &&
+                      !reserveAppointmentScreenController.isClinicExpanded.value
                   ? Column(children: [
                       Container(
                         decoration: BoxDecoration(
@@ -372,8 +179,8 @@ class ChooseClinic extends StatelessWidget {
                                 width: MediaQuery.of(context).size.width * 0.05,
                                 child: reserveAppointmentScreenController
                                         .isBranchExpanded.value
-                                    ? Image.asset(ConstRes.arrowDownward)
-                                    : Image.asset(ConstRes.arrowUpward),
+                                    ? Image.asset(ConstRes.arrowUpward)
+                                    : Image.asset(ConstRes.arrowDownward),
                               ),
                             ],
                           ),
