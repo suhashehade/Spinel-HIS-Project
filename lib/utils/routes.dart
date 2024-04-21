@@ -1,12 +1,14 @@
 import 'package:get/get.dart';
 import 'package:his_project/screens/all_e_services_screen/all_e_services_screen.dart';
 import 'package:his_project/screens/doctors_list_screen/doctors_list_screen.dart';
+import 'package:his_project/screens/emergency_screen/emergency_screen.dart';
 import 'package:his_project/screens/languages_screen/languages_screen.dart';
 import 'package:his_project/screens/login_options_screen/login_options_screen.dart';
 import 'package:his_project/screens/login_screen/login_middleware.dart';
 import 'package:his_project/screens/login_screen/login_screen.dart';
 import 'package:his_project/screens/main_screen/main_screen.dart';
 import 'package:his_project/screens/medical_file_screen/medical_file_screen.dart';
+import 'package:his_project/screens/medical_test_screen/medical_test_screen.dart';
 import 'package:his_project/screens/patient_appointments_screen/patient_appointments_screen.dart';
 import 'package:his_project/screens/pre_login_screen/pre_login_screen.dart';
 import 'package:his_project/screens/registration_screen/registration_screen.dart';
@@ -44,12 +46,16 @@ List<GetPage> routes = [
       page: () => ReservationConfirmationScreen(),
       middlewares: [LoginMiddleware()]),
   GetPage(
-      name: PagesNames.patientAppiontments,
+      name: PagesNames.appiontmentsList,
       page: () => const PatientAppointmentsScreen(),
       middlewares: [LoginMiddleware()]),
   GetPage(
     name: PagesNames.registration,
     page: () => RegistrationScreen(),
+  ),
+  GetPage(
+    name: PagesNames.medicalAnalyisResults,
+    page: () => const MedicalTestScreen(),
   ),
   GetPage(
     name: PagesNames.allEServices,
@@ -63,5 +69,9 @@ List<GetPage> routes = [
     name: PagesNames.medicalFile1,
     page: () => const MedicalFileScreen(),
     middlewares: [LoginMiddleware()],
+  ),
+  GetPage(
+    name: PagesNames.emergency,
+    page: () => const EmergencyScreen(),
   ),
 ];

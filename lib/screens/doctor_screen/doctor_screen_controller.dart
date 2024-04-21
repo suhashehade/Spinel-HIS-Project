@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:his_project/models/doctor/branch_dep_doctor.dart';
 import 'package:his_project/screens/main_screen/main_screen_controller.dart';
-import 'package:his_project/services/api_service.dart';
 import 'package:his_project/models/appointment/available_appointments_days.dart';
 import 'package:his_project/models/event.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +11,8 @@ import 'package:his_project/models/appointment/reserve_arguments.dart';
 import 'package:his_project/models/doctor/doctor_info.dart';
 import 'package:his_project/screens/doctors_list_screen/doctors_list_screen_controller.dart';
 import 'package:his_project/screens/reserve_appoinment_screen/reserve_appoinment_screen_controller.dart';
+import 'package:his_project/services/appointment_api_service.dart';
+import 'package:his_project/services/doctor_api_service.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
 import 'package:his_project/utils/colors_res.dart';
 import 'package:his_project/utils/consts_res.dart';
@@ -23,6 +24,8 @@ class DoctorScreenController extends GetxController {
   RxList<AvailableAppointment> availableAppointments =
       <AvailableAppointment>[].obs;
   RxBool isLoading = false.obs;
+  RxBool isTimesLoading = false.obs;
+  RxBool isDaysLoading = false.obs;
   Rx<DateTime> today = DateTime.now().obs;
   Rx<DoctorInfo> doctorInfo = DoctorInfo("", "", "", "", "", "").obs;
   RxList<AvailableAppointmentsDays> events = <AvailableAppointmentsDays>[].obs;
@@ -36,6 +39,7 @@ class DoctorScreenController extends GetxController {
   DoctorsListScreenController doctorsListScreenController =
       Get.put(DoctorsListScreenController());
   MainScreenController mainScreenController = Get.put(MainScreenController());
+
   changeIsAppointmentSelected(AvailableAppointment aa) {
     aa.isSelected.value = !aa.isSelected.value;
   }
@@ -60,23 +64,23 @@ class DoctorScreenController extends GetxController {
   }
 
   getDoctorAvailableAppointementsDays() async {
-    isLoading.value = true;
+    isDaysLoading.value = true;
     int branchId = doctorsListScreenController.branchId.value;
     int depId = doctorsListScreenController.depId.value;
     doctorId.value =
         reserveAppointmentScreenController.doctorsListArguments.value.doctorId;
 
-    events.value = await Api.getDoctorAvailableAppointementsDaysAPI(
+    events.value = await AppointmentAPI.getDoctorAvailableAppointementsDaysAPI(
         doctorId,
         depId,
         branchId,
         today.value.toIso8601String(),
         today.value.add(const Duration(days: 90)).toIso8601String());
-    isLoading.value = false;
+    isDaysLoading.value = false;
   }
 
   getDoctorAvailableAppointements() async {
-    isLoading.value = true;
+    isTimesLoading.value = true;
     doctorId.value =
         reserveAppointmentScreenController.doctorsListArguments.value.doctorId;
 
@@ -87,7 +91,7 @@ class DoctorScreenController extends GetxController {
     reserveArguments.value.branchId = branchId;
     reserveArguments.value.depId = depId;
 
-    var response = await Api.getDoctorAvailableAppointementsAPI(
+    var response = await AppointmentAPI.getDoctorAvailableAppointementsAPI(
         doctorId, depId, branchId, today.value.toIso8601String());
 
     if (response.statusCode == 200) {
@@ -95,9 +99,9 @@ class DoctorScreenController extends GetxController {
           (json.decode(response.body)['lstData'] as List)
               .map((tagJson) => AvailableAppointment.fromJson(tagJson))
               .toList();
-      isLoading.value = false;
+      isTimesLoading.value = false;
     } else {
-      isLoading.value = false;
+      isTimesLoading.value = false;
     }
   }
 
@@ -150,7 +154,7 @@ class DoctorScreenController extends GetxController {
     isLoading.value = true;
     doctorId.value =
         reserveAppointmentScreenController.doctorsListArguments.value.doctorId;
-    var response = await Api.getDoctorInfoAPI(doctorId);
+    var response = await DoctoAPI.getDoctorInfoAPI(doctorId);
     if (response.statusCode == 200) {
       isLoading.value = false;
       doctorInfo.value = DoctorInfo.fromJson(json.decode(response.body));

@@ -12,10 +12,10 @@ class PreLoginScreenController extends GetxController {
       Get.offAndToNamed(PagesNames.loginOptions,
           arguments: [ConstRes.reserveArgsKey]);
     } else {
-      if (PrefsService.to.getInt(ConstRes.afterLoginKey) == 8) {
+      if (PrefsService.to.getString(ConstRes.afterLoginKey) == "home") {
         Get.toNamed(PagesNames.medicalFile1);
       } else {
-        PrefsService.to.setInt(ConstRes.afterLoginKey, 1);
+        PrefsService.to.setString(ConstRes.afterLoginKey, "home0");
         Get.offAndToNamed(PagesNames.reserveAssurence);
       }
     }

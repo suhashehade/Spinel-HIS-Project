@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:his_project/screens/doctor_screen/doctor_screen.dart';
-import 'package:his_project/services/api_service.dart';
 import 'package:his_project/screens/reserve_appoinment_screen/reserve_appoinment_screen_controller.dart';
+import 'package:his_project/services/doctor_api_service.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
 import 'package:his_project/utils/consts_res.dart';
 import '../../models/doctor/branch_dep_doctor.dart';
@@ -26,7 +26,7 @@ class DoctorsListScreenController extends GetxController {
     branchId.value =
         reserveAppointmentScreenController.doctorsListArguments.value.branchId;
 
-    var response = await Api.getDoctorsAPI(branchId, depId);
+    var response = await DoctoAPI.getDoctorsAPI(branchId, depId);
     if (response.statusCode == 200) {
       isLoading.value = false;
       if ((json.decode(response.body) as List)
@@ -52,6 +52,10 @@ class DoctorsListScreenController extends GetxController {
         d.keys[PrefsService.to.getString(ConstRes.langkey) ??
             Get.locale?.languageCode]![ConstRes.labelKey]!;
     Get.to(() => const DoctorInfoScreen());
+  }
+
+  handleReturn(){
+    Get.back();
   }
 
   @override

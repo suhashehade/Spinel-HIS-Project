@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gradient_borders/gradient_borders.dart';
+import 'package:his_project/common/custome_circular_progress_indicator.dart';
 import 'package:his_project/screens/doctor_screen/doctor_screen_controller.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
 import 'package:his_project/utils/colors_res.dart';
@@ -17,10 +18,7 @@ class DoctorInfo extends StatelessWidget {
     return Scaffold(
       body: Obx(
         () => doctorScreenController.isLoading.value
-            ? Center(
-                child: CircularProgressIndicator(
-                color: Color(CustomColors.lightGreen),
-              ))
+            ? const CustomCircularProgressIndicator()
             : Column(
                 children: [
                   Container(

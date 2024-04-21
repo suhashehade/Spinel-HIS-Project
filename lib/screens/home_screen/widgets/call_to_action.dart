@@ -12,7 +12,7 @@ class CallToAction extends StatelessWidget {
     HomeScreenController homeScreenController = Get.put(HomeScreenController());
     return Container(
       padding: const EdgeInsets.all(5.0),
-      height: 140.0,
+      height: MediaQuery.of(context).size.height * 0.17,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         gradient: LinearGradient(

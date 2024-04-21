@@ -46,15 +46,16 @@ class UserCredintals {
 
 class LoginResponse {
   String? _token;
+  bool _status;
   List? _lstError;
 
-  LoginResponse(this._token, this._lstError);
+  LoginResponse(this._token, this._lstError, this._status);
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> jsonRes = {};
     jsonRes['token'] = _token;
     jsonRes['lstError'] = _lstError;
-
+    jsonRes['status'] = _status;
     return jsonRes;
   }
 
@@ -62,6 +63,7 @@ class LoginResponse {
     return LoginResponse(
       json['token'].toString(),
       json['lstError'] as List,
+      json['status'] as bool,
     );
   }
 

@@ -5,7 +5,8 @@ import 'package:his_project/models/patient/patient.dart';
 import 'package:his_project/models/user/login.dart';
 import 'package:his_project/screens/login_options_screen/login_options_screen_controller.dart';
 import 'package:his_project/screens/reservation_confirmation_screen/reservation_confirmation_screen_controller.dart';
-import 'package:his_project/services/api_service.dart';
+import 'package:his_project/services/auth_api_service.dart';
+import 'package:his_project/services/patient_api_service.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
 import 'package:his_project/utils/consts_res.dart';
 import 'package:his_project/utils/pages_names.dart';
@@ -56,7 +57,7 @@ class LoginScreenController extends GetxController {
   }
 
   login(UserCredintals userCredintals) async {
-    var res = await Api.login(userCredintals);
+    var res = await AuthAPI.login(userCredintals);
 
     if (res.token == null) {
       error.value = jsonDecode(res.body)[ConstRes.lstErrorKey][0];
@@ -80,8 +81,8 @@ class LoginScreenController extends GetxController {
       passwordController.text = '';
       isChecked.value = false;
 
-      if (PrefsService.to.getInt(ConstRes.afterLoginKey) == 0) {
-        Get.offNamed(PagesNames.patientAppiontments);
+      if (PrefsService.to.getString(ConstRes.afterLoginKey) == "file0") {
+        Get.offNamed(ConstRes.appointmentsList);
       } else {
         Get.offNamed(PagesNames.reserveAssurence);
       }
@@ -136,8 +137,8 @@ class LoginScreenController extends GetxController {
   }
 
   getPatientId() async {
-    patient.value =
-        await Api.getPatients(PrefsService.to.getString(ConstRes.phoneKey)!);
+    patient.value = await PatientAPI.getPatient(
+        PrefsService.to.getString(ConstRes.phoneKey)!);
     PrefsService.to.setInt(ConstRes.idKey, patient.value.id);
   }
 

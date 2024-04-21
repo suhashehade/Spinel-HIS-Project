@@ -9,7 +9,7 @@ class MainServices extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 80.0,
+      height: MediaQuery.of(context).size.height * 0.10,
       padding: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -28,7 +28,7 @@ class MainServices extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(0.0),
             width: 100,
-            height: 80,
+            height: MediaQuery.of(context).size.height * 0.17,
             child: Image.asset(ConstRes.mainServiceIcon),
           ),
           Column(

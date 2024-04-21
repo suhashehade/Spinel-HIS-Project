@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:his_project/models/appointment/appointment_details.dart';
 import 'package:his_project/models/appointment/patient_appointments.dart';
 import 'package:his_project/screens/appointment_details_screen/appointment_details_screen.dart';
-import 'package:his_project/services/api_service.dart';
+import 'package:his_project/services/appointment_api_service.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
 import 'package:his_project/utils/colors_res.dart';
 import 'package:his_project/utils/consts_res.dart';
@@ -20,7 +20,7 @@ class PatientAppointmentsScreenController extends GetxController {
       .obs;
 
   getPatientAppointments() async {
-    var response = await Api.getPatientAppointments();
+    var response = await AppointmentAPI.getPatientAppointments();
     appointments.value = (json.decode(response.body)['lstData'] as List)
         .map((tagJson) => PatientAppointment.fromJson(tagJson))
         .toList();
@@ -53,7 +53,7 @@ class PatientAppointmentsScreenController extends GetxController {
   }
 
   getAppointmentDetails(int id) async {
-    appointmetDetails.value = await Api.getAppointmentDetails(id);
+    appointmetDetails.value = await AppointmentAPI.getAppointmentDetails(id);
   }
 
   @override

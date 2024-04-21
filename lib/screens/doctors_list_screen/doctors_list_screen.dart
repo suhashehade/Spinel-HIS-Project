@@ -4,7 +4,9 @@ import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:his_project/common/custom_app_bar.dart';
 import 'package:his_project/common/custom_bottombar/custom_bottombar.dart';
 import 'package:his_project/common/custom_search_bar.dart';
+import 'package:his_project/common/custome_circular_progress_indicator.dart';
 import 'package:his_project/common/sidebar.dart';
+import 'package:his_project/common/sub_app_bar.dart';
 import 'package:his_project/screens/doctors_list_screen/doctors_list_screen_controller.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
 import 'package:his_project/utils/colors_res.dart';
@@ -17,7 +19,7 @@ class DocotrsListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DoctorsListScreenController doctorsListScreenController =
-        Get.put(DoctorsListScreenController()); 
+        Get.put(DoctorsListScreenController());
 
     return Scaffold(
       drawer: const CustomSidebar(),
@@ -28,42 +30,9 @@ class DocotrsListScreen extends StatelessWidget {
             const SizedBox(
               height: 10.0,
             ),
-            Container(
-              width: 500.0,
-              padding: const EdgeInsets.all(10.0),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                  colors: [
-                    Color(CustomColors.lightGreen),
-                    Color(CustomColors.lightBlue),
-                  ],
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    alignment: Alignment.topRight,
-                    icon: Icon(
-                      Icons.arrow_back,
-                      color: Color(CustomColors.white),
-                    ),
-                  ),
-                  Text(
-                    ConstRes.reserveAppointment.tr,
-                    style: TextStyle(
-                      color: Color(CustomColors.white),
-                      fontSize: 20.0,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            SubAppBar(
+                handleReturn: doctorsListScreenController.handleReturn,
+                title: ConstRes.reserveAppointment),
             Container(
               padding: const EdgeInsets.all(10.0),
               child: Column(
@@ -76,11 +45,7 @@ class DocotrsListScreen extends StatelessWidget {
                     height: 10.0,
                   ),
                   Obx(() => doctorsListScreenController.isLoading.value
-                      ? Center(
-                          child: CircularProgressIndicator(
-                            color: Color(CustomColors.lightGreen),
-                          ),
-                        )
+                      ? const CustomCircularProgressIndicator()
                       : Column(
                           children: [
                             Obx(
@@ -94,7 +59,6 @@ class DocotrsListScreen extends StatelessWidget {
                             Column(
                               children: doctorsListScreenController.doctors
                                   .map((d) => InkWell(
-                                       
                                         onTap: () {
                                           doctorsListScreenController
                                               .toDoctorScreen(d);
@@ -175,7 +139,7 @@ class DocotrsListScreen extends StatelessWidget {
           ],
         ),
       ),
-       bottomNavigationBar: const CustomBottomBar(),
+      bottomNavigationBar: const CustomBottomBar(),
     );
   }
 }

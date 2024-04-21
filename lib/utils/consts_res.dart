@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:his_project/models/medical_result/cbc_result.dart';
 import 'package:his_project/models/medical_result/pathology_result.dart';
+import 'package:his_project/models/service.dart';
 import 'package:his_project/screens/family_medical_file_screen/family_medical_file_screen.dart';
 import 'package:his_project/screens/help_screen/help_screen.dart';
 import 'package:his_project/screens/home_screen/home_screen.dart';
@@ -66,6 +67,227 @@ class ConstRes {
       departmentName: "Nutrition and dietecs",
       date: DateFormat.yMMMMd().format(DateTime.now()),
       status: true,
+    ),
+  ];
+
+  static List<Service> servicesList = [
+    Service(
+      serviceName: ConstRes.reserveAppointment,
+      serviceIcon: ConstRes.reserveAppointmentIcon,
+    ),
+    Service(
+      serviceName: ConstRes.lifeCare,
+      serviceIcon: ConstRes.lifeCareIcon,
+    ),
+    Service(
+      serviceName: ConstRes.emergency,
+      serviceIcon: ConstRes.emergencyIcon,
+    ),
+    Service(
+      serviceName: ConstRes.homeCare,
+      serviceIcon: ConstRes.homeCareIcon,
+    ),
+    Service(
+      serviceName: ConstRes.comprehensiveExamination,
+      serviceIcon: ConstRes.comprehensiveExaminationIcon,
+    ),
+    Service(
+      serviceName: ConstRes.pharmacy,
+      serviceIcon: ConstRes.pharmacyIcon,
+    ),
+    Service(
+      serviceName: ConstRes.fileDetails,
+      serviceIcon: ConstRes.fileDetailsIcon,
+    ),
+    Service(
+      serviceName: ConstRes.familyFiles,
+      serviceIcon: ConstRes.familyFilesIcon,
+    ),
+    Service(
+      serviceName: ConstRes.payment,
+      serviceIcon: ConstRes.visaIcon,
+    ),
+    Service(
+      serviceName: ConstRes.childrenVaccine,
+      serviceIcon: ConstRes.childrenVaccineIcon,
+    ),
+    Service(
+      serviceName: ConstRes.insuranceUpdate,
+      serviceIcon: ConstRes.cardIcon,
+    ),
+    Service(
+      serviceName: ConstRes.assignments,
+      serviceIcon: ConstRes.assignmentsIcon,
+    ),
+    Service(
+      serviceName: ConstRes.waterConsume,
+      serviceIcon: ConstRes.waterIcon,
+    ),
+    Service(
+      serviceName: ConstRes.calculator,
+      serviceIcon: ConstRes.calculatorIcon,
+    ),
+    Service(
+      serviceName: ConstRes.transformMesurments,
+      serviceIcon: ConstRes.twoWaysArrows,
+    ),
+    Service(
+      serviceName: ConstRes.tasks,
+      serviceIcon: ConstRes.tasksIcon,
+    ),
+    Service(
+      serviceName: ConstRes.bloodDonation,
+      serviceIcon: ConstRes.bloodIcon,
+    ),
+    Service(
+      serviceName: ConstRes.covid19,
+      serviceIcon: ConstRes.covid19Icon,
+    ),
+    Service(
+      serviceName: ConstRes.virtualTour,
+      serviceIcon: ConstRes.view360Icon,
+    ),
+    Service(
+      serviceName: ConstRes.smartWatches,
+      serviceIcon: ConstRes.smartWatchIcon,
+    ),
+    Service(
+      serviceName: ConstRes.parking,
+      serviceIcon: ConstRes.parkingIcon,
+    ),
+    Service(
+      serviceName: ConstRes.news,
+      serviceIcon: ConstRes.microphoneIcon,
+    ),
+    Service(
+      serviceName: ConstRes.contactUs,
+      serviceIcon: ConstRes.contactUsIcon,
+    ),
+  ];
+
+  static List<Service> medicalServiceList = [
+    Service(
+      serviceName: ConstRes.appointmentsList,
+      serviceIcon: ConstRes.appointmentIcon,
+    ),
+    Service(
+      serviceName: ConstRes.medicalAnalyisResults,
+      serviceIcon: ConstRes.labIcon,
+    ),
+    Service(
+      serviceName: ConstRes.xrays,
+      serviceIcon: ConstRes.xrayIcon,
+    ),
+    Service(
+      serviceName: ConstRes.prescriptions,
+      serviceIcon: ConstRes.prescriptionsIcon,
+    ),
+    Service(
+      serviceName: ConstRes.vitalSigns,
+      serviceIcon: ConstRes.vitalSignsIcon,
+    ),
+    Service(
+      serviceName: ConstRes.drugs,
+      serviceIcon: ConstRes.drugsIcon,
+    ),
+    Service(
+      serviceName: ConstRes.doctorsVisited,
+      serviceIcon: ConstRes.doctorIcon,
+    ),
+    Service(
+      serviceName: ConstRes.invoices,
+      serviceIcon: ConstRes.invoicesIcon,
+    ),
+    Service(
+      serviceName: ConstRes.orders,
+      serviceIcon: ConstRes.orderIcon,
+    ),
+    Service(
+      serviceName: ConstRes.eyeTest,
+      serviceIcon: ConstRes.eyeTestIcon,
+    ),
+    Service(
+      serviceName: ConstRes.insuranceCards,
+      serviceIcon: ConstRes.insuranceCardsIcon,
+    ),
+    Service(
+      serviceName: ConstRes.insuranceUpdates,
+      serviceIcon: ConstRes.insuranceUpdatesIcon,
+    ),
+    Service(
+      serviceName: ConstRes.insuranceApprovals,
+      serviceIcon: ConstRes.insuranceApprovalsIcon,
+    ),
+    Service(
+      serviceName: ConstRes.allergies,
+      serviceIcon: ConstRes.allergiesIcon,
+    ),
+    Service(
+      serviceName: ConstRes.immunization,
+      serviceIcon: ConstRes.immunizationIcon,
+    ),
+    Service(
+      serviceName: ConstRes.medicalReports,
+      serviceIcon: ConstRes.medicalReportsIcon,
+    ),
+    Service(
+      serviceName: ConstRes.monthlyReports,
+      serviceIcon: ConstRes.monthlyReportsIcon,
+    ),
+    Service(
+      serviceName: ConstRes.sickLeaves,
+      serviceIcon: ConstRes.sickLeavesIcon,
+    ),
+    Service(
+      serviceName: ConstRes.walletBalance,
+      serviceIcon: ConstRes.walletBalanceIcon,
+    ),
+    Service(
+      serviceName: ConstRes.medicalReading,
+      serviceIcon: ConstRes.medicalReadingIcon,
+    ),
+    Service(
+      serviceName: ConstRes.smartWatch,
+      serviceIcon: ConstRes.smartWatchIcon,
+    ),
+    Service(
+      serviceName: ConstRes.askDoctor,
+      serviceIcon: ConstRes.doctorIcon,
+    ),
+    Service(
+      serviceName: ConstRes.internetConnection,
+      serviceIcon: ConstRes.wifiIcon,
+    ),
+    Service(
+      serviceName: ConstRes.chatBot,
+      serviceIcon: ConstRes.chatbotIcon,
+    ),
+  ];
+
+  static List<Service> emergencyServicesList = [
+    Service(
+      serviceName: ConstRes.askAmbulance,
+      serviceIcon: ConstRes.ambulanceIcon,
+    ),
+    Service(
+      serviceName: ConstRes.closestEmergencyLocation,
+      serviceIcon: ConstRes.amplifireicon,
+    ),
+    Service(
+      serviceName: ConstRes.fastResponseTeam,
+      serviceIcon: ConstRes.fastResponseTeamIcon,
+    ),
+    Service(
+      serviceName: ConstRes.ourLocation,
+      serviceIcon: ConstRes.locationIcon,
+    ),
+    Service(
+      serviceName: ConstRes.yourOpinion,
+      serviceIcon: ConstRes.opinionIcon,
+    ),
+    Service(
+      serviceName: ConstRes.chat,
+      serviceIcon: ConstRes.chatIcon,
     ),
   ];
 
@@ -275,8 +497,6 @@ class ConstRes {
   static String test = "testName";
   static String approved = "Approved";
   static String notApproved = "Not Approved";
-
-
 
   /* ------------------- KEYS ------------------------ */
 

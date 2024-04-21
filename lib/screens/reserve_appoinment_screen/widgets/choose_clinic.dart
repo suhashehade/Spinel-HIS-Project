@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:his_project/common/custome_circular_progress_indicator.dart';
 import 'package:his_project/screens/reserve_appoinment_screen/reserve_appoinment_screen_controller.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
 import 'package:his_project/utils/colors_res.dart';
@@ -71,15 +72,20 @@ class ChooseClinic extends StatelessWidget {
                   reserveAppointmentScreenController.isClinicExpanded.value
                       ? SingleChildScrollView(
                           child: Container(
-                            height: 300.0,
+                            height: MediaQuery.of(context).size.height * 0.50,
                             padding: const EdgeInsets.all(10.0),
-                            child: GridView.count(
-                                scrollDirection: Axis.vertical,
-                                crossAxisCount: 3,
-                                crossAxisSpacing: 5.0,
-                                children: [
-                                  ...reserveAppointmentScreenController.clinics
-                                      .map((c) => InkWell(
+                            child: reserveAppointmentScreenController
+                                    .isClinicsLoading.value
+                                ? const CustomCircularProgressIndicator()
+                                : GridView.count(
+                                    scrollDirection: Axis.vertical,
+                                    crossAxisCount: 3,
+                                    crossAxisSpacing: 5.0,
+                                    children: [
+                                        ...reserveAppointmentScreenController
+                                            .clinics
+                                            .map(
+                                          (c) => InkWell(
                                             onTap: () async {
                                               reserveAppointmentScreenController
                                                   .handleBranches(c);
@@ -135,8 +141,9 @@ class ChooseClinic extends StatelessWidget {
                                                 ),
                                               ),
                                             ),
-                                          ))
-                                ]),
+                                          ),
+                                        ),
+                                      ]),
                           ),
                         )
                       : const SizedBox(),
@@ -189,57 +196,67 @@ class ChooseClinic extends StatelessWidget {
                       reserveAppointmentScreenController.isBranchExpanded.value
                           ? SingleChildScrollView(
                               child: Container(
-                                  height: 300.0,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.50,
                                   padding: const EdgeInsets.all(10.0),
-                                  child: GridView.count(
-                                    crossAxisCount: 3,
-                                    crossAxisSpacing: 5.0,
-                                    children: [
-                                      ...reserveAppointmentScreenController
-                                          .branches
-                                          .map((b) {
-                                        return InkWell(
-                                          onTap: () {
-                                            reserveAppointmentScreenController
-                                                .goToDoctorsList(b);
-                                          },
-                                          child: Container(
-                                            height: 100.0,
-                                            decoration: BoxDecoration(
-                                              color: Color(CustomColors.grey),
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                            ),
-                                            padding: const EdgeInsets.all(10.0),
-                                            margin: const EdgeInsets.fromLTRB(
-                                                0.0, 0.0, 0.0, 10.0),
-                                            child: Column(
-                                              children: [
-                                                Icon(
-                                                  Icons.home,
-                                                  size: 40.0,
-                                                  color: Color(
-                                                      CustomColors.lightBlue),
+                                  child: reserveAppointmentScreenController
+                                          .isBranchesLoading.value
+                                      ? const CustomCircularProgressIndicator()
+                                      : GridView.count(
+                                          crossAxisCount: 3,
+                                          crossAxisSpacing: 5.0,
+                                          children: [
+                                            ...reserveAppointmentScreenController
+                                                .branches
+                                                .map((b) {
+                                              return InkWell(
+                                                onTap: () {
+                                                  reserveAppointmentScreenController
+                                                      .goToDoctorsList(b);
+                                                },
+                                                child: Container(
+                                                  height: 100.0,
+                                                  decoration: BoxDecoration(
+                                                    color: Color(
+                                                        CustomColors.grey),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5.0),
+                                                  ),
+                                                  padding: const EdgeInsets.all(
+                                                      10.0),
+                                                  margin:
+                                                      const EdgeInsets.fromLTRB(
+                                                          0.0, 0.0, 0.0, 10.0),
+                                                  child: Column(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.home,
+                                                        size: 40.0,
+                                                        color: Color(
+                                                            CustomColors
+                                                                .lightBlue),
+                                                      ),
+                                                      Text(
+                                                        b.keys[PrefsService.to
+                                                                .getString(ConstRes
+                                                                    .langkey) ??
+                                                            Get.locale
+                                                                ?.languageCode]![ConstRes
+                                                            .labelKey]!,
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                          CustomColors
+                                                              .lightBlue,
+                                                        )),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
-                                                Text(
-                                                  b.keys[PrefsService.to
-                                                              .getString(ConstRes
-                                                                  .langkey) ??
-                                                          Get.locale
-                                                              ?.languageCode]![
-                                                      ConstRes.labelKey]!,
-                                                  style: TextStyle(
-                                                      color: Color(
-                                                    CustomColors.lightBlue,
-                                                  )),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      })
-                                    ],
-                                  )),
+                                              );
+                                            })
+                                          ],
+                                        )),
                             )
                           : const SizedBox()
                     ])

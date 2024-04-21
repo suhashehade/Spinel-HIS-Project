@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:his_project/screens/home_screen/home_screen.dart';
+import 'package:his_project/screens/reserve_appoinment_screen/reserve_appoinment_screen.dart';
 
 class MainScreenController extends GetxController {
   Rx currentPage = const HomeScreen().obs;
@@ -13,6 +14,10 @@ class MainScreenController extends GetxController {
       isHome.value = true;
     }
     currentPage.value = page;
+  }
+
+  toReserveAppointment() {
+    Get.to(() => const ReserveAppointmentScreen());
   }
 
   // @override

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:his_project/screens/main_screen/main_screen_controller.dart';
-import 'package:his_project/screens/medical_file_screen/medical_file_screen.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
 import 'package:his_project/utils/consts_res.dart';
-import 'package:his_project/utils/pages_names.dart';
 import 'package:local_auth/local_auth.dart';
 
 class LoginMiddleware extends GetMiddleware {
@@ -27,7 +25,6 @@ class LoginMiddleware extends GetMiddleware {
     try {
       isAuthenticating = true;
       authorized = ConstRes.authenticating;
-
       authenticated = await auth.authenticate(
         localizedReason: ConstRes.biometrics,
         options: const AuthenticationOptions(
@@ -35,16 +32,13 @@ class LoginMiddleware extends GetMiddleware {
         ),
       );
       if (authenticated == true) {
-        if (PrefsService.to.getInt(ConstRes.afterLoginKey) == 0) {
-          Get.toNamed(PagesNames.patientAppiontments);
+        if (PrefsService.to.getString(ConstRes.afterLoginKey) == "file0") {
           PrefsService.to.remove(ConstRes.afterLoginKey);
         } else {
-          if (PrefsService.to.getInt(ConstRes.afterLoginKey) == 8) {
-            mainScreenController.currentPage.value = const MedicalFileScreen();
+          if (PrefsService.to.getString(ConstRes.afterLoginKey) == "file") {
             PrefsService.to.remove(ConstRes.afterLoginKey);
           } else {
-            if (PrefsService.to.getInt(ConstRes.afterLoginKey) == 1) {
-              Get.toNamed(PagesNames.reserveAssurence);
+            if (PrefsService.to.getString(ConstRes.afterLoginKey) == "home0") {
               PrefsService.to.remove(ConstRes.afterLoginKey);
             }
           }

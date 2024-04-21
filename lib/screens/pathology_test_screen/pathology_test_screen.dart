@@ -33,7 +33,7 @@ class PathologyTestScreen extends StatelessWidget {
               height: 10.0,
             ),
             Container(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(15.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -50,7 +50,7 @@ class PathologyTestScreen extends StatelessWidget {
                     ),
                     child: MaterialButton(
                       onPressed: () {},
-                      child: Text(ConstRes.newOrder),
+                      child: Text(ConstRes.newOrder.tr),
                     ),
                   ),
                   Container(
@@ -66,14 +66,14 @@ class PathologyTestScreen extends StatelessWidget {
                     ),
                     child: MaterialButton(
                       onPressed: () {},
-                      child: Text(ConstRes.prevOrder),
+                      child: Text(ConstRes.prevOrder.tr),
                     ),
                   ),
                 ],
               ),
             ),
             Container(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(15.0),
               child: const PathologyTestList(),
             )
           ],
