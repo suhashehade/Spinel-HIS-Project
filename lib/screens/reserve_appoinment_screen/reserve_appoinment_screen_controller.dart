@@ -21,6 +21,7 @@ class ReserveAppointmentScreenController extends GetxController {
   RxBool isBranchesLoading = false.obs;
   RxString error = "".obs;
   RxString clinicName = ''.obs;
+  RxString branchName = ''.obs;
   RxInt depId = 0.obs;
   RxInt branchId = 0.obs;
   RxList<Clinic> clinics = <Clinic>[].obs;
@@ -101,7 +102,10 @@ class ReserveAppointmentScreenController extends GetxController {
     doctorsListArguments.value.branchName = b.keys[
         PrefsService.to.getString(ConstRes.langkey) ??
             Get.locale?.languageCode]![ConstRes.labelKey]!;
-    Get.to(() => const DocotrsListScreen());
+    Get.to(
+      () => const DocotrsListScreen(),
+      arguments: doctorsListArguments.value,
+    );
 
     clinicName.value = '';
   }
@@ -128,6 +132,12 @@ class ReserveAppointmentScreenController extends GetxController {
     Clinic c = clinics.where((p0) => p0.id == depId.value).toList()[0];
     clinicName.value = c.keys[PrefsService.to.getString(ConstRes.langkey) ??
         Get.locale?.languageCode]![ConstRes.nameKey]!;
+  }
+
+  changeBranchName() {
+    Branch b = branches.where((p0) => p0.id == branchId.value).toList()[0];
+    branchName.value = b.keys[PrefsService.to.getString(ConstRes.langkey) ??
+        Get.locale?.languageCode]![ConstRes.labelKey]!;
   }
 
   @override

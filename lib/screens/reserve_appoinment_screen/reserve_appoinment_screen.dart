@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:his_project/common/custom_app_bar.dart';
 import 'package:his_project/common/custom_bottombar/custom_bottombar.dart';
-import 'package:his_project/common/sidebar.dart';
+import 'package:his_project/common/sidebar/sidebar.dart';
 import 'package:his_project/common/sub_app_bar.dart';
 import 'package:his_project/screens/reserve_appoinment_screen/reserve_appoinment_screen_controller.dart';
 import 'package:his_project/screens/reserve_appoinment_screen/widgets/choose_clinic.dart';

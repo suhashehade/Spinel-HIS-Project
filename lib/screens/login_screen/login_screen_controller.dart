@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:his_project/models/patient/patient.dart';
 import 'package:his_project/models/user/login.dart';
+import 'package:his_project/models/user/user.dart';
 import 'package:his_project/screens/login_options_screen/login_options_screen_controller.dart';
-import 'package:his_project/screens/reservation_confirmation_screen/reservation_confirmation_screen_controller.dart';
 import 'package:his_project/services/auth_api_service.dart';
 import 'package:his_project/services/patient_api_service.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
@@ -16,8 +15,6 @@ class LoginScreenController extends GetxController {
   TextEditingController mrnController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  ReservationConfirmationScreenController reservationAssurenceScreenController =
-      Get.put(ReservationConfirmationScreenController());
   RxBool isLogin = false.obs;
   RxMap<String, dynamic> listError = <String, dynamic>{}.obs;
   RxString error = ''.obs;
@@ -25,7 +22,8 @@ class LoginScreenController extends GetxController {
   LoginOptionsScreenController loginOptionsScreenController =
       Get.put(LoginOptionsScreenController());
   int? option;
-  Rx<Patient> patient = Patient(0, "").obs;
+  Rx<User> patient =
+      User(0, "", "", "", "", "", "", "", "", "", "", false, "", 0, "").obs;
 
   toggleChecked(value) {
     isChecked.value = value;
@@ -53,7 +51,6 @@ class LoginScreenController extends GetxController {
     PrefsService.to.remove(ConstRes.afterLoginKey);
 
     isLogin.value = false;
-    Get.offNamed(PagesNames.root);
   }
 
   login(UserCredintals userCredintals) async {
@@ -83,8 +80,10 @@ class LoginScreenController extends GetxController {
 
       if (PrefsService.to.getString(ConstRes.afterLoginKey) == "file0") {
         Get.offNamed(ConstRes.appointmentsList);
-      } else {
+      } else if (PrefsService.to.getString(ConstRes.afterLoginKey) == "home0") {
         Get.offNamed(PagesNames.reserveAssurence);
+      } else {
+        Get.offNamed(PagesNames.main);
       }
     } else {
       if (res.lstError![ConstRes.nationalIdkey] != null) {

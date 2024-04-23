@@ -5,7 +5,7 @@ import 'package:his_project/common/custom_app_bar.dart';
 import 'package:his_project/common/custom_bottombar/custom_bottombar.dart';
 import 'package:his_project/common/custom_search_bar.dart';
 import 'package:his_project/common/custome_circular_progress_indicator.dart';
-import 'package:his_project/common/sidebar.dart';
+import 'package:his_project/common/sidebar/sidebar.dart';
 import 'package:his_project/common/sub_app_bar.dart';
 import 'package:his_project/screens/doctors_list_screen/doctors_list_screen_controller.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
@@ -20,7 +20,7 @@ class DocotrsListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     DoctorsListScreenController doctorsListScreenController =
         Get.put(DoctorsListScreenController());
-
+    
     return Scaffold(
       drawer: const CustomSidebar(),
       appBar: const CustomAppBar(backWidget: Text("")),

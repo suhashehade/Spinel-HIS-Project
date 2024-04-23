@@ -12,8 +12,8 @@ class EmergencyService extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(10.0),
-      padding: const EdgeInsets.all(10.0),
+      margin: const EdgeInsets.all(5.0),
+      padding: const EdgeInsets.all(5.0),
       width: MediaQuery.of(context).size.width * 0.25,
       height: MediaQuery.of(context).size.height * 0.12,
       decoration: BoxDecoration(
@@ -39,7 +39,8 @@ class EmergencyService extends StatelessWidget {
           ),
           Text(
             serviceName.tr,
-            style: const TextStyle(fontSize: 11.0),
+            style:
+                TextStyle(fontSize: 11.0, color: Color(CustomColors.lightBlue)),
             maxLines: 3,
           ),
         ],

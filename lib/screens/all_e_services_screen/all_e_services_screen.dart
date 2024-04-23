@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:his_project/common/sidebar.dart';
+import 'package:his_project/common/sidebar/sidebar.dart';
 import 'package:his_project/common/sub_app_bar.dart';
 import 'package:his_project/screens/all_e_services_screen/all_e_services_screen_controller.dart';
 import 'package:his_project/screens/all_e_services_screen/widgets/services_list.dart';

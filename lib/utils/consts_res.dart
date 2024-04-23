@@ -46,6 +46,14 @@ class ConstRes {
     CBCResult("BASOPHILS", "ul0.1", "x10^3", "<0.2"),
   ];
 
+  static List<Widget> starsList = [
+    Image.asset(starIcon),
+    Image.asset(starIcon),
+    Image.asset(starIcon),
+    Image.asset(starIcon),
+    Image.asset(starIcon)
+  ];
+
   static List<PathologyTest> pathologyList = [
     PathologyTest(
       doctorName: "Israr Assi",
@@ -292,7 +300,7 @@ class ConstRes {
   ];
 
 /* ----------------- IMAGES/ ICONS URL ------------------ */
-
+  static String spalshScreenLogo = "assets/images/splash_screen_logo.png";
   static String companyLogo = "assets/images/spinel_logo.png";
   static String notificationIcon = "assets/images/notification_icon.png";
   static String homeCallToAcationIcon = "assets/images/call_to_action_icon.png";
@@ -364,6 +372,16 @@ class ConstRes {
   static String microphoneIcon = "assets/images/twemoji--studio-microphone.png";
   static String arrowDownward = "assets/images/arrow_downward.png";
   static String arrowUpward = "assets/images/arrow_upward.png";
+  static String familyFilesIconDark = "assets/images/family_icon.png";
+  static String rightArrowIcon = "assets/images/arrow_right_icon.png";
+  static String leftArrowIcon = "assets/images/arrow_left_icon.png";
+  static String notificationIconDark =
+      "assets/images/notification_dark_icon.png";
+  static String settingsIcon = "assets/images/settings_dark_icon.png";
+  static String starIcon = "assets/images/star_icon.png";
+  static String privacyPolicyIcon = "assets/images/privacy_policy_icon.png";
+  static String mrnIcon = "assets/images/mrn_icon.png";
+  static String nationalNumberIcon = "assets/images/national_id_icon.png";
 
   /* ---------------- STATIC ----------------- */
 
@@ -497,6 +515,18 @@ class ConstRes {
   static String test = "testName";
   static String approved = "Approved";
   static String notApproved = "Not Approved";
+  static String myFamily = "myFamily";
+  static String addRequests = "addRequests";
+  static String addNewMember = "addNewMember";
+  static String allowedPendingsList = "allowedPendingsList";
+  static String sentRequests = "sentRequests";
+  static String allowedPeople = "allowedPeople";
+  static String patientName = "patientName";
+  static String patientInfo = "patientInfo";
+  static String age = "age";
+  static String notifications = "notifications";
+  static String settings = "settings";
+  static String evaluation = "evaluation";
 
   /* ------------------- KEYS ------------------------ */
 
@@ -522,6 +552,8 @@ class ConstRes {
   static String departmentNameKey = 'departmentName';
   static String branchNameKey = 'branchName';
   static String reasonNameKey = 'reasonName';
+  static String privacyPolicy = "privacyPolicy";
+  static String contracts = "contracts";
 
   /* ------------------- MESSAGES ------------------- */
 

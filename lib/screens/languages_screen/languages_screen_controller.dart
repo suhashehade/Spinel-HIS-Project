@@ -15,13 +15,24 @@ class LanguagesScreenController extends GetxController {
 
   changeLanguage(langCode) {
     localeController.changeLang(langCode);
-    if (reserveAppointmentScreenController.depId.value != 0) {
+    
+    if (reserveAppointmentScreenController.doctorsListArguments.value.depId !=
+        0) {
       reserveAppointmentScreenController.changeClinicName();
     }
 
     if (doctorScreenController.reserveArguments.value.doctorId != 0) {
       doctorScreenController.changeDoctorName();
     }
+
+    if (doctorScreenController.reserveArguments.value.depId != 0) {
+      doctorScreenController.changeClinicName();
+    }
+
+    if (doctorScreenController.reserveArguments.value.branchId != 0) {
+      doctorScreenController.changeBranchName();
+    }
+
     Get.back();
   }
 }

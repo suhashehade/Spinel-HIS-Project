@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:his_project/common/custom_app_bar.dart';
 import 'package:his_project/common/custom_button.dart';
-import 'package:his_project/screens/doctor_screen/doctor_screen_controller.dart';
+import 'package:his_project/common/sidebar/sidebar.dart';
+import 'package:his_project/common/sub_app_bar.dart';
 import 'package:his_project/screens/reservation_confirmation_screen/reservation_confirmation_screen_controller.dart';
-import 'package:his_project/screens/reserve_appoinment_screen/reserve_appoinment_screen_controller.dart';
+import 'package:his_project/screens/reservation_confirmation_screen/widgets/appointment_info.dart';
+import 'package:his_project/screens/reservation_confirmation_screen/widgets/doctor_info.dart';
+import 'package:his_project/screens/reservation_confirmation_screen/widgets/patient_info.dart';
 import 'package:his_project/utils/consts_res.dart';
-import 'package:intl/intl.dart';
 
 class ReservationConfirmationScreen extends StatelessWidget {
   ReservationConfirmationScreen({super.key});
@@ -16,41 +18,39 @@ class ReservationConfirmationScreen extends StatelessWidget {
     ReservationConfirmationScreenController
         reservationConfirmationScreenController =
         Get.put(ReservationConfirmationScreenController());
-    DoctorScreenController doctorScreenController =
-        Get.put(DoctorScreenController());
-    ReserveAppointmentScreenController reserveAppointmentScreenController =
-        Get.put(ReserveAppointmentScreenController());
 
     return Scaffold(
+      drawer: const CustomSidebar(),
       appBar: const CustomAppBar(backWidget: Text("")),
       body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 20.0,
-              ),
-              Center(child: Text(ConstRes.confirmation.tr)),
-              const SizedBox(
-                height: 20.0,
-              ),
-              Form(
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 20.0,
+            ),
+            SubAppBar(
+                handleReturn: () {
+                  reservationConfirmationScreenController.handleReturn();
+                },
+                title: ConstRes.confirmation),
+            const SizedBox(
+              height: 20.0,
+            ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+              child: Form(
                 key: _keyForm,
                 child: Column(
                   children: <Widget>[
-                    Text(
-                        "${ConstRes.clinic.tr}: ${reserveAppointmentScreenController.doctorsListArguments.value.depName}"),
-                    Text(
-                        "${ConstRes.branch.tr}: ${reserveAppointmentScreenController.doctorsListArguments.value.branchName}"),
-                    Text(
-                        "${ConstRes.doctor.tr}: ${reserveAppointmentScreenController.doctorsListArguments.value.doctorName}"),
-                    Text(
-                        "${ConstRes.date.tr}: ${DateFormat.yMMMd().format(DateTime.parse(doctorScreenController.reserveArguments.value.fromDate))}"),
-                    Text(
-                        "${ConstRes.fromTime.tr}: ${DateFormat(ConstRes.timePattern1).format(DateTime.parse(doctorScreenController.reserveArguments.value.fromDate))}"),
-                    Text(
-                        "${ConstRes.toTime.tr}: ${DateFormat(ConstRes.timePattern1).format(DateTime.parse(doctorScreenController.reserveArguments.value.toDate))}"),
+                    DoctorInfoConfirm(),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    const AppointmentDetails(),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    const PatientDetails(),
                     const SizedBox(
                       height: 10.0,
                     ),
@@ -63,8 +63,8 @@ class ReservationConfirmationScreen extends StatelessWidget {
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:his_project/common/custom_app_bar.dart';
-import 'package:his_project/common/sidebar.dart';
+import 'package:his_project/common/designed_btn.dart';
+import 'package:his_project/common/sidebar/sidebar.dart';
 import 'package:his_project/common/sub_app_bar.dart';
 import 'package:his_project/screens/pathology_test_screen/pathology_test_screen_controller.dart';
 import 'package:his_project/screens/pathology_test_screen/widgets/pathology_test_list.dart';
@@ -32,42 +32,20 @@ class PathologyTestScreen extends StatelessWidget {
             const SizedBox(
               height: 10.0,
             ),
-            Container(
+            Padding(
               padding: const EdgeInsets.all(15.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      border: GradientBoxBorder(
-                        gradient: LinearGradient(colors: [
-                          Color(CustomColors.lightGreen),
-                          Color(CustomColors.lightBlue),
-                        ]),
-                      ),
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(5.0)),
-                    ),
-                    child: MaterialButton(
-                      onPressed: () {},
-                      child: Text(ConstRes.newOrder.tr),
-                    ),
+                  DesignedButton(
+                    title: ConstRes.newOrder,
+                    handle: () {},
+                    backGround: Color(CustomColors.white),
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      border: GradientBoxBorder(
-                        gradient: LinearGradient(colors: [
-                          Color(CustomColors.lightGreen),
-                          Color(CustomColors.lightBlue),
-                        ]),
-                      ),
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(5.0)),
-                    ),
-                    child: MaterialButton(
-                      onPressed: () {},
-                      child: Text(ConstRes.prevOrder.tr),
-                    ),
+                  DesignedButton(
+                    title: ConstRes.prevOrder,
+                    handle: () {},
+                    backGround: Color(CustomColors.white),
                   ),
                 ],
               ),

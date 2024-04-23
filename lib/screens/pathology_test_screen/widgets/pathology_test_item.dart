@@ -22,7 +22,7 @@ class PathologyTestItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
-      padding: const EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
+      padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
       decoration: BoxDecoration(
           border: GradientBoxBorder(
             gradient: LinearGradient(colors: [

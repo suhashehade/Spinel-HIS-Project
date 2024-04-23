@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:his_project/common/custom_app_bar.dart';
 import 'package:his_project/common/custom_bottombar/custom_bottombar.dart';
 import 'package:his_project/common/custom_bottombar/custom_bottombar_controller.dart';
-import 'package:his_project/common/sidebar.dart';
+import 'package:his_project/common/sidebar/sidebar.dart';
 import 'package:his_project/screens/main_screen/main_screen_controller.dart';
 import 'package:his_project/utils/colors_res.dart';
 import 'package:his_project/utils/consts_res.dart';

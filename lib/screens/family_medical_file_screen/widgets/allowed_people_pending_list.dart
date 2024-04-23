@@ -1,26 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
-import 'package:his_project/screens/medical_analysis_results_screen/medical_analysis_results_screen_controller.dart';
+import 'package:his_project/screens/family_medical_file_screen/family_medical_file_screen_controller.dart';
 import 'package:his_project/utils/colors_res.dart';
 import 'package:his_project/utils/consts_res.dart';
 import 'package:intl/intl.dart';
 
-// ignore: must_be_immutable
-class CBCResultsContainer extends StatelessWidget {
-  const CBCResultsContainer({super.key});
+class AllowedPeoplePendingList extends StatelessWidget {
+  const AllowedPeoplePendingList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    MedicalAnalysisResultScreenController
-        medicalAnalysisResultScreenController =
-        Get.put(MedicalAnalysisResultScreenController());
+    FamilyMedicalFileScreenController familyMedicalFileScreenController =
+        Get.put(FamilyMedicalFileScreenController());
     return Obx(
       () => Container(
-        key: Key(medicalAnalysisResultScreenController.keyValue.value),
         padding: const EdgeInsets.all(10.0),
         width: MediaQuery.of(context).size.width,
-        height: medicalAnalysisResultScreenController.cbcHeight.value,
+        height: familyMedicalFileScreenController.allowedPeopleListHeight.value,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
           border: GradientBoxBorder(
@@ -32,7 +29,7 @@ class CBCResultsContainer extends StatelessWidget {
         ),
         child: InkWell(
           onTap: () {
-            medicalAnalysisResultScreenController.cbcClick();
+            familyMedicalFileScreenController.onAllowedPeopleListClick();
           },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,7 +38,7 @@ class CBCResultsContainer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    ConstRes.cbcResults.tr,
+                    ConstRes.allowedPendingsList.tr,
                     style: TextStyle(
                         color: Color(CustomColors.lightBlue), fontSize: 15.0),
                   ),
@@ -49,14 +46,14 @@ class CBCResultsContainer extends StatelessWidget {
                     padding: const EdgeInsets.all(0.0),
                     height: MediaQuery.of(context).size.height * 0.05,
                     width: MediaQuery.of(context).size.width * 0.05,
-                    child: medicalAnalysisResultScreenController
-                            .isCbcCollapsed.value
-                        ? Image.asset(ConstRes.arrowUpward)
-                        : Image.asset(ConstRes.arrowDownward),
+                    child:
+                        familyMedicalFileScreenController.isPersonsCollaps.value
+                            ? Image.asset(ConstRes.arrowUpward)
+                            : Image.asset(ConstRes.arrowDownward),
                   ),
                 ],
               ),
-              medicalAnalysisResultScreenController.isCbcCollapsed.value
+              familyMedicalFileScreenController.isPersonsCollaps.value
                   ? Expanded(
                       child: ListView(children: [
                         ListTile(
@@ -163,7 +160,7 @@ class CBCResultsContainer extends StatelessWidget {
                         ),
                       ]),
                     )
-                  : const Text("")
+                  : const SizedBox()
             ],
           ),
         ),

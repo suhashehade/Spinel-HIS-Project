@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:his_project/common/custom_app_bar.dart';
 import 'package:his_project/common/custom_bottombar/custom_bottombar.dart';
-import 'package:his_project/common/sidebar.dart';
+import 'package:his_project/common/sidebar/sidebar.dart';
 import 'package:his_project/common/sub_app_bar.dart';
 import 'package:his_project/screens/doctor_screen/doctor_screen_controller.dart';
 import 'package:his_project/screens/doctor_screen/widgets/available_appointments.dart';
@@ -20,7 +20,7 @@ class DoctorInfoScreen extends StatelessWidget {
         Get.put(DoctorScreenController());
     ReserveAppointmentScreenController reserveAppointmentScreenController =
         Get.put(ReserveAppointmentScreenController());
-
+    
     return Scaffold(
       drawer: const CustomSidebar(),
       appBar: const CustomAppBar(backWidget: Text("")),

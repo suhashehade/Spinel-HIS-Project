@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 
 class PagesNames {
   static String root = '/';
+  static String main = '/main';
   static String preLogin = '/preLogin';
   static String login = '/login';
   static String loginOptions = '/loginOptions';

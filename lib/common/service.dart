@@ -14,9 +14,9 @@ class Service extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(10.0),
-      height: MediaQuery.of(context).size.width * 0.30,
-      width: MediaQuery.of(context).size.width * 0.25,
+      margin: const EdgeInsets.all(5.0),
+      height: MediaQuery.of(context).size.width * 0.20,
+      width: MediaQuery.of(context).size.width * 0.20,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
         border: GradientBoxBorder(

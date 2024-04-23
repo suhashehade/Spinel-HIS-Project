@@ -1,11 +1,12 @@
 import 'package:get/get.dart';
+import 'package:his_project/screens/doctor_screen/doctor_screen_controller.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
 import 'package:his_project/utils/consts_res.dart';
 import 'package:his_project/utils/pages_names.dart';
 
 class PreLoginScreenController extends GetxController {
   RxInt loginMethod = 0.obs;
-
+  DoctorScreenController d = Get.put(DoctorScreenController());
   yesOption() {
     loginMethod.value = 1;
     if (PrefsService.to.getString(ConstRes.tokenKey) == null) {

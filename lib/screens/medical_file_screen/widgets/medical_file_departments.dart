@@ -12,7 +12,7 @@ class MedicalFileDepartments extends StatelessWidget {
     MedicalFileScreenController medicalFileScreenController =
         Get.put(MedicalFileScreenController());
     return Container(
-      height: MediaQuery.of(context).size.height * 0.40,
+      height: MediaQuery.of(context).size.height * 0.35,
       padding: const EdgeInsets.all(10.0),
       child: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

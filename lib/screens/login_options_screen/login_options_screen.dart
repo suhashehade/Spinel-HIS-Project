@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:his_project/common/custom_app_bar.dart';
 import 'package:his_project/screens/login_options_screen/login_options_screen_controller.dart';
 import 'package:his_project/utils/colors_res.dart';
@@ -91,21 +92,29 @@ class LoginOptionsScreen extends StatelessWidget {
                 InkWell(
                   onTap: loginOptionsScreenController.goToNILogin,
                   child: Container(
-                    padding: const EdgeInsets.fromLTRB(15, 30, 15, 30),
+                    padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
                     height: 150.0,
                     width: 150.0,
                     decoration: BoxDecoration(
-                      color: Color(CustomColors.grey),
-                      borderRadius: BorderRadius.circular(5.0),
+                      borderRadius: BorderRadius.circular(10.0),
+                      border: GradientBoxBorder(
+                        gradient: LinearGradient(colors: [
+                          Color(CustomColors.lightBlue),
+                          Color(CustomColors.lightGreen),
+                        ]),
+                      ),
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Icon(
-                          Icons.person,
-                          color: Color(CustomColors.lightBlue),
-                          size: 40.0,
+                        SizedBox(
+                          height: 50.0,
+                          width: 50.0,
+                          child: Image.asset(ConstRes.nationalNumberIcon),
+                        ),
+                        const SizedBox(
+                          height: 10.0,
                         ),
                         Text(
                           ConstRes.nationalId.tr,
@@ -121,21 +130,29 @@ class LoginOptionsScreen extends StatelessWidget {
                 InkWell(
                   onTap: loginOptionsScreenController.goToMRNLogin,
                   child: Container(
-                    padding: const EdgeInsets.fromLTRB(20, 30, 20, 30),
+                    padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
                     height: 150.0,
                     width: 150.0,
                     decoration: BoxDecoration(
-                      color: Color(CustomColors.grey),
-                      borderRadius: BorderRadius.circular(5.0),
+                      borderRadius: BorderRadius.circular(10.0),
+                      border: GradientBoxBorder(
+                        gradient: LinearGradient(colors: [
+                          Color(CustomColors.lightBlue),
+                          Color(CustomColors.lightGreen),
+                        ]),
+                      ),
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Icon(
-                          Icons.medical_information,
-                          color: Color(CustomColors.lightBlue),
-                          size: 40.0,
+                        SizedBox(
+                          height: 50.0,
+                          width: 50.0,
+                          child: Image.asset(ConstRes.mrnIcon),
+                        ),
+                        const SizedBox(
+                          height: 10.0,
                         ),
                         Text(
                           ConstRes.mrn.tr,

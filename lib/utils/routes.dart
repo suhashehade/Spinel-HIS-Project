@@ -14,11 +14,16 @@ import 'package:his_project/screens/pre_login_screen/pre_login_screen.dart';
 import 'package:his_project/screens/registration_screen/registration_screen.dart';
 import 'package:his_project/screens/reservation_confirmation_screen/reservation_confirmation_screen.dart';
 import 'package:his_project/screens/reserve_appoinment_screen/reserve_appoinment_screen.dart';
+import 'package:his_project/screens/splash_screen/splash_screen.dart';
 import 'package:his_project/utils/pages_names.dart';
 
 List<GetPage> routes = [
   GetPage(
     name: PagesNames.root,
+    page: () => const SplashScreen(),
+  ),
+  GetPage(
+    name: PagesNames.main,
     page: () => const MainScreen(),
   ),
   GetPage(

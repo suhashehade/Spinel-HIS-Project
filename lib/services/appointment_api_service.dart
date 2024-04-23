@@ -7,6 +7,7 @@ import 'package:his_project/models/appointment/reserve_arguments.dart';
 import 'package:his_project/screens/login_screen/login_screen_controller.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
 import 'package:his_project/utils/consts_res.dart';
+import 'package:his_project/utils/pages_names.dart';
 import 'package:his_project/utils/urls.dart';
 import 'package:http/http.dart' as http;
 
@@ -16,6 +17,8 @@ class AppointmentAPI {
   };
 
   static Future addAppointmentAPI(ReserveArguments reserveArgs) async {
+    LoginScreenController loginScreenController =
+        Get.put(LoginScreenController());
     headers["accept"] = "*/*";
     if (PrefsService.to.getString(ConstRes.tokenKey) != null) {
       String? token = PrefsService.to.getString(ConstRes.tokenKey);
@@ -39,6 +42,11 @@ class AppointmentAPI {
       body: jsonEncode(body),
       headers: headers,
     );
+    if (response.statusCode == 401) {
+      loginScreenController.logout();
+      Get.toNamed(PagesNames.preLogin);
+      Get.snackbar("Error", "you have to login again");
+    }
 
     return response;
   }
@@ -54,7 +62,7 @@ class AppointmentAPI {
         Uri.parse(
             "${Urls.patientAppointments}PatientId=${PrefsService.to.getInt("id")}"),
         headers: headers);
-  
+
     if (response.statusCode == 401) {
       loginScreenController.logout();
     }

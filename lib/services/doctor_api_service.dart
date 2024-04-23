@@ -34,4 +34,13 @@ class DoctoAPI {
     );
     return response;
   }
+
+  static getUserTypedDoctor() async {
+    http.Response response = await http.get(
+      Uri.parse(Urls.doctorDetails),
+      headers: headers,
+    );
+
+    return response;
+  }
 }

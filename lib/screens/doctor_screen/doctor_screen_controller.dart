@@ -1,6 +1,9 @@
 import 'dart:convert';
 
+import 'package:his_project/models/branch/branch.dart';
+import 'package:his_project/models/clinic/clinic.dart';
 import 'package:his_project/models/doctor/branch_dep_doctor.dart';
+import 'package:his_project/models/doctor/doctor_list_arguments.dart';
 import 'package:his_project/screens/main_screen/main_screen_controller.dart';
 import 'package:his_project/models/appointment/available_appointments_days.dart';
 import 'package:his_project/models/event.dart';
@@ -30,10 +33,19 @@ class DoctorScreenController extends GetxController {
   Rx<DoctorInfo> doctorInfo = DoctorInfo("", "", "", "", "", "").obs;
   RxList<AvailableAppointmentsDays> events = <AvailableAppointmentsDays>[].obs;
   RxInt doctorId = 0.obs;
+  RxInt depId = 0.obs;
+  RxInt branchId = 0.obs;
   Rx<ReserveArguments> reserveArguments = ReserveArguments(
           doctorId: 0, depId: 0, branchId: 0, fromDate: "", toDate: "")
       .obs;
-
+  Rx<DoctorsListArguments> doctorsListArguments = DoctorsListArguments(
+          branchId: 0,
+          depId: 0,
+          doctorId: 0,
+          doctorName: "",
+          branchName: "",
+          depName: "")
+      .obs;
   ReserveAppointmentScreenController reserveAppointmentScreenController =
       Get.put(ReserveAppointmentScreenController());
   DoctorsListScreenController doctorsListScreenController =
@@ -65,15 +77,10 @@ class DoctorScreenController extends GetxController {
 
   getDoctorAvailableAppointementsDays() async {
     isDaysLoading.value = true;
-    int branchId = doctorsListScreenController.branchId.value;
-    int depId = doctorsListScreenController.depId.value;
-    doctorId.value =
-        reserveAppointmentScreenController.doctorsListArguments.value.doctorId;
-
     events.value = await AppointmentAPI.getDoctorAvailableAppointementsDaysAPI(
-        doctorId,
-        depId,
-        branchId,
+        doctorId.value,
+        depId.value,
+        branchId.value,
         today.value.toIso8601String(),
         today.value.add(const Duration(days: 90)).toIso8601String());
     isDaysLoading.value = false;
@@ -81,18 +88,16 @@ class DoctorScreenController extends GetxController {
 
   getDoctorAvailableAppointements() async {
     isTimesLoading.value = true;
-    doctorId.value =
-        reserveAppointmentScreenController.doctorsListArguments.value.doctorId;
-
-    int branchId = doctorsListScreenController.branchId.value;
-    int depId = doctorsListScreenController.depId.value;
 
     reserveArguments.value.doctorId = doctorId.value;
-    reserveArguments.value.branchId = branchId;
-    reserveArguments.value.depId = depId;
+    reserveArguments.value.branchId = branchId.value;
+    reserveArguments.value.depId = depId.value;
 
     var response = await AppointmentAPI.getDoctorAvailableAppointementsAPI(
-        doctorId, depId, branchId, today.value.toIso8601String());
+        doctorId.value,
+        depId.value,
+        branchId.value,
+        today.value.toIso8601String());
 
     if (response.statusCode == 200) {
       availableAppointments.value =
@@ -152,9 +157,8 @@ class DoctorScreenController extends GetxController {
 
   getDoctorInfo() async {
     isLoading.value = true;
-    doctorId.value =
-        reserveAppointmentScreenController.doctorsListArguments.value.doctorId;
-    var response = await DoctoAPI.getDoctorInfoAPI(doctorId);
+
+    var response = await DoctoAPI.getDoctorInfoAPI(doctorId.value);
     if (response.statusCode == 200) {
       isLoading.value = false;
       doctorInfo.value = DoctorInfo.fromJson(json.decode(response.body));
@@ -205,11 +209,42 @@ class DoctorScreenController extends GetxController {
             Get.locale?.languageCode]![ConstRes.labelKey]!;
   }
 
+  changeBranchName() {
+    Branch b = reserveAppointmentScreenController.branches
+        .where((p0) => p0.id == reserveArguments.value.branchId)
+        .toList()[0];
+
+    doctorsListArguments.value.branchName = b.keys[
+        PrefsService.to.getString(ConstRes.langkey) ??
+            Get.locale?.languageCode]![ConstRes.labelKey]!;
+  }
+
+  changeClinicName() {
+    Clinic c = reserveAppointmentScreenController.clinics
+        .where((p0) => p0.id == reserveArguments.value.depId)
+        .toList()[0];
+
+    doctorsListArguments.value.depName = c.keys[
+        PrefsService.to.getString(ConstRes.langkey) ??
+            Get.locale?.languageCode]![ConstRes.nameKey]!;
+  }
+
 // كملي حاليا هيك بس تخلصي الجزئية الي بايدك بتبلشي تصليح بالكود اهم اشي الي حكيتلك عنهم
 // بالنسبة للموضع الي الحق علي فيه بس تخلصي الجزئية هاي بفرجيكي كيف بالحرف
 // اول ما تخلصيها بتحكيلي تمام ؟
   @override
   void onInit() async {
+    doctorsListArguments.value = Get.arguments ??
+        DoctorsListArguments(
+            branchId: 0,
+            depId: 0,
+            doctorId: 0,
+            doctorName: "",
+            branchName: "",
+            depName: "");
+    doctorId.value = doctorsListArguments.value.doctorId;
+    depId.value = doctorsListArguments.value.depId;
+    branchId.value = doctorsListArguments.value.branchId;
     await getDoctorInfo();
     await getDoctorAvailableAppointements();
     await getDoctorAvailableAppointementsDays();

@@ -13,7 +13,7 @@ class Services extends StatelessWidget {
     return Container(
         padding: const EdgeInsets.all(0.0),
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.35,
+        height: MediaQuery.of(context).size.height * 0.24,
         child: GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3, mainAxisSpacing: 5.0, crossAxisSpacing: 5.0),
