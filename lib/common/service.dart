@@ -9,7 +9,7 @@ class Service extends StatelessWidget {
     required this.serviceIcon,
   });
   final String serviceName;
-  final String serviceIcon;
+  final Image serviceIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +19,10 @@ class Service extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.20,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
-        border: GradientBoxBorder(
+        border: const GradientBoxBorder(
             gradient: LinearGradient(colors: [
-          Color(CustomColors.lightBlue),
-          Color(CustomColors.lightGreen),
+          CustomColors.lightBlue,
+          CustomColors.lightGreen,
         ])),
       ),
       child: Center(
@@ -31,9 +31,9 @@ class Service extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.all(0.0),
-            height: MediaQuery.of(context).size.width * 0.14,
+            height: MediaQuery.of(context).size.width * 0.15,
             width: MediaQuery.of(context).size.width * 0.20,
-            child: Image.asset(serviceIcon),
+            child: serviceIcon,
           ),
           const SizedBox(
             height: 4.0,
@@ -42,8 +42,8 @@ class Service extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
             child: Text(
               serviceName,
-              style: TextStyle(
-                  fontSize: 12.0, color: Color(CustomColors.lightBlue)),
+              style: const TextStyle(
+                  fontSize: 12.0, color: CustomColors.lightBlue),
             ),
           ),
         ],

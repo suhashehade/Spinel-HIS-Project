@@ -13,13 +13,13 @@ class SubAppBar extends StatelessWidget {
       margin: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 10.0),
       padding: const EdgeInsets.all(5.0),
       height: 50.0,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
           colors: [
-            Color(CustomColors.lightGreen),
-            Color(CustomColors.lightBlue),
+            CustomColors.lightGreen,
+            CustomColors.lightBlue,
           ],
         ),
       ),
@@ -33,24 +33,24 @@ class SubAppBar extends StatelessWidget {
                   handleReturn();
                 },
                 alignment: Alignment.topLeft,
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_back,
-                  color: Color(CustomColors.white),
+                  color: CustomColors.white,
                 ),
               ),
               Text(
                 title.tr,
-                style: TextStyle(
-                  color: Color(CustomColors.white),
+                style: const TextStyle(
+                  color: CustomColors.white,
                   fontSize: 20.0,
                 ),
               ),
             ],
           ),
-          Icon(
+         const Icon(
             Icons.home,
             size: 30.0,
-            color: Color(CustomColors.white),
+            color: CustomColors.white,
           ),
         ],
       ),

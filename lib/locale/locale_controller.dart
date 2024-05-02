@@ -12,7 +12,6 @@ class MyLocaleController extends GetxController {
   void changeLang(String codeLang) {
     Locale locale = Locale(codeLang);
     PrefsService.to.setString('lang', codeLang);
-    
     Get.updateLocale(locale);
   }
 }

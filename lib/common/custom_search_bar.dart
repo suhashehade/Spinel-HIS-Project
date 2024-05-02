@@ -17,10 +17,10 @@ class CustomSearchBar extends StatelessWidget {
       child: TextFormField(
         controller: seacrhController,
         decoration: InputDecoration(
-          border: GradientOutlineInputBorder(
+          border: const GradientOutlineInputBorder(
               gradient: LinearGradient(colors: [
-            Color(CustomColors.lightBlue),
-            Color(CustomColors.lightGreen),
+            CustomColors.lightBlue,
+            CustomColors.lightGreen,
           ])),
           label: Row(
             mainAxisSize: MainAxisSize.min,

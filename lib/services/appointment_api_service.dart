@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:his_project/models/appointment/appointment_details.dart';
 import 'package:his_project/models/appointment/available_appointments_days.dart';
 import 'package:his_project/models/appointment/reserve_arguments.dart';
-import 'package:his_project/screens/login_screen/login_screen_controller.dart';
+import 'package:his_project/screens/login_screen/controller/login_screen_controller.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
 import 'package:his_project/utils/consts_res.dart';
 import 'package:his_project/utils/pages_names.dart';
@@ -47,7 +47,6 @@ class AppointmentAPI {
       Get.toNamed(PagesNames.preLogin);
       Get.snackbar("Error", "you have to login again");
     }
-
     return response;
   }
 
@@ -58,15 +57,17 @@ class AppointmentAPI {
       String? token = PrefsService.to.getString(ConstRes.tokenKey);
       headers['Authorization'] = 'Bearer $token';
     }
-    http.Response response = await http.get(
-        Uri.parse(
-            "${Urls.patientAppointments}PatientId=${PrefsService.to.getInt("id")}"),
-        headers: headers);
+    if (PrefsService.to.getInt("id") != null) {
+      http.Response response = await http.get(
+          Uri.parse(
+              "${Urls.patientAppointments}PatientId=${PrefsService.to.getInt("id")}"),
+          headers: headers);
 
-    if (response.statusCode == 401) {
-      loginScreenController.logout();
+      if (response.statusCode == 401) {
+        loginScreenController.logout();
+      }
+      return response;
     }
-    return response;
   }
 
   static Future<AppointmentDetails> getAppointmentDetails(int id) async {

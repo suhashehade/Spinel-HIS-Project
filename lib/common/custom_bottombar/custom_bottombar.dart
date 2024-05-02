@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:his_project/common/custom_bottombar/custom_bottombar_controller.dart';
+import 'package:his_project/screens/main_screen/controller/main_screen_controller.dart';
 import 'package:his_project/utils/colors_res.dart';
 import 'package:his_project/utils/consts_res.dart';
 
@@ -11,19 +12,22 @@ class CustomBottomBar extends StatelessWidget {
   Widget build(BuildContext context) {
     CustomBottombarController customBottombarController =
         Get.put(CustomBottombarController());
-
+    MainScreenController mainScreenController = Get.put(MainScreenController());
     return GetX(builder: (CustomBottombarController controller) {
       return Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-          Color(CustomColors.lightBlue),
-          Color(CustomColors.lightGreen),
-        ])),
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              CustomColors.lightBlue,
+              CustomColors.lightGreen,
+            ],
+          ),
+        ),
         child: BottomNavigationBar(
           currentIndex: controller.index.value,
           backgroundColor: Colors.transparent,
-          selectedItemColor: Color(CustomColors.white),
-          unselectedItemColor: Color(CustomColors.transparentWhite),
+          selectedItemColor: CustomColors.white,
+          unselectedItemColor: CustomColors.transparentWhite,
           showUnselectedLabels: true,
           enableFeedback: false,
           type: BottomNavigationBarType.fixed,
@@ -46,7 +50,7 @@ class CustomBottomBar extends StatelessWidget {
               icon: const Icon(
                 Icons.home,
               ),
-              label: ConstRes.home.tr,
+              label: mainScreenController.isHome.value ? '' : ConstRes.home.tr,
             ),
             BottomNavigationBarItem(
               icon: const Icon(
@@ -55,9 +59,9 @@ class CustomBottomBar extends StatelessWidget {
               label: ConstRes.tasks.tr,
             ),
             BottomNavigationBarItem(
-              icon: Icon(
+              icon: const Icon(
                 Icons.help,
-                color: Color(CustomColors.white),
+                color: CustomColors.white,
               ),
               label: ConstRes.help.tr,
             ),

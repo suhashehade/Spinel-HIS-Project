@@ -1,1 +1,3 @@
-class CustomFonts {}
+class CustomFonts {
+  static String fontName = 'TheSans';
+}

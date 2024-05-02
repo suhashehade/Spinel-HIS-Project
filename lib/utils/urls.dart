@@ -23,26 +23,5 @@ class Urls {
       '${account}UserList?page=1&pageSize=1000&UserType=3';
   static String doctorDetails =
       '${account}UserList?page=1&pageSize=1000&UserType=2';
+  static String reasons = "${lkps}categoryCode=AppointmentReason";
 }
-
-// http://192.236.146.134:9000/api/Account/UserList?page=1&pageSize=1000&UserType=2
- 
- /*
-   {
-      "id": 18,
-      "manualUserId": null,
-      "nameEn": "Doctor01   Doctor01",
-      "nameAr": "دانة هاني عبد عكر",
-      "profilePic": null,
-      "phone1": "0599",
-      "tel1": null,
-      "addressEn": null,
-      "addressAr": null,
-      "email": null,
-      "website": null,
-      "isActive": false,
-      "idNumber": null,
-      "userType": 2,
-      "birthDate": null
-    },
-  */

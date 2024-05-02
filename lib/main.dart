@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:his_project/locale/locale_controller.dart';
 import 'package:his_project/locale/my_locale.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
+import 'package:his_project/utils/fonts.dart';
 import 'package:his_project/utils/routes.dart';
 
 void main() async {
@@ -13,7 +14,7 @@ void main() async {
 
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
-    theme: ThemeData(fontFamily: 'TheSans'),
+    theme: ThemeData(fontFamily: CustomFonts.fontName),
     translations: MyLocal(),
     locale: localeController.initialLang,
     getPages: routes,

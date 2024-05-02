@@ -3,5 +3,6 @@
     "editor.lineHighlightBackground": "#00000000",
     "editor.lineHighlightBorder": "#00000000"
   },
-  "editor.fontSize": 18
+  "editor.fontSize": 16,
+  "typescript.tsserver.maxTsServerMemory": 4096
 }

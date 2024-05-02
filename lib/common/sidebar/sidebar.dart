@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:his_project/common/sidebar/sidebar_controller.dart';
-import 'package:his_project/screens/login_screen/login_screen_controller.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
+import 'package:his_project/utils/assets.dart';
 import 'package:his_project/utils/colors_res.dart';
 import 'package:his_project/utils/consts_res.dart';
+import 'package:his_project/utils/lists.dart';
 import 'package:his_project/utils/pages_names.dart';
 
 class CustomSidebar extends StatelessWidget {
@@ -12,8 +13,6 @@ class CustomSidebar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LoginScreenController loginScreenController =
-        Get.put(LoginScreenController());
     SidebarController sidebarController = Get.put(SidebarController());
 
     return Drawer(
@@ -27,10 +26,23 @@ class CustomSidebar extends StatelessWidget {
                   child: PrefsService.to.getString(ConstRes.phoneKey) != null
                       ? ListView(
                           children: [
-                            SizedBox(
-                              height: 40.0,
-                              width: 40.0,
-                              child: Image.asset(ConstRes.doctorIcon),
+                            Obx(
+                              () => SizedBox(
+                                height: 40.0,
+                                width: 40.0,
+                                child: sidebarController.loginScreenController
+                                                .patient.value.profilePic ==
+                                            "null" ||
+                                        sidebarController.loginScreenController
+                                                .patient.value.profilePic ==
+                                            ''
+                                    ? ConstAssets.userIcon
+                                    : Image.asset(sidebarController
+                                        .loginScreenController
+                                        .patient
+                                        .value
+                                        .profilePic!),
+                              ),
                             ),
                             const SizedBox(
                               height: 3.0,
@@ -45,8 +57,8 @@ class CustomSidebar extends StatelessWidget {
                                             .getString(ConstRes.langkey) ??
                                         Get.locale
                                             ?.languageCode]![ConstRes.nameKey]!,
-                                    style: TextStyle(
-                                      color: Color(CustomColors.lightBlue),
+                                    style: const TextStyle(
+                                      color: CustomColors.lightBlue,
                                       fontSize: 12.0,
                                     ),
                                   ),
@@ -54,8 +66,8 @@ class CustomSidebar extends StatelessWidget {
                                 Obx(
                                   () => Text(
                                     "${ConstRes.mrn.tr}: ${sidebarController.patient.value.manualUserId}",
-                                    style: TextStyle(
-                                      color: Color(CustomColors.lightBlue),
+                                    style: const TextStyle(
+                                      color: CustomColors.lightBlue,
                                       fontSize: 12.0,
                                     ),
                                   ),
@@ -69,7 +81,7 @@ class CustomSidebar extends StatelessWidget {
                             SizedBox(
                               height: 30.0,
                               width: 30.0,
-                              child: Image.asset(ConstRes.doctorIcon),
+                              child: ConstAssets.doctorIcon,
                             ),
                             const SizedBox(
                               height: 7.0,
@@ -87,7 +99,7 @@ class CustomSidebar extends StatelessWidget {
                   onTap: () {},
                   child: Container(
                     color: sidebarController.isActive.value
-                        ? Color(CustomColors.grey)
+                        ? CustomColors.grey
                         : null,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -95,16 +107,14 @@ class CustomSidebar extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Image.asset(ConstRes.familyFilesIconDark),
+                            ConstAssets.familyFilesIconDark,
                             const SizedBox(
                               width: 5.0,
                             ),
                             Text(
                               ConstRes.myFamily.tr,
-                              style: TextStyle(
-                                color: Color(
-                                  CustomColors.lightBlue,
-                                ),
+                              style: const TextStyle(
+                                color: CustomColors.lightBlue,
                                 fontSize: 15.0,
                               ),
                             ),
@@ -114,12 +124,12 @@ class CustomSidebar extends StatelessWidget {
                             ? SizedBox(
                                 height: 30.0,
                                 width: 30.0,
-                                child: Image.asset(ConstRes.rightArrowIcon),
+                                child: ConstAssets.rightArrowIcon,
                               )
                             : SizedBox(
                                 height: 30.0,
                                 width: 30.0,
-                                child: Image.asset(ConstRes.leftArrowIcon),
+                                child: ConstAssets.leftArrowIcon,
                               ),
                       ],
                     ),
@@ -134,17 +144,15 @@ class CustomSidebar extends StatelessWidget {
                       SizedBox(
                         height: 30.0,
                         width: 30.0,
-                        child: Image.asset(ConstRes.notificationIconDark),
+                        child: ConstAssets.notificationIconDark,
                       ),
                       const SizedBox(
                         width: 5.0,
                       ),
                       Text(
                         ConstRes.notifications.tr,
-                        style: TextStyle(
-                          color: Color(
-                            CustomColors.lightBlue,
-                          ),
+                        style: const TextStyle(
+                          color: CustomColors.lightBlue,
                           fontSize: 15.0,
                         ),
                       ),
@@ -160,17 +168,15 @@ class CustomSidebar extends StatelessWidget {
                       SizedBox(
                         height: 30.0,
                         width: 30.0,
-                        child: Image.asset(ConstRes.settingsIcon),
+                        child: ConstAssets.settingsIcon,
                       ),
                       const SizedBox(
                         width: 5.0,
                       ),
                       Text(
                         ConstRes.settings.tr,
-                        style: TextStyle(
-                          color: Color(
-                            CustomColors.lightBlue,
-                          ),
+                        style: const TextStyle(
+                          color: CustomColors.lightBlue,
                           fontSize: 15.0,
                         ),
                       ),
@@ -186,17 +192,15 @@ class CustomSidebar extends StatelessWidget {
                       SizedBox(
                         height: 30.0,
                         width: 30.0,
-                        child: Image.asset(ConstRes.privacyPolicyIcon),
+                        child: ConstAssets.privacyPolicyIcon,
                       ),
                       const SizedBox(
                         width: 5.0,
                       ),
                       Text(
                         ConstRes.privacyPolicy.tr,
-                        style: TextStyle(
-                          color: Color(
-                            CustomColors.lightBlue,
-                          ),
+                        style: const TextStyle(
+                          color: CustomColors.lightBlue,
                           fontSize: 15.0,
                         ),
                       ),
@@ -212,17 +216,15 @@ class CustomSidebar extends StatelessWidget {
                       SizedBox(
                         height: 30.0,
                         width: 30.0,
-                        child: Image.asset(ConstRes.privacyPolicyIcon),
+                        child: ConstAssets.privacyPolicyIcon,
                       ),
                       const SizedBox(
                         width: 5.0,
                       ),
                       Text(
                         ConstRes.contracts.tr,
-                        style: TextStyle(
-                          color: Color(
-                            CustomColors.lightBlue,
-                          ),
+                        style: const TextStyle(
+                          color: CustomColors.lightBlue,
                           fontSize: 15.0,
                         ),
                       ),
@@ -238,11 +240,9 @@ class CustomSidebar extends StatelessWidget {
                   },
                   child: Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.language,
-                        color: Color(
-                          CustomColors.black,
-                        ),
+                        color: CustomColors.black,
                         size: 30.0,
                       ),
                       const SizedBox(
@@ -250,10 +250,8 @@ class CustomSidebar extends StatelessWidget {
                       ),
                       Text(
                         ConstRes.language.tr,
-                        style: TextStyle(
-                          color: Color(
-                            CustomColors.lightBlue,
-                          ),
+                        style: const TextStyle(
+                          color: CustomColors.lightBlue,
                           fontSize: 15.0,
                         ),
                       ),
@@ -264,16 +262,13 @@ class CustomSidebar extends StatelessWidget {
               ListTile(
                 title: InkWell(
                   onTap: () {
-                    Get.back();
-                    loginScreenController.logout();
+                    sidebarController.logout();
                   },
                   child: Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.logout,
-                        color: Color(
-                          CustomColors.black,
-                        ),
+                        color: CustomColors.black,
                         size: 30.0,
                       ),
                       const SizedBox(
@@ -281,10 +276,8 @@ class CustomSidebar extends StatelessWidget {
                       ),
                       Text(
                         ConstRes.logout.tr,
-                        style: TextStyle(
-                          color: Color(
-                            CustomColors.lightBlue,
-                          ),
+                        style: const TextStyle(
+                          color: CustomColors.lightBlue,
                           fontSize: 15.0,
                         ),
                       ),
@@ -296,8 +289,8 @@ class CustomSidebar extends StatelessWidget {
                 children: [
                   Text(
                     "evaluation".tr,
-                    style: TextStyle(
-                      color: Color(CustomColors.lightBlue),
+                    style: const TextStyle(
+                      color: CustomColors.lightBlue,
                       fontSize: 20.0,
                     ),
                   ),
@@ -305,7 +298,7 @@ class CustomSidebar extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.all(5.0),
                       width: 150.0,
-                      child: Row(children: [...ConstRes.starsList]),
+                      child: Row(children: [...Lists.starsList]),
                     ),
                   ),
                   const SizedBox(
@@ -314,7 +307,7 @@ class CustomSidebar extends StatelessWidget {
                   SizedBox(
                     height: 80.0,
                     width: 200.0,
-                    child: Image.asset(ConstRes.companyLogo),
+                    child: ConstAssets.companyLogo,
                   ),
                 ],
               )

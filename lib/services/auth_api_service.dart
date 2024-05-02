@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:his_project/models/user/login.dart';
-import 'package:his_project/screens/login_options_screen/login_options_screen_controller.dart';
+import 'package:his_project/screens/login_options_screen/controller/login_options_screen_controller.dart';
 import 'package:his_project/services/shared_prefs_service.dart';
 import 'package:his_project/utils/urls.dart';
 import 'package:http/http.dart' as http;

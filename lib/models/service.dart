@@ -1,6 +1,8 @@
+import 'package:flutter/widgets.dart';
+
 class Service {
   String serviceName;
-  String serviceIcon;
+  Image serviceIcon;
 
   Service({
     required this.serviceName,

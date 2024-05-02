@@ -13,15 +13,14 @@ class PagesNames {
   static String medicalFile = 'medicalFile'.tr;
   static String registration = '/registration';
   static String reserveAppointment = '/reserveAppointment';
-  static String reserveAssurence = '/reserveAssurence';
+  static String confirmReservation = '/reserveAssurence';
   static String appiontmentsList = '/appointmentsList';
   static String allEServices = "/allEServices";
   static String languagesScreen = "/languagesScreen";
   static String doctorsList = '/doctorsList';
-  static String medicalFile1 = '/medicalFile'.tr;
-
-  static String doctorInfo = 'doctorInfo';
-
+  static String doctorInfo = '/doctorInfo';
   static String emergency = '/emergency';
   static String medicalAnalyisResults = '/medicalAnalyisResults';
+  static String askLoginScreen = "/askLoginScreen";
+  static String familyFileScreen = "/familyFileScreen";
 }

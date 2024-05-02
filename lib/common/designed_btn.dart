@@ -20,10 +20,10 @@ class DesignedButton extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.45,
       decoration: BoxDecoration(
         color: backGround,
-        border: GradientBoxBorder(
+        border: const GradientBoxBorder(
           gradient: LinearGradient(colors: [
-            Color(CustomColors.lightGreen),
-            Color(CustomColors.lightBlue),
+            CustomColors.lightGreen,
+            CustomColors.lightBlue,
           ]),
         ),
         borderRadius: const BorderRadius.all(Radius.circular(5.0)),

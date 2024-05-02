@@ -16,7 +16,7 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      color: Color(CustomColors.lightBlue),
+      color: CustomColors.lightBlue,
       minWidth: MediaQuery.of(context).size.width * 0.40,
       onPressed: () async {
         if (formKey.currentState!.validate()) {
@@ -25,7 +25,7 @@ class CustomButton extends StatelessWidget {
       },
       child: Text(
         title,
-        style: TextStyle(color: Color(CustomColors.white)),
+        style: const TextStyle(color: CustomColors.white),
       ),
     );
   }

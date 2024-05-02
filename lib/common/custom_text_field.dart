@@ -28,10 +28,10 @@ class CustomTextField extends StatelessWidget {
       keyboardType: textInputType,
       obscureText: obscureText,
       decoration: InputDecoration(
-        border: GradientOutlineInputBorder(
+        border: const GradientOutlineInputBorder(
             gradient: LinearGradient(colors: [
-          Color(CustomColors.lightBlue),
-          Color(CustomColors.lightGreen),
+          CustomColors.lightBlue,
+          CustomColors.lightGreen,
         ])),
         label: Text(labelText),
       ),
